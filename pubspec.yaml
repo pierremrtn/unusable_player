@@ -25,6 +25,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
+    - family: UnusablePlayerIcons
+      fonts:
+          - asset: fonts/UnusablePlayerIcons.ttf        
     - family: HindSiliguri
       fonts:
         - asset: fonts/HindSiliguri-Medium.ttf
