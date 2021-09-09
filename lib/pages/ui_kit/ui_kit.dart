@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
-import 'package:unusable_player/theme/dims.dart';
+import 'package:unusable_player/theme/dimensions.dart';
 import 'package:unusable_player/theme/unusable_player_icons.dart';
+import 'package:unusable_player/widgets/x_double_bottom_card.dart';
+import 'package:get/get.dart';
 
 class UIKit extends StatelessWidget {
   const UIKit();
@@ -10,15 +12,17 @@ class UIKit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(Dims.space[1]),
+        padding: EdgeInsets.all(AppDimensions.space2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Align(child: Headline1("UI Kit")),
-            Divider(height: Dims.space[0]),
+            Divider(height: AppDimensions.space1),
             ...texts,
-            Divider(height: Dims.space[0]),
+            Divider(height: AppDimensions.space1),
             icons,
+            Divider(height: AppDimensions.space1),
+            ...cards,
           ],
         ),
       ),
@@ -67,4 +71,17 @@ class UIKit extends StatelessWidget {
           Icon(UnusablePlayerIcons.folder),
         ],
       );
+
+  get cards => [
+        XDoubleBottomCard(
+          padding: AppDimensions.space1,
+          child: BodyText1("X Double Bottom Card"),
+        ),
+        SizedBox(height: 10),
+        XDoubleBottomCard(
+          padding: AppDimensions.space1,
+          child: BodyText1("X Double Bottom Card"),
+          bottomColor: Get.theme.colorScheme.secondary,
+        ),
+      ];
 }

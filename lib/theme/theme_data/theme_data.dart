@@ -6,5 +6,5 @@ final lightTheme = ThemeData(
   fontFamily: "Montserrat",
   textTheme: textTheme,
   colorScheme: colorScheme,
-  dividerColor: UnusablePlayerColors.mediumGrey,
+  dividerColor: AppColors.mediumGrey,
 );

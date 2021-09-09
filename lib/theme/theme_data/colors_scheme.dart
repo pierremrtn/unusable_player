@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 ///This class is intended to be used in theme declaration only
 ///Do not use this class in widgets
 ///use Theme.of(context).colorScheme instead
-class UnusablePlayerColors {
+class AppColors {
   static const Color red = Color(0xffE85F5B);
   static const Color lightRed = Color(0xffFBF8F1);
   static const Color blue = Color(0xff2AB4C1);
@@ -17,10 +17,10 @@ class UnusablePlayerColors {
 }
 
 final colorScheme = ColorScheme.light(
-  primary: UnusablePlayerColors.blue,
-  secondary: UnusablePlayerColors.orange,
-  error: UnusablePlayerColors.red,
-  background: UnusablePlayerColors.white,
-  onSurface: UnusablePlayerColors.black,
-  onBackground: UnusablePlayerColors.black,
+  primary: AppColors.blue,
+  secondary: AppColors.orange,
+  error: AppColors.red,
+  background: AppColors.white,
+  onSurface: AppColors.black,
+  onBackground: AppColors.black,
 );
