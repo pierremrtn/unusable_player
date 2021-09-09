@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
 import 'package:unusable_player/theme/dimensions.dart';
 import 'package:unusable_player/theme/unusable_player_icons.dart';
-import 'package:unusable_player/widgets/x_double_bottom_card.dart';
+import 'package:unusable_player/widgets/double_bottom_card.dart';
 import 'package:get/get.dart';
 
 class UIKit extends StatelessWidget {
@@ -73,12 +73,12 @@ class UIKit extends StatelessWidget {
       );
 
   get cards => [
-        XDoubleBottomCard(
+        DoubleBottomCard(
           padding: AppDimensions.space1,
           child: BodyText1("X Double Bottom Card"),
         ),
         SizedBox(height: 10),
-        XDoubleBottomCard(
+        DoubleBottomCard(
           padding: AppDimensions.space1,
           child: BodyText1("X Double Bottom Card"),
           bottomColor: Get.theme.colorScheme.secondary,
