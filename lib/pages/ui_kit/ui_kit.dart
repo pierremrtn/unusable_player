@@ -10,11 +10,12 @@ class UIKit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UP.Page(
-      child: Column(
+      appBar: UP.NormalAppBar(
+        title: "UI Kit",
+      ),
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Align(child: Headline1("UI Kit")),
-          Divider(height: AppDimensions.space1),
           ...texts,
           Divider(height: AppDimensions.space1),
           icons,

@@ -2,26 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unusable_player/theme/theme.dart';
 
-class Page extends StatelessWidget {
-  const Page({
+class SliverPage extends StatelessWidget {
+  const SliverPage({
+    this.child,
     this.padding = const EdgeInsets.symmetric(horizontal: AppDimensions.space2),
     this.appBar,
-    this.body,
+    required this.slivers,
   });
 
+  final Widget? child;
   final EdgeInsetsGeometry padding;
-  final PreferredSizeWidget? appBar;
-  final Widget? body;
+  final SliverAppBar? appBar;
+  final List<Widget> slivers;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar,
-      extendBody: true,
       backgroundColor: Get.theme.colorScheme.background,
-      body: SingleChildScrollView(
+      body: Padding(
         padding: padding,
-        child: body,
+        child: CustomScrollView(
+          slivers: [
+            if (appBar != null) appBar!,
+            ...slivers,
+          ],
+        ),
       ),
     );
   }
