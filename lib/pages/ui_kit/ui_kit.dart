@@ -12,6 +12,7 @@ class UIKit extends StatelessWidget {
     return UP.Page(
       appBar: UP.NormalAppBar(
         title: "UI Kit",
+        onBack: () {},
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -21,6 +22,8 @@ class UIKit extends StatelessWidget {
           icons,
           Divider(height: AppDimensions.space1),
           ...cards,
+          Divider(height: AppDimensions.space1),
+          ...buttons,
         ],
       ),
     );
@@ -79,6 +82,21 @@ class UIKit extends StatelessWidget {
           padding: AppDimensions.space1,
           child: BodyText1("X Double Bottom Card"),
           bottomColor: Get.theme.colorScheme.secondary,
+        ),
+      ];
+
+  get buttons => [
+        Row(
+          children: [
+            UP.Button.primary(icon: UnusablePlayerIcons.left, onPressed: () {}),
+            UP.Space4(),
+            UP.Button.secondary(
+                label: "home",
+                icon: UnusablePlayerIcons.home,
+                onPressed: () {}),
+            UP.Space4(),
+            UP.Button.transparent(label: "test", onPressed: () {}),
+          ],
         ),
       ];
 }
