@@ -94,10 +94,7 @@ class Button extends StatelessWidget {
         backgroundColor: backgroundColor(context),
         overlayColor: splashColor(context),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(AppDimensions.space5),
-        child: _buildInner(context),
-      ),
+      child: _buildInner(context),
     );
   }
 
@@ -124,4 +121,6 @@ class Button extends StatelessWidget {
       return iconWidget ?? textWidget!;
     }
   }
+
+  static double get size => AppDimensions.icon2 + (AppDimensions.space4 * 2);
 }
