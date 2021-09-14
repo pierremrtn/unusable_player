@@ -88,14 +88,46 @@ class UIKit extends StatelessWidget {
   get buttons => [
         Row(
           children: [
-            UP.Button.primary(icon: UnusablePlayerIcons.left, onPressed: () {}),
+            UP.Button(
+              icon: UnusablePlayerIcons.left,
+              onPressed: () {},
+              style: UP.ButtonStyle.primary,
+            ),
             UP.Space4(),
-            UP.Button.secondary(
-                label: "home",
-                icon: UnusablePlayerIcons.home,
-                onPressed: () {}),
+            UP.Button(
+              label: "home",
+              icon: UnusablePlayerIcons.home,
+              onPressed: () {},
+              style: UP.ButtonStyle.secondary,
+            ),
             UP.Space4(),
-            UP.Button.transparent(label: "test", onPressed: () {}),
+            UP.Button(
+              label: "transparent",
+              onPressed: () {},
+              style: UP.ButtonStyle.transparent,
+            ),
+          ],
+        ),
+        UP.Space4(),
+        Row(
+          children: [
+            UP.Button.round(
+              icon: UnusablePlayerIcons.headset,
+              onPressed: () {},
+              style: UP.ButtonStyle.primary,
+            ),
+            UP.Space4(),
+            UP.Button.round(
+              icon: UnusablePlayerIcons.home,
+              onPressed: () {},
+              style: UP.ButtonStyle.secondary,
+            ),
+            UP.Space4(),
+            UP.Button.round(
+              icon: UnusablePlayerIcons.globe,
+              onPressed: () {},
+              style: UP.ButtonStyle.transparent,
+            ),
           ],
         ),
       ];

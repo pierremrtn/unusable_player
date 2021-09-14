@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ButtonStyle;
+import 'package:flutter/material.dart' as flt show ButtonStyle;
 import 'package:unusable_player/theme/dimensions.dart';
 import 'package:unusable_player/theme/theme.dart';
 import 'package:unusable_player/widgets/widgets.dart';
 
-enum _Style {
+enum ButtonStyle {
   primary,
   secondary,
   transparent,
@@ -15,91 +16,89 @@ class Button extends StatelessWidget {
     this.icon,
     this.label,
     bool? round,
-    _Style? style,
+    ButtonStyle? style,
   })  : assert(icon != null || label != null),
-        style = style ?? _Style.primary,
+        style = style ?? ButtonStyle.primary,
         round = round ?? false;
 
-  factory Button.primary({
+  factory Button({
     required VoidCallback onPressed,
     IconData? icon,
     String? label,
-    bool? round,
+    ButtonStyle? style,
   }) =>
       Button._(
         onPressed: onPressed,
         icon: icon,
         label: label,
-        round: round,
-        style: _Style.primary,
+        round: false,
+        style: style,
       );
 
-  factory Button.secondary({
+  factory Button.round({
     required VoidCallback onPressed,
     IconData? icon,
-    String? label,
-    bool? round,
+    ButtonStyle? style,
   }) =>
       Button._(
         onPressed: onPressed,
         icon: icon,
-        label: label,
-        round: round,
-        style: _Style.secondary,
-      );
-
-  factory Button.transparent({
-    required VoidCallback onPressed,
-    IconData? icon,
-    String? label,
-    bool? round,
-  }) =>
-      Button._(
-        onPressed: onPressed,
-        icon: icon,
-        label: label,
-        round: round,
-        style: _Style.transparent,
+        round: true,
+        style: style,
       );
 
   final IconData? icon;
   final String? label;
   final VoidCallback onPressed;
   final bool round;
-  final _Style style;
+  final ButtonStyle style;
+
+  MaterialStateProperty<OutlinedBorder>? get shape =>
+      round ? MaterialStateProperty.all(CircleBorder()) : null;
+
+  MaterialStateProperty<OutlinedBorder>? get padding =>
+      round ? MaterialStateProperty.all(CircleBorder()) : null;
+
+  MaterialStateProperty<Color>? backgroundColor(BuildContext context) {
+    switch (style) {
+      case ButtonStyle.secondary:
+        return MaterialStateProperty.all(
+          Theme.of(context).colorScheme.secondary,
+        );
+      case ButtonStyle.transparent:
+        return MaterialStateProperty.all(
+          Colors.transparent,
+        );
+      default:
+        return null;
+    }
+  }
+
+  MaterialStateProperty<Color>? splashColor(BuildContext context) {
+    switch (style) {
+      case ButtonStyle.transparent:
+        return MaterialStateProperty.all(
+          Theme.of(context).colorScheme.primary,
+        );
+      default:
+        return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: onPressed,
-      style: _buildButtonStyle(context),
+      style: flt.ButtonStyle(
+        shape: shape,
+        backgroundColor: backgroundColor(context),
+        overlayColor: splashColor(context),
+      ),
       child: Padding(
         padding: const EdgeInsets.all(AppDimensions.space5),
         child: _buildInner(context),
       ),
     );
-  }
-
-  ButtonStyle? _buildButtonStyle(BuildContext context) {
-    switch (style) {
-      case _Style.primary:
-        return null;
-      case _Style.secondary:
-        return ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
-            Theme.of(context).colorScheme.secondary,
-          ),
-        );
-      case _Style.transparent:
-        return ButtonStyle(
-          overlayColor: MaterialStateProperty.all(
-            Theme.of(context).colorScheme.primary,
-          ),
-          backgroundColor: MaterialStateProperty.all(
-            Colors.transparent,
-          ),
-        );
-    }
   }
 
   Widget _buildInner(BuildContext context) {
