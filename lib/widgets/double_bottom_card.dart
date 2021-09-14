@@ -60,7 +60,7 @@ class DoubleBottomCard extends StatelessWidget {
     this.bottomColor = Colors.transparent,
     this.bottomHeight = AppDimensions.space5,
     this.bottomHorizontalPadding = AppDimensions.space4,
-    this.bottomRadius = AppDimensions.borderRadius,
+    this.bottomRadius = AppDimensions.borderRadius1,
   });
 
   final Widget? child;
@@ -89,7 +89,7 @@ class DoubleBottomCard extends StatelessWidget {
             color: Theme.of(context).colorScheme.onSurface,
             width: AppDimensions.borderSize,
           ),
-          borderRadius: BorderRadius.circular(AppDimensions.borderRadius),
+          borderRadius: BorderRadius.circular(AppDimensions.borderRadius1),
         ),
         padding: EdgeInsets.all(padding),
         child: child,
