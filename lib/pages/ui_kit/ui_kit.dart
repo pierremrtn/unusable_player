@@ -17,6 +17,8 @@ class UIKit extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          ...tabs,
+          Divider(height: AppDimensions.space1),
           ...texts,
           Divider(height: AppDimensions.space1),
           icons,
@@ -130,5 +132,15 @@ class UIKit extends StatelessWidget {
             ),
           ],
         ),
+      ];
+
+  List<Widget> get tabs => [
+        DefaultTabController(
+          length: 4,
+          child: UP.TabBar(
+            tabs: ["Overview", "Songs", "Album", "Artists"],
+          ),
+        ),
+        // UP.Space1(),
       ];
 }

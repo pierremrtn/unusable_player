@@ -35,6 +35,8 @@ flutter:
         - asset: fonts/HindSiliguri-Medium.ttf
         - asset: fonts/HindSiliguri-SemiBold.ttf
           weight: 600
+        - asset: fonts/HindSiliguri-Bold.ttf
+          weight: 700
     - family: Montserrat
       fonts:
         - asset: fonts/Montserrat-Medium.ttf
