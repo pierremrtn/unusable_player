@@ -60,7 +60,7 @@ class DoubleBottomCard extends StatelessWidget {
     this.bottomColor = Colors.transparent,
     this.bottomHeight = AppDimensions.space5,
     this.bottomHorizontalPadding = AppDimensions.space4,
-    this.bottomRadius = AppDimensions.borderRadius1,
+    this.borderRadius = AppDimensions.borderRadius1,
   });
 
   final Widget? child;
@@ -68,7 +68,7 @@ class DoubleBottomCard extends StatelessWidget {
   final double padding;
   final double bottomHeight;
   final double bottomHorizontalPadding;
-  final double bottomRadius;
+  final double borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +78,7 @@ class DoubleBottomCard extends StatelessWidget {
         borderColor: Theme.of(context).colorScheme.onSurface,
         borderWidth: AppDimensions.borderSize,
         height: bottomHeight,
-        radius: bottomRadius,
+        radius: borderRadius,
         horizontalPadding: bottomHorizontalPadding,
       ),
       child: Container(
@@ -89,7 +89,7 @@ class DoubleBottomCard extends StatelessWidget {
             color: Theme.of(context).colorScheme.onSurface,
             width: AppDimensions.borderSize,
           ),
-          borderRadius: BorderRadius.circular(AppDimensions.borderRadius1),
+          borderRadius: BorderRadius.circular(borderRadius),
         ),
         padding: EdgeInsets.all(padding),
         child: child,
