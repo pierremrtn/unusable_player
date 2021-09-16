@@ -19,6 +19,7 @@ class AppColors {
 final colorScheme = ColorScheme.light(
   primary: AppColors.blue,
   secondary: AppColors.orange,
+  secondaryVariant: AppColors.lightRed,
   error: AppColors.red,
   background: AppColors.white,
   onSurface: AppColors.black,

@@ -17,6 +17,8 @@ class UIKit extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          ...searchBars,
+          Divider(height: AppDimensions.space1),
           ...tabs,
           Divider(height: AppDimensions.space1),
           ...texts,
@@ -143,4 +145,9 @@ class UIKit extends StatelessWidget {
         ),
         // UP.Space1(),
       ];
+
+  List<Widget> get searchBars => [
+        UP.SearchBar(),
+      ];
+  // UP.Space1(),
 }

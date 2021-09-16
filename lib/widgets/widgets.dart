@@ -5,3 +5,4 @@ export 'spaces/spaces.dart';
 export 'double_bottom_card.dart';
 export 'button.dart';
 export 'tab_bar.dart';
+export 'search_bar.dart';
