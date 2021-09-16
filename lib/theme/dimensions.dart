@@ -1,3 +1,5 @@
+import 'package:flutter/rendering.dart';
+
 class AppDimensions {
   static const double space1 = 48;
   static const double space2 = 32;
@@ -12,4 +14,6 @@ class AppDimensions {
 
   static const double icon1 = 26;
   static const double icon2 = 16;
+
+  static const Size image1 = Size(144, 116);
 }

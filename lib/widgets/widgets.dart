@@ -6,3 +6,4 @@ export 'double_bottom_card.dart';
 export 'button.dart';
 export 'tab_bar.dart';
 export 'search_bar.dart';
+export 'playlist_card.dart';
