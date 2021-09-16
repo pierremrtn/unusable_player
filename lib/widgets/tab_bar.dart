@@ -15,43 +15,53 @@ class TabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return flt.TabBar(
-      controller: controller,
-      isScrollable: false,
-      tabs: tabs
-          .map(
-            (tab) => Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.space5,
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            width: 1,
+            color: AppColors.lightGrey,
+          ),
+        ),
+      ),
+      child: flt.TabBar(
+        controller: controller,
+        tabs: tabs
+            .map(
+              (tab) => Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppDimensions.space5,
+                ),
+                child: Text(
+                  tab,
+                  overflow: TextOverflow.fade,
+                ),
               ),
-              child: Text(
-                tab,
-                overflow: TextOverflow.fade,
-              ),
-            ),
-          )
-          .toList(),
+            )
+            .toList(),
+        padding: EdgeInsets.only(bottom: AppDimensions.space4),
 
-      //labels
-      labelPadding: EdgeInsets.zero,
-      labelStyle: Theme.of(context)
-          .textTheme
-          .headline3!
-          .copyWith(fontWeight: FontWeight.bold),
-      labelColor: Theme.of(context).colorScheme.onSurface,
-      unselectedLabelStyle: Theme.of(context)
-          .textTheme
-          .headline3!
-          .copyWith(fontWeight: FontWeight.normal),
-      unselectedLabelColor: AppColors.lightGrey,
+        //labels
+        labelPadding: EdgeInsets.zero,
+        labelStyle: Theme.of(context)
+            .textTheme
+            .headline3!
+            .copyWith(fontWeight: FontWeight.bold),
+        labelColor: Theme.of(context).colorScheme.onSurface,
+        unselectedLabelStyle: Theme.of(context)
+            .textTheme
+            .headline3!
+            .copyWith(fontWeight: FontWeight.normal),
+        unselectedLabelColor: AppColors.lightGrey,
 
-      //indicator
-      indicatorColor: Theme.of(context).colorScheme.secondary,
-      indicatorSize: TabBarIndicatorSize.label,
-      indicator: UnderlineTabIndicator(
-        borderSide: BorderSide(
-          width: Theme.of(context).textTheme.headline3!.fontSize! / 1.2,
-          color: Theme.of(context).colorScheme.secondary,
+        //indicator
+        indicatorColor: Theme.of(context).colorScheme.secondary,
+        indicatorSize: TabBarIndicatorSize.label,
+        indicator: UnderlineTabIndicator(
+          borderSide: BorderSide(
+            width: Theme.of(context).textTheme.headline3!.fontSize! / 1.2,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
         ),
       ),
     );
