@@ -4,6 +4,8 @@ export 'sliver_page.dart';
 export 'spaces/spaces.dart';
 export 'double_bottom_card.dart';
 export 'button.dart';
+export 'image.dart';
 export 'tab_bar.dart';
 export 'search_bar.dart';
 export 'playlist_card.dart';
+export 'song_card.dart';

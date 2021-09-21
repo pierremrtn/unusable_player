@@ -18,6 +18,8 @@ class UIKit extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           UP.Space1(),
+          ...songCards,
+          Divider(height: AppDimensions.space1),
           ...playlistCards,
           Divider(height: AppDimensions.space1),
           ...searchBars,
@@ -161,5 +163,9 @@ class UIKit extends StatelessWidget {
             UP.PlaylistCard(),
           ],
         ),
+      ];
+
+  List<Widget> get songCards => [
+        UP.SongCard(),
       ];
 }
