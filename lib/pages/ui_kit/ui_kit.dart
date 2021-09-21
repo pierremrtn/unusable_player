@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
 import 'package:unusable_player/theme/theme.dart';
-import 'package:unusable_player/widgets/widgets.dart' as UP;
+import 'package:unusable_player/widgets/widgets.dart' as up;
 import 'package:get/get.dart';
 
 class UIKit extends StatelessWidget {
@@ -9,15 +9,15 @@ class UIKit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UP.Page(
-      appBar: UP.NormalAppBar(
+    return up.Page(
+      appBar: up.NormalAppBar(
         title: "UI Kit",
         onBack: () {},
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          UP.Space1(),
+          up.Space1(),
           ...songCards,
           Divider(height: AppDimensions.space1),
           ...playlistCards,
@@ -82,12 +82,12 @@ class UIKit extends StatelessWidget {
       );
 
   get cards => [
-        UP.DoubleBottomCard(
+        up.DoubleBottomCard(
           padding: AppDimensions.space1,
           child: BodyText1("X Double Bottom Card"),
         ),
         SizedBox(height: 10),
-        UP.DoubleBottomCard(
+        up.DoubleBottomCard(
           padding: AppDimensions.space1,
           child: BodyText1("X Double Bottom Card"),
           bottomColor: Get.theme.colorScheme.secondary,
@@ -97,45 +97,45 @@ class UIKit extends StatelessWidget {
   get buttons => [
         Row(
           children: [
-            UP.Button(
+            up.Button(
               icon: UnusablePlayerIcons.left,
               onPressed: () {},
-              style: UP.ButtonStyle.primary,
+              style: up.ButtonStyle.primary,
             ),
-            UP.Space4(),
-            UP.Button(
+            up.Space4(),
+            up.Button(
               label: "home",
               icon: UnusablePlayerIcons.home,
               onPressed: () {},
-              style: UP.ButtonStyle.secondary,
+              style: up.ButtonStyle.secondary,
             ),
-            UP.Space4(),
-            UP.Button(
+            up.Space4(),
+            up.Button(
               label: "transparent",
               onPressed: () {},
-              style: UP.ButtonStyle.transparent,
+              style: up.ButtonStyle.transparent,
             ),
           ],
         ),
-        UP.Space4(),
+        up.Space4(),
         Row(
           children: [
-            UP.Button.round(
+            up.Button.round(
               icon: UnusablePlayerIcons.headset,
               onPressed: () {},
-              style: UP.ButtonStyle.primary,
+              style: up.ButtonStyle.primary,
             ),
-            UP.Space4(),
-            UP.Button.round(
+            up.Space4(),
+            up.Button.round(
               icon: UnusablePlayerIcons.home,
               onPressed: () {},
-              style: UP.ButtonStyle.secondary,
+              style: up.ButtonStyle.secondary,
             ),
-            UP.Space4(),
-            UP.Button.round(
+            up.Space4(),
+            up.Button.round(
               icon: UnusablePlayerIcons.globe,
               onPressed: () {},
-              style: UP.ButtonStyle.transparent,
+              style: up.ButtonStyle.transparent,
             ),
           ],
         ),
@@ -144,28 +144,28 @@ class UIKit extends StatelessWidget {
   List<Widget> get tabs => [
         DefaultTabController(
           length: 4,
-          child: UP.TabBar(
+          child: up.TabBar(
             tabs: ["Overview", "Songs", "Album", "Artists"],
           ),
         ),
-        // UP.Space1(),
+        // up.Space1(),
       ];
 
   List<Widget> get searchBars => [
-        UP.SearchBar(),
+        up.SearchBar(),
       ];
 
   List<Widget> get playlistCards => [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            UP.PlaylistCard(),
-            UP.PlaylistCard(),
+            up.PlaylistCard(),
+            up.PlaylistCard(),
           ],
         ),
       ];
 
   List<Widget> get songCards => [
-        UP.SongCard(),
+        up.SongCard(),
       ];
 }

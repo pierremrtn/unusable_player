@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
 import 'package:unusable_player/theme/dimensions.dart';
 import 'package:unusable_player/theme/theme.dart';
-import 'widgets.dart' as UP;
+import 'widgets.dart' as up;
 
 class PlaylistCard extends StatelessWidget {
   const PlaylistCard();
 
   @override
   Widget build(BuildContext context) {
-    return UP.DoubleBottomCard(
+    return up.DoubleBottomCard(
       bottomHorizontalPadding: AppDimensions.space5,
       padding: AppDimensions.space5,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          UP.Image.s2(AssetImage("assets/skeler.jpg")),
+          up.Image.s2(AssetImage("assets/skeler.jpg")),
           SizedBox(
             width: AppDimensions.image1.width,
             child: Padding(
