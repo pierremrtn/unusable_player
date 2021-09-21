@@ -1,6 +1,6 @@
 import 'package:flutter/rendering.dart';
 
-class AppDimensions {
+class Dimensions {
   static const double space1 = 48;
   static const double space2 = 32;
   static const double space3 = 21;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
-import 'package:unusable_player/theme/theme.dart';
+import 'package:unusable_player/theme/theme.dart' as up;
 import 'package:unusable_player/widgets/widgets.dart' as up;
 import 'package:get/get.dart';
 
@@ -19,19 +19,19 @@ class UIKit extends StatelessWidget {
         children: [
           up.Space1(),
           ...songCards,
-          Divider(height: AppDimensions.space1),
+          Divider(height: up.Dimensions.space1),
           ...playlistCards,
-          Divider(height: AppDimensions.space1),
+          Divider(height: up.Dimensions.space1),
           ...searchBars,
-          Divider(height: AppDimensions.space1),
+          Divider(height: up.Dimensions.space1),
           ...tabs,
-          Divider(height: AppDimensions.space1),
+          Divider(height: up.Dimensions.space1),
           ...texts,
-          Divider(height: AppDimensions.space1),
+          Divider(height: up.Dimensions.space1),
           icons,
-          Divider(height: AppDimensions.space1),
+          Divider(height: up.Dimensions.space1),
           ...cards,
-          Divider(height: AppDimensions.space1),
+          Divider(height: up.Dimensions.space1),
           ...buttons,
         ],
       ),
@@ -51,44 +51,44 @@ class UIKit extends StatelessWidget {
 
   get icons => Wrap(
         children: [
-          Icon(UnusablePlayerIcons.search),
-          Icon(UnusablePlayerIcons.library_music),
-          Icon(UnusablePlayerIcons.queue_music),
-          Icon(UnusablePlayerIcons.play_circle_filled),
-          Icon(UnusablePlayerIcons.fast_backward),
-          Icon(UnusablePlayerIcons.fast_forward),
-          Icon(UnusablePlayerIcons.stop),
-          Icon(UnusablePlayerIcons.play),
-          Icon(UnusablePlayerIcons.to_end),
-          Icon(UnusablePlayerIcons.to_start),
-          Icon(UnusablePlayerIcons.headset),
-          Icon(UnusablePlayerIcons.heart_1),
-          Icon(UnusablePlayerIcons.heart_empty),
-          Icon(UnusablePlayerIcons.home),
-          Icon(UnusablePlayerIcons.note),
-          Icon(UnusablePlayerIcons.loop),
-          Icon(UnusablePlayerIcons.left),
-          Icon(UnusablePlayerIcons.share),
-          Icon(UnusablePlayerIcons.pause),
-          Icon(UnusablePlayerIcons.settings),
-          Icon(UnusablePlayerIcons.note_beamed),
-          Icon(UnusablePlayerIcons.shuffle),
-          Icon(UnusablePlayerIcons.cd),
-          Icon(UnusablePlayerIcons.globe),
-          Icon(UnusablePlayerIcons.plus_circled),
-          Icon(UnusablePlayerIcons.cancel_circled),
-          Icon(UnusablePlayerIcons.folder),
+          Icon(up.Icons.search),
+          Icon(up.Icons.library_music),
+          Icon(up.Icons.queue_music),
+          Icon(up.Icons.play_circle_filled),
+          Icon(up.Icons.fast_backward),
+          Icon(up.Icons.fast_forward),
+          Icon(up.Icons.stop),
+          Icon(up.Icons.play),
+          Icon(up.Icons.to_end),
+          Icon(up.Icons.to_start),
+          Icon(up.Icons.headset),
+          Icon(up.Icons.heart_1),
+          Icon(up.Icons.heart_empty),
+          Icon(up.Icons.home),
+          Icon(up.Icons.note),
+          Icon(up.Icons.loop),
+          Icon(up.Icons.left),
+          Icon(up.Icons.share),
+          Icon(up.Icons.pause),
+          Icon(up.Icons.settings),
+          Icon(up.Icons.note_beamed),
+          Icon(up.Icons.shuffle),
+          Icon(up.Icons.cd),
+          Icon(up.Icons.globe),
+          Icon(up.Icons.plus_circled),
+          Icon(up.Icons.cancel_circled),
+          Icon(up.Icons.folder),
         ],
       );
 
   get cards => [
         up.DoubleBottomCard(
-          padding: AppDimensions.space1,
+          padding: up.Dimensions.space1,
           child: BodyText1("X Double Bottom Card"),
         ),
         SizedBox(height: 10),
         up.DoubleBottomCard(
-          padding: AppDimensions.space1,
+          padding: up.Dimensions.space1,
           child: BodyText1("X Double Bottom Card"),
           bottomColor: Get.theme.colorScheme.secondary,
         ),
@@ -98,14 +98,14 @@ class UIKit extends StatelessWidget {
         Row(
           children: [
             up.Button(
-              icon: UnusablePlayerIcons.left,
+              icon: up.Icons.left,
               onPressed: () {},
               style: up.ButtonStyle.primary,
             ),
             up.Space4(),
             up.Button(
               label: "home",
-              icon: UnusablePlayerIcons.home,
+              icon: up.Icons.home,
               onPressed: () {},
               style: up.ButtonStyle.secondary,
             ),
@@ -121,19 +121,19 @@ class UIKit extends StatelessWidget {
         Row(
           children: [
             up.Button.round(
-              icon: UnusablePlayerIcons.headset,
+              icon: up.Icons.headset,
               onPressed: () {},
               style: up.ButtonStyle.primary,
             ),
             up.Space4(),
             up.Button.round(
-              icon: UnusablePlayerIcons.home,
+              icon: up.Icons.home,
               onPressed: () {},
               style: up.ButtonStyle.secondary,
             ),
             up.Space4(),
             up.Button.round(
-              icon: UnusablePlayerIcons.globe,
+              icon: up.Icons.globe,
               onPressed: () {},
               style: up.ButtonStyle.transparent,
             ),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:unusable_player/theme/theme_data/button_theme.dart';
-import 'package:unusable_player/theme/theme_data/colors_scheme.dart';
-import 'package:unusable_player/theme/theme_data/text_theme.dart';
+import 'package:unusable_player/theme/theme.dart' as up;
 
+import 'button_theme.dart';
+import 'colors_scheme.dart';
+import 'text_theme.dart';
 import 'app_bar_theme.dart';
 
 final lightTheme = ThemeData(
@@ -15,6 +16,6 @@ final lightTheme = ThemeData(
   //Actually, colorScheme isn't fully suported
   //use leagcy themeColor here
   //theses colors should match colorScheme
-  dividerColor: AppColors.mediumGrey,
-  backgroundColor: AppColors.white,
+  dividerColor: up.Colors.mediumGrey,
+  backgroundColor: up.Colors.white,
 );

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:unusable_player/theme/theme.dart';
+import 'package:unusable_player/theme/theme.dart' as up;
 
 class SliverPage extends StatelessWidget {
   const SliverPage({
     this.child,
-    this.padding = const EdgeInsets.symmetric(horizontal: AppDimensions.space2),
+    this.padding = const EdgeInsets.symmetric(horizontal: up.Dimensions.space2),
     this.appBar,
     required this.slivers,
   });

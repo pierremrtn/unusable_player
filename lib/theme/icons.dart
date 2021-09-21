@@ -35,8 +35,8 @@
 ///
 import 'package:flutter/widgets.dart';
 
-class UnusablePlayerIcons {
-  UnusablePlayerIcons._();
+class Icons {
+  Icons._();
 
   static const _kFontFam = 'UnusablePlayerIcons';
   static const String? _kFontPkg = null;

@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:neat/neat.dart';
-import 'package:unusable_player/theme/dimensions.dart';
-import 'package:unusable_player/theme/theme.dart';
-import 'package:unusable_player/widgets/button.dart';
 
-//TODO: remove leading, use a row instead of title
+import 'package:unusable_player/theme/theme.dart' as up;
+import 'package:unusable_player/widgets/widgets.dart' as up;
 
 class NormalAppBar extends AppBar {
   NormalAppBar({
@@ -20,8 +18,8 @@ class NormalAppBar extends AppBar {
           leading: onBack != null
               ? Align(
                   alignment: Alignment.centerRight,
-                  child: Button(
-                    icon: UnusablePlayerIcons.left,
+                  child: up.Button(
+                    icon: up.Icons.left,
                     onPressed: onBack,
                   ),
                 )
@@ -29,6 +27,6 @@ class NormalAppBar extends AppBar {
           toolbarHeight: _toolbarHeight,
         );
 
-  static double get _leadingWidth => AppDimensions.space2 + Button.size;
-  static double get _toolbarHeight => Button.size;
+  static double get _leadingWidth => up.Dimensions.space2 + up.Button.size;
+  static double get _toolbarHeight => up.Button.size;
 }

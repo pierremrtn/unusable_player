@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/material.dart' as flutter show Image;
-import 'package:unusable_player/theme/dimensions.dart';
-import 'package:unusable_player/theme/theme.dart';
+
+import 'package:unusable_player/theme/theme.dart' as up;
 
 class Image extends StatelessWidget {
   const Image.s1(this.image)
-      : size = AppDimensions.image1,
-        radius = AppDimensions.borderRadius1;
+      : size = up.Dimensions.image1,
+        radius = up.Dimensions.borderRadius1;
 
   const Image.s2(this.image)
-      : size = AppDimensions.image2,
-        radius = AppDimensions.borderRadius2;
+      : size = up.Dimensions.image2,
+        radius = up.Dimensions.borderRadius2;
 
   const Image.s3(this.image)
-      : size = AppDimensions.image3,
-        radius = AppDimensions.borderRadius3;
+      : size = up.Dimensions.image3,
+        radius = up.Dimensions.borderRadius3;
 
   final ImageProvider<Object> image;
   final Size size;

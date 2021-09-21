@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as flt show TabBar;
-import 'package:unusable_player/theme/dimensions.dart';
-import 'package:unusable_player/theme/theme.dart';
-import 'package:unusable_player/theme/theme_data/colors_scheme.dart';
+import 'package:flutter/material.dart' as flutter show TabBar;
+
+import 'package:unusable_player/theme/theme.dart' as up;
 
 class TabBar extends StatelessWidget {
   const TabBar({
@@ -20,17 +19,17 @@ class TabBar extends StatelessWidget {
         border: Border(
           bottom: BorderSide(
             width: 1,
-            color: AppColors.lightGrey,
+            color: up.Colors.lightGrey,
           ),
         ),
       ),
-      child: flt.TabBar(
+      child: flutter.TabBar(
         controller: controller,
         tabs: tabs
             .map(
               (tab) => Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: AppDimensions.space5,
+                  horizontal: up.Dimensions.space5,
                 ),
                 child: Text(
                   tab,
@@ -39,7 +38,7 @@ class TabBar extends StatelessWidget {
               ),
             )
             .toList(),
-        padding: EdgeInsets.only(bottom: AppDimensions.space4),
+        padding: EdgeInsets.only(bottom: up.Dimensions.space4),
 
         //labels
         labelPadding: EdgeInsets.zero,
@@ -52,7 +51,7 @@ class TabBar extends StatelessWidget {
             .textTheme
             .headline3!
             .copyWith(fontWeight: FontWeight.normal),
-        unselectedLabelColor: AppColors.lightGrey,
+        unselectedLabelColor: up.Colors.lightGrey,
 
         //indicator
         indicatorColor: Theme.of(context).colorScheme.secondary,

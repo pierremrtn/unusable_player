@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unusable_player/theme/dimensions.dart';
+import 'package:unusable_player/theme/theme.dart' as up;
 
 class _DoubleBorderPainter extends CustomPainter {
   const _DoubleBorderPainter({
@@ -56,11 +56,11 @@ class _DoubleBorderPainter extends CustomPainter {
 class DoubleBottomCard extends StatelessWidget {
   const DoubleBottomCard({
     this.child,
-    this.padding = AppDimensions.space1,
+    this.padding = up.Dimensions.space1,
     this.bottomColor = Colors.transparent,
-    this.bottomHeight = AppDimensions.space5,
-    this.bottomHorizontalPadding = AppDimensions.space4,
-    this.borderRadius = AppDimensions.borderRadius1,
+    this.bottomHeight = up.Dimensions.space5,
+    this.bottomHorizontalPadding = up.Dimensions.space4,
+    this.borderRadius = up.Dimensions.borderRadius1,
   });
 
   final Widget? child;
@@ -76,7 +76,7 @@ class DoubleBottomCard extends StatelessWidget {
       painter: _DoubleBorderPainter(
         color: bottomColor,
         borderColor: Theme.of(context).colorScheme.onSurface,
-        borderWidth: AppDimensions.borderSize,
+        borderWidth: up.Dimensions.borderSize,
         height: bottomHeight,
         radius: borderRadius,
         horizontalPadding: bottomHorizontalPadding,
@@ -87,7 +87,7 @@ class DoubleBottomCard extends StatelessWidget {
           color: Theme.of(context).colorScheme.surface,
           border: Border.all(
             color: Theme.of(context).colorScheme.onSurface,
-            width: AppDimensions.borderSize,
+            width: up.Dimensions.borderSize,
           ),
           borderRadius: BorderRadius.circular(borderRadius),
         ),

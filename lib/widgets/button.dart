@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' hide ButtonStyle;
-import 'package:flutter/material.dart' as flt show ButtonStyle;
-import 'package:unusable_player/theme/dimensions.dart';
-import 'package:unusable_player/theme/theme.dart';
-import 'package:unusable_player/widgets/widgets.dart';
+import 'package:flutter/material.dart' as flutter show ButtonStyle;
+
+import 'package:unusable_player/theme/theme.dart' as up;
+import 'package:unusable_player/widgets/widgets.dart' as up;
 
 enum ButtonStyle {
   primary,
@@ -89,7 +89,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: onPressed,
-      style: flt.ButtonStyle(
+      style: flutter.ButtonStyle(
         shape: shape,
         backgroundColor: backgroundColor(context),
         overlayColor: splashColor(context),
@@ -102,7 +102,7 @@ class Button extends StatelessWidget {
     final Widget? iconWidget = icon != null
         ? Icon(
             icon,
-            size: AppDimensions.icon2,
+            size: up.Dimensions.icon2,
           )
         : null;
     final Widget? textWidget = label != null
@@ -114,7 +114,7 @@ class Button extends StatelessWidget {
     if (iconWidget != null && textWidget != null) {
       return Row(children: [
         iconWidget,
-        const Space5(),
+        const up.Space5(),
         textWidget,
       ]);
     } else {
@@ -122,5 +122,5 @@ class Button extends StatelessWidget {
     }
   }
 
-  static double get size => AppDimensions.icon2 + (AppDimensions.space4 * 2);
+  static double get size => up.Dimensions.icon2 + (up.Dimensions.space4 * 2);
 }

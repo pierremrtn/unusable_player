@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
-import 'package:unusable_player/theme/dimensions.dart';
-import 'package:unusable_player/theme/theme.dart';
+
+import 'package:unusable_player/theme/theme.dart' as up;
 import 'package:unusable_player/widgets/widgets.dart' as up;
 
 class SongCard extends StatelessWidget {
@@ -10,9 +10,9 @@ class SongCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
-      padding: AppDimensions.space4,
+      padding: up.Dimensions.space4,
       child: SizedBox(
-        height: AppDimensions.image3.height,
+        height: up.Dimensions.image3.height,
         child: Row(
           children: [
             up.Image.s3(AssetImage("assets/skeler.jpg")),
@@ -20,7 +20,7 @@ class SongCard extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: AppDimensions.space5),
+                    const EdgeInsets.symmetric(vertical: up.Dimensions.space5),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,

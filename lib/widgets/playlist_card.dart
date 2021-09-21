@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
-import 'package:unusable_player/theme/dimensions.dart';
-import 'package:unusable_player/theme/theme.dart';
-import 'widgets.dart' as up;
+
+import 'package:unusable_player/theme/theme.dart' as up;
+import 'package:unusable_player/widgets/widgets.dart' as up;
 
 class PlaylistCard extends StatelessWidget {
   const PlaylistCard();
@@ -10,18 +10,18 @@ class PlaylistCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
-      bottomHorizontalPadding: AppDimensions.space5,
-      padding: AppDimensions.space5,
+      bottomHorizontalPadding: up.Dimensions.space5,
+      padding: up.Dimensions.space5,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           up.Image.s2(AssetImage("assets/skeler.jpg")),
           SizedBox(
-            width: AppDimensions.image1.width,
+            width: up.Dimensions.image1.width,
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: AppDimensions.space4,
-                vertical: AppDimensions.space5,
+                horizontal: up.Dimensions.space4,
+                vertical: up.Dimensions.space5,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +32,7 @@ class PlaylistCard extends StatelessWidget {
                       Expanded(
                         child: BodyText2("20 songs"),
                       ),
-                      Icon(UnusablePlayerIcons.play_circle_filled),
+                      Icon(up.Icons.play_circle_filled),
                     ],
                   ),
                   Headline4("Skeler"),

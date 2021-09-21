@@ -1,3 +1,4 @@
 export 'dimensions.dart';
-export 'unusable_player_icons.dart';
+export 'colors.dart';
+export 'icons.dart';
 export 'theme_data/theme_data.dart';
