@@ -2,29 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
 import 'package:unusable_player/theme/dimensions.dart';
 import 'package:unusable_player/theme/theme.dart';
-import 'widgets.dart';
+import 'widgets.dart' as UP;
 
 class PlaylistCard extends StatelessWidget {
   const PlaylistCard();
 
   @override
   Widget build(BuildContext context) {
-    return DoubleBottomCard(
+    return UP.DoubleBottomCard(
       bottomHorizontalPadding: AppDimensions.space5,
       padding: AppDimensions.space5,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image(
-            fit: BoxFit.cover,
-            image: AssetImage("assets/skeler.jpg"),
-            width: AppDimensions.image1.width,
-            height: AppDimensions.image1.height,
-            frameBuilder: (context, child, _, __) => ClipRRect(
-              borderRadius: BorderRadius.circular(AppDimensions.borderRadius2),
-              child: child,
-            ),
-          ),
+          UP.Image.s2(AssetImage("assets/skeler.jpg")),
           SizedBox(
             width: AppDimensions.image1.width,
             child: Padding(
