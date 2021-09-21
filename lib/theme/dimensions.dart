@@ -15,5 +15,8 @@ class AppDimensions {
   static const double icon1 = 26;
   static const double icon2 = 16;
 
+  //TODO: image1 size
   static const Size image1 = Size(144, 116);
+  static const Size image2 = Size(144, 116);
+  static const Size image3 = Size(55, 55);
 }
