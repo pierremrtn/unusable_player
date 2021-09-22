@@ -57,6 +57,7 @@ class DoubleBottomCard extends StatelessWidget {
   const DoubleBottomCard({
     this.child,
     this.padding = up.Dimensions.space1,
+    this.backgroundColor,
     this.bottomColor = Colors.transparent,
     this.bottomHeight = up.Dimensions.space5,
     this.bottomHorizontalPadding = up.Dimensions.space4,
@@ -64,8 +65,11 @@ class DoubleBottomCard extends StatelessWidget {
   });
 
   final Widget? child;
-  final Color bottomColor;
   final double padding;
+
+  final Color? backgroundColor;
+
+  final Color bottomColor;
   final double bottomHeight;
   final double bottomHorizontalPadding;
   final double borderRadius;
@@ -84,7 +88,7 @@ class DoubleBottomCard extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.only(bottom: bottomHeight),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: backgroundColor ?? Theme.of(context).colorScheme.surface,
           border: Border.all(
             color: Theme.of(context).colorScheme.onSurface,
             width: up.Dimensions.borderSize,

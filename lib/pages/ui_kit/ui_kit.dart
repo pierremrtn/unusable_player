@@ -18,6 +18,10 @@ class UIKit extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           up.Space1(),
+          ...playingMusicIndicators,
+          Divider(height: up.Dimensions.space1),
+          navBar,
+          Divider(height: up.Dimensions.space1),
           ...songCards,
           Divider(height: up.Dimensions.space1),
           ...playlistCards,
@@ -167,5 +171,19 @@ class UIKit extends StatelessWidget {
 
   List<Widget> get songCards => [
         up.SongCard(),
+      ];
+
+  Widget get navBar => up.NavBar(
+        tabs: [
+          up.Icons.home,
+          up.Icons.cd,
+          up.Icons.library_music,
+        ],
+        selected: 0,
+        onSelected: (_) {},
+      );
+
+  List<Widget> get playingMusicIndicators => [
+        up.PlayingMusicIndicator(),
       ];
 }
