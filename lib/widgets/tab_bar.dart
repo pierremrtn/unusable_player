@@ -1,9 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide TabBar;
 import 'package:flutter/material.dart' as flutter show TabBar;
 
 import 'package:unusable_player/theme/theme.dart' as up;
 
-class TabBar extends StatelessWidget {
+const double _kBorderSize = 1;
+const double kTabBarHeight = kToolbarHeight + _kBorderSize;
+
+class TabBar extends StatelessWidget with PreferredSizeWidget {
   const TabBar({
     this.controller,
     required this.tabs,
@@ -14,16 +17,22 @@ class TabBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final flutter.TabBar tabBar = _buildTabBar(context);
+
     return DecoratedBox(
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            width: 1,
+            width: _kBorderSize,
             color: up.Colors.lightGrey,
           ),
         ),
       ),
-      child: flutter.TabBar(
+      child: tabBar,
+    );
+  }
+
+  flutter.TabBar _buildTabBar(BuildContext context) => flutter.TabBar(
         controller: controller,
         tabs: tabs
             .map(
@@ -39,7 +48,6 @@ class TabBar extends StatelessWidget {
             )
             .toList(),
         padding: EdgeInsets.only(bottom: up.Dimensions.space4),
-
         //labels
         labelPadding: EdgeInsets.zero,
         labelStyle: Theme.of(context)
@@ -52,7 +60,6 @@ class TabBar extends StatelessWidget {
             .headline3!
             .copyWith(fontWeight: FontWeight.normal),
         unselectedLabelColor: up.Colors.lightGrey,
-
         //indicator
         indicatorColor: Theme.of(context).colorScheme.secondary,
         indicatorSize: TabBarIndicatorSize.label,
@@ -62,7 +69,8 @@ class TabBar extends StatelessWidget {
             color: Theme.of(context).colorScheme.secondary,
           ),
         ),
-      ),
-    );
-  }
+      );
+
+  @override
+  Size get preferredSize => Size.fromHeight(kTabBarHeight);
 }
