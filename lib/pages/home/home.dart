@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:unusable_player/theme/theme.dart' as up;
 import 'package:unusable_player/widgets/widgets.dart' as up;
+
+import 'widgets/flexible_header.dart';
 
 class Home extends StatelessWidget {
   const Home();
@@ -7,25 +10,33 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 4,
       child: up.SliverPage(
-        padding: EdgeInsets.zero,
+        appBar: up.NormalAppBar(
+          title: "Unusable Player",
+        ),
+        padding: EdgeInsets.only(top: up.Dimensions.space5),
         slivers: [
           SliverAppBar(
-            flexibleSpace: Placeholder(),
-            backgroundColor: Colors.white,
-            expandedHeight: 160,
-            toolbarHeight: up.kTabBarHeight,
-            bottom: up.TabBar(
-              tabs: ["a", "b", "c"],
+            flexibleSpace: FlexibleHeader(
+              tabs: ["Overview", "Artists", "Musics", "Albums"],
             ),
-            primary: true,
+            backgroundColor: Colors.white,
+            expandedHeight: kFlexibleHeaderHeight,
             floating: true,
             pinned: true,
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (_, __) => up.SongCard(),
+          // up.Space1(),
+          SliverPadding(
+            padding: EdgeInsets.only(
+              top: up.Dimensions.space3,
+              left: up.Dimensions.space2,
+              right: up.Dimensions.space2,
+            ),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (_, __) => up.SongCard(),
+              ),
             ),
           ),
         ],

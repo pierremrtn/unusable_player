@@ -4,18 +4,19 @@ import 'package:unusable_player/theme/theme.dart' as up;
 
 class SliverPage extends StatelessWidget {
   const SliverPage({
-    this.child,
+    this.appBar,
     this.padding = const EdgeInsets.symmetric(horizontal: up.Dimensions.space2),
     required this.slivers,
   });
 
-  final Widget? child;
+  final PreferredSizeWidget? appBar;
   final EdgeInsetsGeometry padding;
   final List<Widget> slivers;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar,
       backgroundColor: Get.theme.colorScheme.background,
       body: SafeArea(
         child: Padding(
