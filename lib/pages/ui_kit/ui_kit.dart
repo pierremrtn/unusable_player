@@ -10,7 +10,8 @@ class UIKit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return up.Page(
-      appBar: context.normalAppBar(
+      appBar: up.normalAppBar(
+        context: context,
         title: "UI Kit",
         onBack: () {},
       ),
@@ -18,10 +19,10 @@ class UIKit extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           up.Space1(),
-          // ...playingMusicIndicators,
-          // Divider(height: up.Dimensions.space1),
-          // navBar,
-          // Divider(height: up.Dimensions.space1),
+          ...playingMusicIndicators,
+          Divider(height: up.Dimensions.space1),
+          navBar,
+          Divider(height: up.Dimensions.space1),
           ...songCards,
           // Divider(height: up.Dimensions.space1),
           // ...playlistCards,

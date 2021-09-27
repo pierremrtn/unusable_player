@@ -12,7 +12,8 @@ class Home extends StatelessWidget {
     return DefaultTabController(
       length: 4,
       child: up.SliverPage(
-        appBar: context.normalAppBar(
+        appBar: up.normalAppBar(
+          context: context,
           title: "Unusable Player",
         ),
         padding: EdgeInsets.only(top: up.Dimensions.space5),
