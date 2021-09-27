@@ -10,7 +10,7 @@ class UIKit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return up.Page(
-      appBar: up.NormalAppBar(
+      appBar: context.normalAppBar(
         title: "UI Kit",
         onBack: () {},
       ),
@@ -18,39 +18,39 @@ class UIKit extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           up.Space1(),
-          ...playingMusicIndicators,
-          Divider(height: up.Dimensions.space1),
-          navBar,
-          Divider(height: up.Dimensions.space1),
+          // ...playingMusicIndicators,
+          // Divider(height: up.Dimensions.space1),
+          // navBar,
+          // Divider(height: up.Dimensions.space1),
           ...songCards,
-          Divider(height: up.Dimensions.space1),
-          ...playlistCards,
-          Divider(height: up.Dimensions.space1),
-          ...searchBars,
-          Divider(height: up.Dimensions.space1),
-          ...tabs,
-          Divider(height: up.Dimensions.space1),
-          ...texts,
-          Divider(height: up.Dimensions.space1),
-          icons,
-          Divider(height: up.Dimensions.space1),
-          ...cards,
-          Divider(height: up.Dimensions.space1),
-          ...buttons,
+          // Divider(height: up.Dimensions.space1),
+          // ...playlistCards,
+          // Divider(height: up.Dimensions.space1),
+          // ...searchBars,
+          // Divider(height: up.Dimensions.space1),
+          // ...tabs,
+          // Divider(height: up.Dimensions.space1),
+          // ...texts,
+          // Divider(height: up.Dimensions.space1),
+          // icons,
+          // Divider(height: up.Dimensions.space1),
+          // ...cards,
+          // Divider(height: up.Dimensions.space1),
+          // ...buttons,
         ],
       ),
     );
   }
 
-  get texts => [
-        Headline1("Healdine 1"),
-        Headline2("Headline 2"),
-        Headline3("Headline 3"),
-        Headline4("Headline 4"),
-        Headline5("Headline 5"),
-        Subtitle1("Subtitle 1"),
-        Subtitle2("Subtitle 2"),
-        BodyText1("BodyText 1"),
+  texts(BuildContext context) => [
+        context.headline1("Healdine 1"),
+        context.headline2("context.headline 2"),
+        context.headline3("context.headline 3"),
+        context.headline4("context.headline 4"),
+        context.headline5("context.headline 5"),
+        context.subtitle1("context.subtitle 1"),
+        context.subtitle2("context.subtitle 2"),
+        context.bodyText1("context.bodyText 1"),
       ];
 
   get icons => Wrap(
@@ -85,15 +85,15 @@ class UIKit extends StatelessWidget {
         ],
       );
 
-  get cards => [
+  cards(BuildContext context) => [
         up.DoubleBottomCard(
           padding: up.Dimensions.space1,
-          child: BodyText1("X Double Bottom Card"),
+          child: context.bodyText1("X Double Bottom Card"),
         ),
         SizedBox(height: 10),
         up.DoubleBottomCard(
           padding: up.Dimensions.space1,
-          child: BodyText1("X Double Bottom Card"),
+          child: context.bodyText1("X Double Bottom Card"),
           bottomColor: Get.theme.colorScheme.secondary,
         ),
       ];

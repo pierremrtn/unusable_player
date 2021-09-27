@@ -12,20 +12,20 @@ class Home extends StatelessWidget {
     return DefaultTabController(
       length: 4,
       child: up.SliverPage(
-        appBar: up.NormalAppBar(
+        appBar: context.normalAppBar(
           title: "Unusable Player",
         ),
         padding: EdgeInsets.only(top: up.Dimensions.space5),
         slivers: [
-          SliverAppBar(
-            flexibleSpace: FlexibleHeader(
-              tabs: ["Overview", "Artists", "Musics", "Albums"],
-            ),
-            backgroundColor: Colors.white,
-            expandedHeight: kFlexibleHeaderHeight,
-            floating: true,
-            pinned: true,
-          ),
+          // SliverAppBar(
+          //   flexibleSpace: FlexibleHeader(
+          //     tabs: ["Overview", "Artists", "Musics", "Albums"],
+          //   ),
+          //   backgroundColor: Colors.white,
+          //   expandedHeight: kFlexibleHeaderHeight,
+          //   floating: true,
+          //   pinned: true,
+          // ),
           // up.Space1(),
           SliverPadding(
             padding: EdgeInsets.only(

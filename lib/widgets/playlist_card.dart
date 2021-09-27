@@ -30,12 +30,12 @@ class PlaylistCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: BodyText2("20 songs"),
+                        child: context.bodyText2("20 songs"),
                       ),
                       Icon(up.Icons.play_circle_filled),
                     ],
                   ),
-                  Headline4("Skeler"),
+                  context.headline4("Skeler"),
                 ],
               ),
             ),
