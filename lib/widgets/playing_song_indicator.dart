@@ -4,8 +4,8 @@ import 'package:unusable_player/widgets/widgets.dart' as up;
 
 import 'package:neat/neat.dart';
 
-class PlayingMusicIndicator extends StatelessWidget {
-  const PlayingMusicIndicator({
+class PlayingSongIndicator extends StatelessWidget {
+  const PlayingSongIndicator({
     this.onTap,
   });
 

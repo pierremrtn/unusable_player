@@ -19,25 +19,25 @@ class UIKit extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           up.Space1(),
-          ...playingMusicIndicators,
+          ...playingSongIndicators,
           Divider(height: up.Dimensions.space1),
           navBar,
           Divider(height: up.Dimensions.space1),
           ...songCards,
-          // Divider(height: up.Dimensions.space1),
-          // ...playlistCards,
-          // Divider(height: up.Dimensions.space1),
-          // ...searchBars,
-          // Divider(height: up.Dimensions.space1),
-          // ...tabs,
-          // Divider(height: up.Dimensions.space1),
-          // ...texts,
-          // Divider(height: up.Dimensions.space1),
-          // icons,
-          // Divider(height: up.Dimensions.space1),
-          // ...cards,
-          // Divider(height: up.Dimensions.space1),
-          // ...buttons,
+          Divider(height: up.Dimensions.space1),
+          ...playlistCards,
+          Divider(height: up.Dimensions.space1),
+          ...searchBars,
+          Divider(height: up.Dimensions.space1),
+          ...tabs,
+          Divider(height: up.Dimensions.space1),
+          ...texts(context),
+          Divider(height: up.Dimensions.space1),
+          icons,
+          Divider(height: up.Dimensions.space1),
+          ...cards(context),
+          Divider(height: up.Dimensions.space1),
+          ...buttons,
         ],
       ),
     );
@@ -161,11 +161,14 @@ class UIKit extends StatelessWidget {
       ];
 
   List<Widget> get playlistCards => [
+        up.PlaylistCard(),
+        up.Space4(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            up.PlaylistCard(),
-            up.PlaylistCard(),
+            Expanded(child: up.PlaylistCard()),
+            up.Space4(),
+            Expanded(child: up.PlaylistCard()),
           ],
         ),
       ];
@@ -184,7 +187,7 @@ class UIKit extends StatelessWidget {
         onSelected: (_) {},
       );
 
-  List<Widget> get playingMusicIndicators => [
-        up.PlayingMusicIndicator(),
+  List<Widget> get playingSongIndicators => [
+        up.PlayingSongIndicator(),
       ];
 }

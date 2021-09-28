@@ -15,4 +15,4 @@ export 'nav_bar.dart';
 export 'double_bottom_card.dart';
 export 'playlist_card.dart';
 export 'song_card.dart';
-export 'playing_music_indicator.dart';
+export 'playing_song_indicator.dart';
