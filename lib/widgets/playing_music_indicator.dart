@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
 import 'package:unusable_player/widgets/widgets.dart' as up;
 
+import 'package:neat/neat.dart';
+
 class PlayingMusicIndicator extends StatelessWidget {
   const PlayingMusicIndicator({
     this.onTap,
@@ -27,19 +29,13 @@ class PlayingMusicIndicator extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(
+                context.headline5(
                   "Artist",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline5!
-                      .copyWith(color: foregroundColor),
+                  style: TextStyle(color: foregroundColor),
                 ),
-                Text(
+                context.bodyText1(
                   "Title of the music",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(color: foregroundColor),
+                  style: TextStyle(color: foregroundColor),
                 ),
               ],
             ),
