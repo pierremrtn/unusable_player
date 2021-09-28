@@ -15,29 +15,34 @@ class PlaylistCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          up.Image.s2(AssetImage("assets/skeler.jpg")),
-          SizedBox(
-            width: up.Dimensions.image1.width,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: up.Dimensions.space4,
-                vertical: up.Dimensions.space5,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: context.bodyText2("20 songs"),
+          up.Image.h2(
+            AssetImage("assets/skeler.jpg"),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(up.Dimensions.space5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: context.bodyText2(
+                        "20 songs",
+                        softWrap: false,
+                        overflow: TextOverflow.fade,
                       ),
-                      Icon(up.Icons.play_circle_filled),
-                    ],
-                  ),
-                  context.headline4("Skeler"),
-                ],
-              ),
+                    ),
+                    up.Space5.w(),
+                    Icon(up.Icons.play_circle_filled),
+                  ],
+                ),
+                context.headline4(
+                  "Skeler",
+                  softWrap: false,
+                  overflow: TextOverflow.fade,
+                ),
+              ],
             ),
           ),
         ],
