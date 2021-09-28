@@ -1,9 +1,9 @@
 import 'package:flutter/rendering.dart';
 
 class Dimensions {
-  static const double space1 = 48;
-  static const double space2 = 32;
-  static const double space3 = 21;
+  static const double space1 = 32;
+  static const double space2 = 26;
+  static const double space3 = 18;
   static const double space4 = 12;
   static const double space5 = 5;
 
@@ -16,7 +16,7 @@ class Dimensions {
   static const double icon2 = 16;
 
   //TODO: image1 size
-  static const Size image1 = Size(144, 116);
-  static const Size image2 = Size(144, 116);
-  static const Size image3 = Size(55, 55);
+  static const double image1 = 144;
+  static const double image2 = 108;
+  static const double image3 = 55;
 }

@@ -11,16 +11,16 @@ part of 'spaces.dart';
 
 class Space1 extends StatelessWidget {
   const Space1()
-      : width = 48,
-        height = 48;
+      : width = 32,
+        height = 32;
 
   const Space1.w()
-      : width = 48,
+      : width = 32,
         height = 0;
 
   const Space1.h()
       : width = 0,
-        height = 48;
+        height = 32;
 
   final double width;
 
@@ -34,16 +34,16 @@ class Space1 extends StatelessWidget {
 
 class Space2 extends StatelessWidget {
   const Space2()
-      : width = 32,
-        height = 32;
+      : width = 26,
+        height = 26;
 
   const Space2.w()
-      : width = 32,
+      : width = 26,
         height = 0;
 
   const Space2.h()
       : width = 0,
-        height = 32;
+        height = 26;
 
   final double width;
 
@@ -57,16 +57,16 @@ class Space2 extends StatelessWidget {
 
 class Space3 extends StatelessWidget {
   const Space3()
-      : width = 21,
-        height = 21;
+      : width = 18,
+        height = 18;
 
   const Space3.w()
-      : width = 21,
+      : width = 18,
         height = 0;
 
   const Space3.h()
       : width = 0,
-        height = 21;
+        height = 18;
 
   final double width;
 
