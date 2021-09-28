@@ -5,7 +5,7 @@ import 'package:neat/neat.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
 import 'package:unusable_player/widgets/widgets.dart' as up;
 
-final double _leadingWidth = up.Dimensions.space2 + up.Button.size;
+final double _leadingWidth = up.Dimensions.space3 + up.Button.size;
 final double _toolbarHeight = up.Button.size;
 
 AppBar normalAppBar({
