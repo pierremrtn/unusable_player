@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
+import 'package:unusable_player/theme/theme_data/divider_theme.dart';
 
 import 'button_theme.dart';
 import 'colors_scheme.dart';
@@ -12,6 +13,7 @@ final lightTheme = ThemeData(
   colorScheme: colorScheme,
   outlinedButtonTheme: outlinedButtonTheme,
   appBarTheme: appBarTheme,
+  dividerTheme: dividerTheme,
 
   //Actually, colorScheme isn't fully suported
   //use leagcy themeColor here
