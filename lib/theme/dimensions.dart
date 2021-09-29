@@ -23,4 +23,7 @@ class Dimensions {
 
   //dividers
   static const double divider1 = 1;
+
+  //pages
+  static const double pageMargin = space3;
 }

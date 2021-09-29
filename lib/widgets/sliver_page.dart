@@ -5,7 +5,9 @@ import 'package:unusable_player/theme/theme.dart' as up;
 class SliverPage extends StatelessWidget {
   const SliverPage({
     this.appBar,
-    this.padding = const EdgeInsets.symmetric(horizontal: up.Dimensions.space2),
+    this.padding = const EdgeInsets.symmetric(
+      horizontal: up.Dimensions.pageMargin,
+    ),
     required this.slivers,
   });
 
