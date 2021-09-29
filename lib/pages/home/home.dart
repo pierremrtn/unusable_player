@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:neat/neat.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
 import 'package:unusable_player/widgets/widgets.dart' as up;
-
-import 'widgets/flexible_header.dart';
 
 class Home extends StatelessWidget {
   const Home();
@@ -16,18 +15,23 @@ class Home extends StatelessWidget {
           context: context,
           title: "Unusable Player",
         ),
-        padding: EdgeInsets.only(top: up.Dimensions.space5),
+        padding: EdgeInsets.zero,
         slivers: [
-          // SliverAppBar(
-          //   flexibleSpace: FlexibleHeader(
-          //     tabs: ["Overview", "Artists", "Musics", "Albums"],
-          //   ),
-          //   backgroundColor: Colors.white,
-          //   expandedHeight: kFlexibleHeaderHeight,
-          //   floating: true,
-          //   pinned: true,
-          // ),
-          // up.Space1(),
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                context.headline1("Listening Every days"),
+                context.subtitle1("Explore Millions music evrydays"),
+                up.Space3(),
+                up.SearchBar(),
+                up.Space3(),
+              ],
+            ),
+          ),
+          up.SliverPersistentTabBar(
+            tabs: ["Overview", "Artist", "Album", "Songs"],
+          ),
           SliverPadding(
             padding: EdgeInsets.only(
               top: up.Dimensions.space3,
