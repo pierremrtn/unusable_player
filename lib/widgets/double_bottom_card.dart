@@ -36,7 +36,7 @@ class _DoubleBorderPainter extends CustomPainter {
         horizontalPadding,
         size.height / 2,
         size.width - (horizontalPadding),
-        size.height,
+        size.height - borderWidth / 2,
         bottomLeft: Radius.circular(radius),
         bottomRight: Radius.circular(radius),
       ),
@@ -56,6 +56,8 @@ class _DoubleBorderPainter extends CustomPainter {
 class DoubleBottomCard extends StatelessWidget {
   const DoubleBottomCard({
     this.child,
+    this.height,
+    this.width,
     this.padding = up.Dimensions.space1,
     this.backgroundColor,
     this.bottomColor = Colors.transparent,
@@ -68,6 +70,9 @@ class DoubleBottomCard extends StatelessWidget {
   final double padding;
 
   final Color? backgroundColor;
+
+  final double? height;
+  final double? width;
 
   final Color bottomColor;
   final double bottomHeight;
@@ -86,6 +91,8 @@ class DoubleBottomCard extends StatelessWidget {
         horizontalPadding: bottomHorizontalPadding,
       ),
       child: Container(
+        height: height,
+        width: width,
         margin: EdgeInsets.only(bottom: bottomHeight),
         decoration: BoxDecoration(
           color: backgroundColor ?? Theme.of(context).colorScheme.surface,
