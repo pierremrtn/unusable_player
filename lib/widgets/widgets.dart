@@ -8,7 +8,7 @@ export 'image.dart';
 // BARS
 export 'app_bars/app_bars.dart';
 export 'tab_bars/tab_bars.dart';
-export 'search_bar.dart';
+export 'search_bars/search_bars.dart';
 export 'nav_bar.dart';
 
 // CARDS
