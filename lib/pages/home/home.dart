@@ -11,22 +11,28 @@ class Home extends StatelessWidget {
     return DefaultTabController(
       length: 4,
       child: up.SliverPage(
-        appBar: up.normalAppBar(
-          context: context,
-          title: "Unusable Player",
-        ),
         padding: EdgeInsets.zero,
         slivers: [
           SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                context.headline1("Listening Every days"),
-                context.subtitle1("Explore Millions music evrydays"),
-                up.Space3(),
-                up.SearchBar(),
-                up.Space3(),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: up.Dimensions.space3,
+                horizontal: up.Dimensions.pageMargin,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  context.headline1("Unusable Player"),
+                  context.subtitle1("Sexy but unusable"),
+                ],
+              ),
+            ),
+          ),
+          up.SliverPersistentSearchBar(
+            padding: EdgeInsets.only(
+              top: up.Dimensions.space3,
+              bottom: up.Dimensions.space4,
+              left: up.Dimensions.pageMargin,
             ),
           ),
           up.SliverPersistentTabBar(
@@ -35,8 +41,8 @@ class Home extends StatelessWidget {
           SliverPadding(
             padding: EdgeInsets.only(
               top: up.Dimensions.space3,
-              left: up.Dimensions.space2,
-              right: up.Dimensions.space2,
+              left: up.Dimensions.pageMargin,
+              right: up.Dimensions.pageMargin,
             ),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
