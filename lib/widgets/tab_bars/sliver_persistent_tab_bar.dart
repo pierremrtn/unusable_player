@@ -19,24 +19,6 @@ class _SliverPersistentTabBarDelegate extends SliverPersistentHeaderDelegate {
   ) {
     final pinned = shrinkOffset != 0;
 
-    // return AnimatedContainer(
-    //   duration: kThemeAnimationDuration,
-    //   // padding: const EdgeInsets.symmetric(horizontal: up.Dimensions.space3),
-    //   // margin: pinned
-    //   //     ? EdgeInsets.zero
-    //   //     : const EdgeInsets.symmetric(horizontal: up.Dimensions.space3),
-    //   decoration: BoxDecoration(
-    //     border: Border(
-    //       bottom: BorderSide(
-    //         color: context.colorScheme.onSurface,
-    //       ),
-    //     ),
-    //   ),
-    //   child: up.TabBar(
-    //     tabs: tabs,
-    //   ),
-    // );
-
     return Container(
       height: up.kTabBarHeight,
       color: context.colorScheme.surface,
@@ -74,10 +56,6 @@ class _SliverPersistentTabBarDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   double get maxExtent => up.kTabBarHeight;
-
-  // @override
-  // FloatingHeaderSnapConfiguration? get snapConfiguration =>
-  //     FloatingHeaderSnapConfiguration();
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
