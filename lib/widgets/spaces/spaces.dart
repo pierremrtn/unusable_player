@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:neat/generator.dart';
+import 'package:neat/anotations.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
 
 part 'spaces.nt.dart';
