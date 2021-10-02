@@ -7,9 +7,11 @@ import 'tab_bar.dart' as up;
 class _SliverPersistentTabBarDelegate extends SliverPersistentHeaderDelegate {
   const _SliverPersistentTabBarDelegate({
     required this.tabs,
+    this.forceExpandSeparator,
   });
 
   final List<String> tabs;
+  final bool? forceExpandSeparator;
 
   @override
   Widget build(
@@ -17,7 +19,7 @@ class _SliverPersistentTabBarDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    final pinned = shrinkOffset != 0;
+    final expandSeparator = forceExpandSeparator ?? shrinkOffset != 0;
 
     return Container(
       height: up.kTabBarHeight,
@@ -35,7 +37,7 @@ class _SliverPersistentTabBarDelegate extends SliverPersistentHeaderDelegate {
           AnimatedContainer(
             height: 0,
             duration: kThemeAnimationDuration,
-            margin: pinned
+            margin: expandSeparator
                 ? EdgeInsets.zero
                 : const EdgeInsets.symmetric(horizontal: up.Dimensions.space3),
             decoration: BoxDecoration(
@@ -64,9 +66,14 @@ class _SliverPersistentTabBarDelegate extends SliverPersistentHeaderDelegate {
 }
 
 class SliverPersistentTabBar extends SliverPersistentHeader {
-  SliverPersistentTabBar({required List<String> tabs})
-      : super(
-          delegate: _SliverPersistentTabBarDelegate(tabs: tabs),
+  SliverPersistentTabBar({
+    required List<String> tabs,
+    bool? forceExpandSeparator,
+  }) : super(
+          delegate: _SliverPersistentTabBarDelegate(
+            tabs: tabs,
+            forceExpandSeparator: forceExpandSeparator,
+          ),
           pinned: true,
           floating: false,
         );
