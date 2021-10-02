@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
@@ -8,50 +9,91 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 4,
-      child: up.SliverPage(
-        appBar: up.emptyAppBar(),
-        padding: EdgeInsets.zero,
-        slivers: [
-          SliverToBoxAdapter(
-            child: Padding(
+    return Scaffold(
+      appBar: up.emptyAppBar(),
+      backgroundColor: context.colorScheme.background,
+      body: SafeArea(
+        child: DefaultTabController(
+          length: 4,
+          child: NestedScrollView(
+            floatHeaderSlivers: true,
+            headerSliverBuilder: (
+              BuildContext context,
+              bool innerBoxIsScrolled,
+            ) =>
+                [
+              if (!innerBoxIsScrolled)
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: up.Dimensions.pageMargin,
+                      horizontal: up.Dimensions.pageMargin,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        context.headline1("Unusable Player"),
+                        context.subtitle1("Sexy but unusable"),
+                      ],
+                    ),
+                  ),
+                ),
+              up.SliverPersistentSearchBar(
+                padding: EdgeInsets.only(
+                  top: up.Dimensions.space3,
+                  bottom: up.Dimensions.space4,
+                  left: up.Dimensions.pageMargin,
+                ),
+              ),
+              up.SliverPersistentTabBar(
+                tabs: ["Overview", "Artist", "Album", "Songs"],
+                forceExpandSeparator: innerBoxIsScrolled,
+              ),
+            ],
+            body: Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: up.Dimensions.pageMargin,
                 horizontal: up.Dimensions.pageMargin,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+              child: TabBarView(
+                dragStartBehavior: DragStartBehavior.down,
                 children: [
-                  context.headline1("Unusable Player"),
-                  context.subtitle1("Sexy but unusable"),
+                  ListView(
+                    children: [
+                      up.Space3(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                      up.SongCard(),
+                    ],
+                  ),
+                  Text("2"),
+                  Text("3"),
+                  Text("4"),
                 ],
               ),
             ),
           ),
-          up.SliverPersistentSearchBar(
-            padding: EdgeInsets.only(
-              top: up.Dimensions.space3,
-              bottom: up.Dimensions.space4,
-              left: up.Dimensions.pageMargin,
-            ),
-          ),
-          up.SliverPersistentTabBar(
-            tabs: ["Overview", "Artist", "Album", "Songs"],
-          ),
-          SliverPadding(
-            padding: EdgeInsets.only(
-              top: up.Dimensions.space3,
-              left: up.Dimensions.pageMargin,
-              right: up.Dimensions.pageMargin,
-            ),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (_, __) => up.SongCard(),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
