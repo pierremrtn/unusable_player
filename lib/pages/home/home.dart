@@ -11,12 +11,13 @@ class Home extends StatelessWidget {
     return DefaultTabController(
       length: 4,
       child: up.SliverPage(
+        appBar: up.emptyAppBar(),
         padding: EdgeInsets.zero,
         slivers: [
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: up.Dimensions.space3,
+                vertical: up.Dimensions.pageMargin,
                 horizontal: up.Dimensions.pageMargin,
               ),
               child: Column(
