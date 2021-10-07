@@ -4,6 +4,8 @@ import 'package:neat/neat.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
 import 'package:unusable_player/widgets/widgets.dart' as up;
 
+import 'song_list/song_list.dart';
+
 class Home extends StatelessWidget {
   const Home();
 
@@ -57,35 +59,7 @@ class Home extends StatelessWidget {
               child: TabBarView(
                 dragStartBehavior: DragStartBehavior.down,
                 children: [
-                  ListView(
-                    children: [
-                      up.Space3(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                      up.SongCard(),
-                    ],
-                  ),
+                  SongList(),
                   Text("2"),
                   Text("3"),
                   Text("4"),
