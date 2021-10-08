@@ -4,7 +4,9 @@ import 'package:neat/neat.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
 import 'package:unusable_player/widgets/widgets.dart' as up;
 
-import 'song_list/song_list.dart';
+import 'widgets/inner_list.dart';
+import 'widgets/sliver_playlist_list.dart';
+import 'widgets/sliver_song_list.dart';
 
 class Home extends StatelessWidget {
   const Home();
@@ -24,22 +26,21 @@ class Home extends StatelessWidget {
               bool innerBoxIsScrolled,
             ) =>
                 [
-              if (!innerBoxIsScrolled)
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: up.Dimensions.pageMargin,
-                      horizontal: up.Dimensions.pageMargin,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        context.headline1("Unusable Player"),
-                        context.subtitle1("Sexy but unusable"),
-                      ],
-                    ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: up.Dimensions.pageMargin,
+                    horizontal: up.Dimensions.pageMargin,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      context.headline1("Unusable Player"),
+                      context.subtitle1("Sexy but unusable"),
+                    ],
                   ),
                 ),
+              ),
               up.SliverPersistentSearchBar(
                 padding: EdgeInsets.only(
                   top: up.Dimensions.space3,
@@ -47,24 +48,35 @@ class Home extends StatelessWidget {
                   left: up.Dimensions.pageMargin,
                 ),
               ),
-              up.SliverPersistentTabBar(
-                tabs: ["Overview", "Artist", "Album", "Songs"],
-                forceExpandSeparator: innerBoxIsScrolled,
+              SliverOverlapAbsorber(
+                handle:
+                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                sliver: up.SliverPersistentTabBar(
+                  tabs: ["Overview", "Artist", "Album", "Songs"],
+                  forceExpandSeparator: innerBoxIsScrolled,
+                ),
               ),
             ],
-            body: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: up.Dimensions.pageMargin,
-              ),
-              child: TabBarView(
-                dragStartBehavior: DragStartBehavior.down,
-                children: [
-                  SongList(),
-                  Text("2"),
-                  Text("3"),
-                  Text("4"),
-                ],
-              ),
+            body: TabBarView(
+              dragStartBehavior: DragStartBehavior.down,
+              children: [
+                InnerList(
+                  storageKey: "home_overview",
+                  sliver: SliverPlaylistList(),
+                ),
+                InnerList(
+                  storageKey: "home_artists",
+                  sliver: SliverSongList(),
+                ),
+                InnerList(
+                  storageKey: "home_albums",
+                  sliver: SliverSongList(),
+                ),
+                InnerList(
+                  storageKey: "home_songs",
+                  sliver: SliverSongList(),
+                ),
+              ],
             ),
           ),
         ),
