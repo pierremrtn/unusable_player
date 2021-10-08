@@ -5,10 +5,10 @@ import 'package:unusable_player/pages/pages.dart';
 import 'package:unusable_player/theme/theme_data/theme_data.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(UnusablePlayer());
 }
 
-class MyApp extends StatelessWidget {
+class UnusablePlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
