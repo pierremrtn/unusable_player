@@ -1,8 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
-import 'package:unusable_player/theme/theme.dart' as up;
-import 'package:unusable_player/widgets/widgets.dart' as up;
+import 'package:unusable_player/unusable_player.dart' as up;
 
 import 'widgets/inner_list.dart';
 import 'widgets/sliver_playlist_list.dart';
@@ -52,7 +51,7 @@ class Home extends StatelessWidget {
                 handle:
                     NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                 sliver: up.SliverPersistentTabBar(
-                  tabs: ["Overview", "Artist", "Album", "Songs"],
+                  tabs: ["Overview", "Songs", "Playlists", "Artists"],
                   forceExpandSeparator: innerBoxIsScrolled,
                 ),
               ),
@@ -61,20 +60,26 @@ class Home extends StatelessWidget {
               dragStartBehavior: DragStartBehavior.down,
               children: [
                 InnerList(
+                  storageKey: "home_artists",
+                  sliver: SliverSongList(
+                    songs: up.AudioQueryService.get.songs,
+                  ),
+                ),
+                InnerList(
+                  storageKey: "home_albums",
+                  sliver: SliverSongList(
+                    songs: up.AudioQueryService.get.songs,
+                  ),
+                ),
+                InnerList(
                   storageKey: "home_overview",
                   sliver: SliverPlaylistList(),
                 ),
                 InnerList(
-                  storageKey: "home_artists",
-                  sliver: SliverSongList(),
-                ),
-                InnerList(
-                  storageKey: "home_albums",
-                  sliver: SliverSongList(),
-                ),
-                InnerList(
                   storageKey: "home_songs",
-                  sliver: SliverSongList(),
+                  sliver: SliverSongList(
+                    songs: up.AudioQueryService.get.songs,
+                  ),
                 ),
               ],
             ),

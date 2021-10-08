@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
-import 'package:unusable_player/theme/theme.dart' as up;
-import 'package:unusable_player/widgets/widgets.dart' as up;
 import 'package:get/get.dart';
+import 'package:unusable_player/unusable_player.dart' as up;
 
 class UIKit extends StatelessWidget {
   const UIKit();
@@ -174,7 +173,13 @@ class UIKit extends StatelessWidget {
       ];
 
   List<Widget> get songCards => [
-        up.SongCard(),
+        up.SongCard(
+          song: up.Song(
+            uri: "",
+            title: "title",
+            duration: Duration(seconds: 30, minutes: 2),
+          ),
+        ),
       ];
 
   Widget get navBar => up.NavBar(

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
 
-import 'package:unusable_player/theme/theme.dart' as up;
-import 'package:unusable_player/widgets/widgets.dart' as up;
+import 'package:unusable_player/unusable_player.dart' as up;
 
 class SongCard extends StatelessWidget {
-  const SongCard();
+  const SongCard({
+    required this.song,
+  });
+
+  final up.Song song;
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +22,14 @@ class SongCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                context.headline5("Marshmello"),
+                context.headline5(song.artist ?? "Unknown"),
                 up.Space5(),
                 Row(
                   children: [
                     Expanded(
-                      child: context.subtitle2("Hate The Other Side"),
+                      child: context.subtitle2(song.title),
                     ),
-                    context.bodyText2("3:14"),
+                    context.bodyText2("${song.duration.display}"),
                   ],
                 ),
               ],
