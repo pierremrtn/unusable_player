@@ -14,21 +14,28 @@ extension _ToSong on SongModel {
       : null;
 }
 
-class AudioQueryService extends GetxService {
-  static AudioQueryService get get => Get.find<AudioQueryService>();
+class AudioFilesLoader extends GetxController with StateMixin<List<Song>> {
+  static AudioFilesLoader get get => Get.find<AudioFilesLoader>();
 
-  Future<AudioQueryService> init() async {
-    final songsModelList = await _audioQuery.querySongs();
-    songs.addAll(
-      songsModelList
-          .map((model) => model.toSong())
-          .where((e) => e != null)
-          .map((e) => e!)
-          .toList(),
-    );
+  Future<AudioFilesLoader> init() async {
+    await _queryAudioFiles();
     return this;
   }
 
   final OnAudioQuery _audioQuery = OnAudioQuery();
-  final RxList<Song> songs = RxList();
+
+  Future<void> _queryAudioFiles() async {
+    try {
+      final songsModelList = await _audioQuery.querySongs();
+      final songs = songsModelList
+          .map((model) => model.toSong())
+          .where((e) => e != null)
+          .map((e) => e!)
+          .toList();
+
+      change(songs, status: RxStatus.success());
+    } catch (e) {
+      change([], status: RxStatus.error(e.toString()));
+    }
+  }
 }

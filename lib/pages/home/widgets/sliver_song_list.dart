@@ -20,7 +20,7 @@ class SliverSongList extends StatelessWidget {
             ),
           );
         },
-        childCount: up.AudioQueryService.get.songs.length,
+        childCount: songs.length,
       ),
     );
   }
