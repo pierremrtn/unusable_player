@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
@@ -59,27 +60,25 @@ class Home extends StatelessWidget {
             body: TabBarView(
               dragStartBehavior: DragStartBehavior.down,
               children: [
-                InnerList(
-                  storageKey: "home_artists",
-                  sliver: SliverSongList(
-                    songs: up.AudioQueryService.get.songs,
-                  ),
-                ),
-                InnerList(
-                  storageKey: "home_albums",
-                  sliver: SliverSongList(
-                    songs: up.AudioQueryService.get.songs,
-                  ),
-                ),
-                InnerList(
+                HomeInnerList(
                   storageKey: "home_overview",
-                  sliver: SliverPlaylistList(),
+                  sliver: SliverSongList(
+                    songs: [],
+                  ),
                 ),
-                InnerList(
+                HomeInnerList(
                   storageKey: "home_songs",
                   sliver: SliverSongList(
-                    songs: up.AudioQueryService.get.songs,
+                    songs: [],
                   ),
+                ),
+                HomeInnerList(
+                  storageKey: "home_playlists",
+                  sliver: SliverPlaylistList(),
+                ),
+                HomeInnerList(
+                  storageKey: "home_artists",
+                  sliver: SliverSongList(songs: []),
                 ),
               ],
             ),

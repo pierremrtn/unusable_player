@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
-import 'package:unusable_player/widgets/widgets.dart' as up;
 
-class InnerList extends StatelessWidget {
-  const InnerList({
+class HomeInnerList extends StatelessWidget {
+  const HomeInnerList({
     required this.storageKey,
     required this.sliver,
   });
