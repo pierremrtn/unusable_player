@@ -31,13 +31,16 @@ class AudioFilesLoader extends GetxController with StateMixin<List<Song>> {
 
   Future<void> _queryAudioFiles() async {
     try {
-      final queryResult = await _audioQuery.querySongs();
-      final songs = queryResult
+      final List<SongModel> queryResult = []; //await _audioQuery.querySongs();
+      final List<Song> songs = queryResult
           .map((model) => model.toSong())
           .where((e) => e != null)
           .map((e) => e!)
           .toList();
-      change(songs, status: RxStatus.success());
+      change(
+        songs,
+        status: songs.isNotEmpty ? RxStatus.success() : RxStatus.empty(),
+      );
     } catch (e) {
       change([], status: RxStatus.error(e.toString()));
     }

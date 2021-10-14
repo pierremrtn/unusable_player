@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:unusable_player/pages/pages.dart';
-import 'package:unusable_player/services/audio_query_service.dart';
-import 'package:unusable_player/theme/theme_data/theme_data.dart';
+import 'package:unusable_player/unusable_player.dart' as up;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,13 +13,13 @@ class UnusablePlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: lightTheme,
-      initialRoute: Pages.initial,
-      getPages: Pages.pages,
+      theme: up.lightTheme,
+      initialRoute: up.Pages.initial,
+      getPages: up.Pages.pages,
     );
   }
 }
 
 Future<void> initServices() async {
-  await Get.putAsync(() => AudioFilesLoader().init());
+  await Get.putAsync(() => up.AudioFilesLoader().init());
 }
