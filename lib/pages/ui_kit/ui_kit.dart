@@ -18,6 +18,8 @@ class UIKit extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           up.Space1(),
+          ...list(),
+          Divider(),
           ...playingSongIndicators,
           Divider(),
           navBar,
@@ -84,6 +86,10 @@ class UIKit extends StatelessWidget {
           Icon(up.Icons.folder),
         ],
       );
+
+  list() => [
+        up.EmptyList(),
+      ];
 
   cards(BuildContext context) => [
         up.DoubleBottomCard(

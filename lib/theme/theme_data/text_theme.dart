@@ -50,4 +50,10 @@ const textTheme = TextTheme(
     fontSize: 12,
     color: up.Colors.lightGrey,
   ),
+  bodyText2: TextStyle(
+    fontFamily: "Montserrat",
+    fontWeight: FontWeight.normal,
+    fontSize: 12,
+    color: up.Colors.black,
+  ),
 );
