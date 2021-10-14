@@ -5,18 +5,18 @@ import 'package:unusable_player/unusable_player.dart' as up;
 const double _kLeftDisplacement = 6;
 const double _kBottomDisplacement = 2;
 
-class EmptyList extends StatelessWidget {
-  const EmptyList({
+class EmptyListIndicator extends StatelessWidget {
+  const EmptyListIndicator({
     this.message,
-    this.padding,
+    this.padding = const EdgeInsets.all(up.Dimensions.space1),
   });
 
   static Widget sliver({
     String? message,
-    EdgeInsetsGeometry? padding,
+    EdgeInsetsGeometry padding = const EdgeInsets.all(up.Dimensions.space1),
   }) {
     return SliverToBoxAdapter(
-      child: EmptyList(
+      child: EmptyListIndicator(
         message: message,
         padding: padding,
       ),
@@ -24,13 +24,13 @@ class EmptyList extends StatelessWidget {
   }
 
   final String? message;
-  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry padding;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: padding ?? EdgeInsets.zero,
+        padding: padding,
         child: Column(
           children: [
             Stack(

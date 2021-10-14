@@ -18,7 +18,7 @@ class UIKit extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           up.Space1(),
-          ...list(),
+          ...listIndicators(),
           Divider(),
           ...playingSongIndicators,
           Divider(),
@@ -87,8 +87,9 @@ class UIKit extends StatelessWidget {
         ],
       );
 
-  list() => [
-        up.EmptyList(),
+  listIndicators() => [
+        up.EmptyListIndicator(),
+        up.LoadingListIndicator(),
       ];
 
   cards(BuildContext context) => [
