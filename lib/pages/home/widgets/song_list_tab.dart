@@ -16,6 +16,11 @@ class SongListTab extends GetView<up.AudioFilesLoader> {
         (List<up.Song>? songs) => SliverSongList(
           songs: songs ?? [],
         ),
+        onEmpty: up.EmptyList.sliver(
+          padding: EdgeInsets.all(
+            up.Dimensions.space1,
+          ),
+        ),
       ),
     );
   }
