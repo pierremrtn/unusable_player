@@ -1,10 +1,10 @@
-import 'package:get/get.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
+import 'package:unusable_player/pages/home/widgets/song_list_tab.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
-import 'widgets/inner_list.dart';
+import 'widgets/home_inner_list.dart';
 import 'widgets/sliver_playlist_list.dart';
 import 'widgets/sliver_song_list.dart';
 
@@ -66,12 +66,7 @@ class Home extends StatelessWidget {
                     songs: [],
                   ),
                 ),
-                HomeInnerList(
-                  storageKey: "home_songs",
-                  sliver: SliverSongList(
-                    songs: [],
-                  ),
-                ),
+                SongListTab(),
                 HomeInnerList(
                   storageKey: "home_playlists",
                   sliver: SliverPlaylistList(),
