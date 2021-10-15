@@ -1,9 +1,9 @@
-import 'package:get/instance_manager.dart';
-import 'package:unusable_player/unusable_player.dart' as up;
+import 'package:get/get.dart';
+import 'loaders/audio_files_loader.dart';
 
 class HomeBindings extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => up.AudioFilesLoader());
+    Get.lazyPut(() => AudioFilesLoader());
   }
 }

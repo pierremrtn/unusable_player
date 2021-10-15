@@ -1,1 +1,1 @@
-export 'audio_files_loader.dart';
+export 'audio_query_service.dart';
