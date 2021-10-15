@@ -15,10 +15,12 @@ extension _ToSong on SongModel {
 }
 
 class AudioFilesLoader extends GetxController with StateMixin<List<Song>> {
-  Future<AudioFilesLoader> init() async {
-    await _ensurePermissionGranted();
-    await _queryAudioFiles();
-    return this;
+  @override
+  void onInit() {
+    super.onInit();
+    _ensurePermissionGranted().then(
+      (_) => _queryAudioFiles(),
+    );
   }
 
   final OnAudioQuery _audioQuery = OnAudioQuery();
@@ -31,7 +33,9 @@ class AudioFilesLoader extends GetxController with StateMixin<List<Song>> {
 
   Future<void> _queryAudioFiles() async {
     try {
+      // return;
       final List<SongModel> queryResult = await _audioQuery.querySongs();
+
       final List<Song> songs = queryResult
           .map((model) => model.toSong())
           .where((e) => e != null)

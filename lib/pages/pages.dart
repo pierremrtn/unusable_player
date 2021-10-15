@@ -15,6 +15,7 @@ class Pages {
     GetPage(
       name: Routes.home,
       page: () => Home(),
+      binding: HomeBindings(),
     )
   ];
 }

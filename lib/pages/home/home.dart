@@ -8,6 +8,8 @@ import 'widgets/home_inner_list.dart';
 import 'widgets/sliver_playlist_list.dart';
 import 'widgets/sliver_song_list.dart';
 
+export 'home_bindings.dart';
+
 class Home extends StatelessWidget {
   const Home();
 
