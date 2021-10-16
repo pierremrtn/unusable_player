@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
-import 'tabs/songs_tab/song_list_tab.dart';
-import 'tabs/home_inner_list.dart';
-import 'tabs/sliver_playlist_list.dart';
+import 'widgets/songs_tab/song_list_tab.dart';
+import 'widgets/home_inner_list.dart';
+import 'widgets/sliver_playlist_list.dart';
 
 export 'home_bindings.dart';
 
