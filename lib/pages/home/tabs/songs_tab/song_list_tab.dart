@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
-import 'package:unusable_player/pages/home/loaders/audio_files_loader.dart';
-import 'home_inner_list.dart';
+import '../home_inner_list.dart';
+import 'audio_files_loader.dart';
 import 'sliver_song_list.dart';
 
 class SongListTab extends GetView<AudioFilesLoader> {

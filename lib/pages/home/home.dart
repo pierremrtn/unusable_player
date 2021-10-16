@@ -1,12 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
-import 'package:unusable_player/pages/home/widgets/song_list_tab.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
-import 'widgets/home_inner_list.dart';
-import 'widgets/sliver_playlist_list.dart';
-import 'widgets/sliver_song_list.dart';
+import 'tabs/songs_tab/song_list_tab.dart';
+import 'tabs/home_inner_list.dart';
+import 'tabs/sliver_playlist_list.dart';
 
 export 'home_bindings.dart';
 
@@ -64,9 +63,7 @@ class Home extends StatelessWidget {
               children: [
                 HomeInnerList(
                   storageKey: "home_overview",
-                  sliver: SliverSongList(
-                    songs: [],
-                  ),
+                  sliver: SliverPlaylistList(),
                 ),
                 SongListTab(),
                 HomeInnerList(
@@ -75,7 +72,7 @@ class Home extends StatelessWidget {
                 ),
                 HomeInnerList(
                   storageKey: "home_artists",
-                  sliver: SliverSongList(songs: []),
+                  sliver: SliverPlaylistList(),
                 ),
               ],
             ),
