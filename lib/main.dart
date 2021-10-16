@@ -21,5 +21,5 @@ class UnusablePlayer extends StatelessWidget {
 }
 
 Future<void> initServices() async {
-  Get.lazyPut(() => up.AudioQueryService());
+  Get.putAsync(() => up.AudioQueryService().init());
 }

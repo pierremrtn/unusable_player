@@ -16,9 +16,20 @@ extension _ToSong on SongModel {
 }
 
 class AudioQueryService extends GetxService {
-  static AudioQueryService get find => Get.find<AudioQueryService>();
+  static AudioQueryService get instance => Get.find<AudioQueryService>();
 
   final OnAudioQuery _audioQuery = OnAudioQuery();
+
+  Future<AudioQueryService> init() async {
+    await _ensurePermissionGranted();
+    return this;
+  }
+
+  Future<void> _ensurePermissionGranted() async {
+    while (await _audioQuery.permissionsStatus() == false) {
+      await _audioQuery.permissionsRequest();
+    }
+  }
 
   Future<List<up.Song>> querySongs() async {
     final List<SongModel> queryResult = await _audioQuery.querySongs();
