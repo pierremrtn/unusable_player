@@ -12,10 +12,10 @@ export 'search_bars/search_bars.dart';
 export 'nav_bar.dart';
 
 // CARDS
-export 'double_bottom_card.dart';
-export 'playlist_card.dart';
-export 'song_card.dart';
-export 'playing_song_indicator.dart';
+export 'cards/cards.dart';
 
 // LISTS
 export 'list_indicators/list_indicators.dart';
+
+// OTHERS
+export 'playing_song_indicator.dart';

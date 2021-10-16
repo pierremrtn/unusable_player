@@ -18,6 +18,8 @@ class UIKit extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           up.Space1(),
+          ...albums,
+          Divider(),
           ...listIndicators(),
           Divider(),
           ...playingSongIndicators,
@@ -201,5 +203,15 @@ class UIKit extends StatelessWidget {
 
   List<Widget> get playingSongIndicators => [
         up.PlayingSongIndicator(),
+      ];
+
+  List<Widget> get albums => [
+        up.AlbumCard(
+          album: up.Album(
+            artist: "test",
+            title: "test title",
+            songNumber: 20,
+          ),
+        ),
       ];
 }

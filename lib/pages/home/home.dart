@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
+import 'package:unusable_player/pages/home/widgets/albums_tab/album_list_tab.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
 import 'widgets/songs_tab/song_list_tab.dart';
@@ -19,7 +20,7 @@ class Home extends StatelessWidget {
       backgroundColor: context.colorScheme.background,
       body: SafeArea(
         child: DefaultTabController(
-          length: 4,
+          length: 5,
           child: NestedScrollView(
             floatHeaderSlivers: true,
             headerSliverBuilder: (
@@ -53,7 +54,8 @@ class Home extends StatelessWidget {
                 handle:
                     NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                 sliver: up.SliverPersistentTabBar(
-                  tabs: ["Overview", "Songs", "Playlists", "Artists"],
+                  isScrollable: true,
+                  tabs: ["Overview", "Songs", "Playlists", "Artists", "Albums"],
                   forceExpandSeparator: innerBoxIsScrolled,
                 ),
               ),
@@ -74,6 +76,7 @@ class Home extends StatelessWidget {
                   storageKey: "home_artists",
                   sliver: SliverPlaylistList(),
                 ),
+                AlbumListTab(),
               ],
             ),
           ),

@@ -9,10 +9,12 @@ class TabBar extends StatelessWidget with PreferredSizeWidget {
   const TabBar({
     this.controller,
     required this.tabs,
+    this.isScrollable = false,
   });
 
   final TabController? controller;
   final List<String> tabs;
+  final bool isScrollable;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class TabBar extends StatelessWidget with PreferredSizeWidget {
       controller: controller,
       tabs: tabs.map(_buildTab).toList(),
       padding: EdgeInsets.only(bottom: up.Dimensions.space4),
+      isScrollable: isScrollable,
       //labels
       labelPadding: EdgeInsets.zero,
       labelStyle: context.textTheme.headline3!.copyWith(

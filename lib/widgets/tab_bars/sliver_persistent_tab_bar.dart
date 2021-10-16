@@ -8,10 +8,12 @@ class _SliverPersistentTabBarDelegate extends SliverPersistentHeaderDelegate {
   const _SliverPersistentTabBarDelegate({
     required this.tabs,
     this.forceExpandSeparator,
+    this.isScrollable = false,
   });
 
   final List<String> tabs;
   final bool? forceExpandSeparator;
+  final bool isScrollable;
 
   @override
   Widget build(
@@ -32,6 +34,7 @@ class _SliverPersistentTabBarDelegate extends SliverPersistentHeaderDelegate {
                 const EdgeInsets.symmetric(horizontal: up.Dimensions.space3),
             child: up.TabBar(
               tabs: tabs,
+              isScrollable: isScrollable,
             ),
           ),
           AnimatedContainer(
@@ -69,10 +72,12 @@ class SliverPersistentTabBar extends SliverPersistentHeader {
   SliverPersistentTabBar({
     required List<String> tabs,
     bool? forceExpandSeparator,
+    bool isScrollable = false,
   }) : super(
           delegate: _SliverPersistentTabBarDelegate(
             tabs: tabs,
             forceExpandSeparator: forceExpandSeparator,
+            isScrollable: isScrollable,
           ),
           pinned: true,
           floating: false,
