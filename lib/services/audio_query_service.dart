@@ -17,6 +17,7 @@ extension _ToSong on SongModel {
 
 extension _ToAlbum on AlbumModel {
   up.Album toAlbum() => up.Album(
+        id: id,
         title: album,
         artist: artist ?? "Unknown",
         songNumber: numOfSongs,
@@ -41,6 +42,18 @@ class AudioQueryService extends GetxService {
 
   Future<List<up.Song>> querySongs() async {
     final List<SongModel> queryResult = await _audioQuery.querySongs();
+    return queryResult
+        .map((model) => model.toSong())
+        .where((e) => e != null)
+        .map((e) => e!)
+        .toList();
+  }
+
+  Future<List<up.Song>> queryAlbumSongs(int albumID) async {
+    final List<SongModel> queryResult = await _audioQuery.queryAudiosFrom(
+      AudiosFromType.ALBUM_ID,
+      albumID,
+    );
     return queryResult
         .map((model) => model.toSong())
         .where((e) => e != null)

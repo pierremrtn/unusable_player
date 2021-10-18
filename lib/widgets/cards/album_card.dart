@@ -8,13 +8,16 @@ import 'package:unusable_player/unusable_player.dart' as up;
 class AlbumCard extends StatelessWidget {
   const AlbumCard({
     required this.album,
+    this.onTap,
   });
 
   final up.Album album;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
+      onTap: onTap,
       bottomHorizontalPadding: up.Dimensions.space5,
       padding: up.Dimensions.space5,
       child: Column(

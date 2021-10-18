@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
 class SliverAlbumList extends StatelessWidget {
   const SliverAlbumList({
     required this.albums,
+    required this.onSelectAlbum,
   });
 
   final List<up.Album> albums;
+  final void Function(up.Album) onSelectAlbum;
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +19,11 @@ class SliverAlbumList extends StatelessWidget {
       crossAxisSpacing: up.Dimensions.space4,
       childAspectRatio: 0.8,
       children: albums
-          .map(
-            (album) => up.AlbumCard(album: album),
+          .mapIndexed(
+            (index, album) => up.AlbumCard(
+              album: album,
+              onTap: () => onSelectAlbum(albums[index]),
+            ),
           )
           .toList(),
     );

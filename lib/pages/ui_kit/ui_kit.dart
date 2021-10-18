@@ -208,6 +208,7 @@ class UIKit extends StatelessWidget {
   List<Widget> get albums => [
         up.AlbumCard(
           album: up.Album(
+            id: 0,
             artist: "test",
             title: "test title",
             songNumber: 20,

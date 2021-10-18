@@ -18,10 +18,12 @@ class _$AlbumTearOff {
   const _$AlbumTearOff();
 
   _Album call(
-      {required String title,
+      {required int id,
+      required String title,
       required String artist,
       required int songNumber}) {
     return _Album(
+      id: id,
       title: title,
       artist: artist,
       songNumber: songNumber,
@@ -34,6 +36,7 @@ const $Album = _$AlbumTearOff();
 
 /// @nodoc
 mixin _$Album {
+  int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get artist => throw _privateConstructorUsedError;
   int get songNumber => throw _privateConstructorUsedError;
@@ -46,7 +49,7 @@ mixin _$Album {
 abstract class $AlbumCopyWith<$Res> {
   factory $AlbumCopyWith(Album value, $Res Function(Album) then) =
       _$AlbumCopyWithImpl<$Res>;
-  $Res call({String title, String artist, int songNumber});
+  $Res call({int id, String title, String artist, int songNumber});
 }
 
 /// @nodoc
@@ -59,11 +62,16 @@ class _$AlbumCopyWithImpl<$Res> implements $AlbumCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? title = freezed,
     Object? artist = freezed,
     Object? songNumber = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -85,7 +93,7 @@ abstract class _$AlbumCopyWith<$Res> implements $AlbumCopyWith<$Res> {
   factory _$AlbumCopyWith(_Album value, $Res Function(_Album) then) =
       __$AlbumCopyWithImpl<$Res>;
   @override
-  $Res call({String title, String artist, int songNumber});
+  $Res call({int id, String title, String artist, int songNumber});
 }
 
 /// @nodoc
@@ -99,11 +107,16 @@ class __$AlbumCopyWithImpl<$Res> extends _$AlbumCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? title = freezed,
     Object? artist = freezed,
     Object? songNumber = freezed,
   }) {
     return _then(_Album(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -124,9 +137,14 @@ class __$AlbumCopyWithImpl<$Res> extends _$AlbumCopyWithImpl<$Res>
 
 class _$_Album extends _Album {
   const _$_Album(
-      {required this.title, required this.artist, required this.songNumber})
+      {required this.id,
+      required this.title,
+      required this.artist,
+      required this.songNumber})
       : super._();
 
+  @override
+  final int id;
   @override
   final String title;
   @override
@@ -136,13 +154,15 @@ class _$_Album extends _Album {
 
   @override
   String toString() {
-    return 'Album(title: $title, artist: $artist, songNumber: $songNumber)';
+    return 'Album(id: $id, title: $title, artist: $artist, songNumber: $songNumber)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Album &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.artist, artist) ||
@@ -155,6 +175,7 @@ class _$_Album extends _Album {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(artist) ^
       const DeepCollectionEquality().hash(songNumber);
@@ -167,11 +188,14 @@ class _$_Album extends _Album {
 
 abstract class _Album extends Album {
   const factory _Album(
-      {required String title,
+      {required int id,
+      required String title,
       required String artist,
       required int songNumber}) = _$_Album;
   const _Album._() : super._();
 
+  @override
+  int get id => throw _privateConstructorUsedError;
   @override
   String get title => throw _privateConstructorUsedError;
   @override

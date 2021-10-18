@@ -7,6 +7,7 @@ class Album with _$Album {
   const Album._();
 
   const factory Album({
+    required int id,
     required String title,
     required String artist,
     required int songNumber,

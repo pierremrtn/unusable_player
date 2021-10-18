@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
 
@@ -64,6 +65,7 @@ class DoubleBottomCard extends StatelessWidget {
     this.bottomHeight = up.Dimensions.space5,
     this.bottomHorizontalPadding = up.Dimensions.space4,
     this.borderRadius = up.Dimensions.borderRadius1,
+    this.onTap,
   });
 
   final Widget? child;
@@ -78,6 +80,7 @@ class DoubleBottomCard extends StatelessWidget {
   final double bottomHeight;
   final double bottomHorizontalPadding;
   final double borderRadius;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -90,20 +93,23 @@ class DoubleBottomCard extends StatelessWidget {
         radius: borderRadius,
         horizontalPadding: bottomHorizontalPadding,
       ),
-      child: Container(
-        height: height,
-        width: width,
-        margin: EdgeInsets.only(bottom: bottomHeight),
-        decoration: BoxDecoration(
-          color: backgroundColor ?? Theme.of(context).colorScheme.surface,
-          border: Border.all(
-            color: Theme.of(context).colorScheme.onSurface,
-            width: up.Dimensions.borderSize,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          height: height,
+          width: width,
+          margin: EdgeInsets.only(bottom: bottomHeight),
+          decoration: BoxDecoration(
+            color: backgroundColor ?? Theme.of(context).colorScheme.surface,
+            border: Border.all(
+              color: Theme.of(context).colorScheme.onSurface,
+              width: up.Dimensions.borderSize,
+            ),
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
-          borderRadius: BorderRadius.circular(borderRadius),
+          padding: EdgeInsets.all(padding),
+          child: child,
         ),
-        padding: EdgeInsets.all(padding),
-        child: child,
       ),
     );
   }
