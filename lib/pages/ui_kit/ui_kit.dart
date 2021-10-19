@@ -18,6 +18,8 @@ class UIKit extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           up.Space1(),
+          ...artistCards,
+          Divider(),
           ...albums,
           Divider(),
           ...listIndicators(),
@@ -187,6 +189,8 @@ class UIKit extends StatelessWidget {
             uri: "",
             title: "title",
             duration: Duration(seconds: 30, minutes: 2),
+            album: up.AlbumRef(),
+            artist: up.ArtistRef(),
           ),
         ),
       ];
@@ -209,9 +213,18 @@ class UIKit extends StatelessWidget {
         up.AlbumCard(
           album: up.Album(
             id: 0,
-            artist: "test",
+            artist: up.ArtistRef(id: 0, name: "Artist"),
             title: "test title",
             songNumber: 20,
+          ),
+        ),
+      ];
+
+  List<Widget> get artistCards => [
+        up.ArtistCard(
+          artist: up.Artist(
+            id: 0,
+            name: "Skeler",
           ),
         ),
       ];

@@ -22,7 +22,7 @@ class SongCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                context.headline5(song.artist ?? "Unknown"),
+                context.headline5(song.artist.name),
                 up.Space5(),
                 Row(
                   children: [

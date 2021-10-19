@@ -46,7 +46,7 @@ class AlbumCard extends StatelessWidget {
                   ],
                 ),
                 context.headline4(
-                  album.artist,
+                  album.artist.name,
                   softWrap: false,
                   overflow: TextOverflow.fade,
                 ),

@@ -21,8 +21,8 @@ class _$SongTearOff {
       {required String title,
       required String uri,
       required Duration duration,
-      String? artist,
-      String? album}) {
+      required ArtistRef artist,
+      required AlbumRef album}) {
     return _Song(
       title: title,
       uri: uri,
@@ -41,8 +41,8 @@ mixin _$Song {
   String get title => throw _privateConstructorUsedError;
   String get uri => throw _privateConstructorUsedError;
   Duration get duration => throw _privateConstructorUsedError;
-  String? get artist => throw _privateConstructorUsedError;
-  String? get album => throw _privateConstructorUsedError;
+  ArtistRef get artist => throw _privateConstructorUsedError;
+  AlbumRef get album => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SongCopyWith<Song> get copyWith => throw _privateConstructorUsedError;
@@ -56,8 +56,8 @@ abstract class $SongCopyWith<$Res> {
       {String title,
       String uri,
       Duration duration,
-      String? artist,
-      String? album});
+      ArtistRef artist,
+      AlbumRef album});
 }
 
 /// @nodoc
@@ -92,11 +92,11 @@ class _$SongCopyWithImpl<$Res> implements $SongCopyWith<$Res> {
       artist: artist == freezed
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ArtistRef,
       album: album == freezed
           ? _value.album
           : album // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as AlbumRef,
     ));
   }
 }
@@ -110,8 +110,8 @@ abstract class _$SongCopyWith<$Res> implements $SongCopyWith<$Res> {
       {String title,
       String uri,
       Duration duration,
-      String? artist,
-      String? album});
+      ArtistRef artist,
+      AlbumRef album});
 }
 
 /// @nodoc
@@ -147,11 +147,11 @@ class __$SongCopyWithImpl<$Res> extends _$SongCopyWithImpl<$Res>
       artist: artist == freezed
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ArtistRef,
       album: album == freezed
           ? _value.album
           : album // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as AlbumRef,
     ));
   }
 }
@@ -163,8 +163,8 @@ class _$_Song extends _Song {
       {required this.title,
       required this.uri,
       required this.duration,
-      this.artist,
-      this.album})
+      required this.artist,
+      required this.album})
       : super._();
 
   @override
@@ -174,9 +174,9 @@ class _$_Song extends _Song {
   @override
   final Duration duration;
   @override
-  final String? artist;
+  final ArtistRef artist;
   @override
-  final String? album;
+  final AlbumRef album;
 
   @override
   String toString() {
@@ -220,8 +220,8 @@ abstract class _Song extends Song {
       {required String title,
       required String uri,
       required Duration duration,
-      String? artist,
-      String? album}) = _$_Song;
+      required ArtistRef artist,
+      required AlbumRef album}) = _$_Song;
   const _Song._() : super._();
 
   @override
@@ -231,9 +231,9 @@ abstract class _Song extends Song {
   @override
   Duration get duration => throw _privateConstructorUsedError;
   @override
-  String? get artist => throw _privateConstructorUsedError;
+  ArtistRef get artist => throw _privateConstructorUsedError;
   @override
-  String? get album => throw _privateConstructorUsedError;
+  AlbumRef get album => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$SongCopyWith<_Song> get copyWith => throw _privateConstructorUsedError;

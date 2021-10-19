@@ -19,8 +19,8 @@ class _$AlbumTearOff {
 
   _Album call(
       {required int id,
-      required String title,
-      required String artist,
+      String title = kFallbackAlbumTitle,
+      required ArtistRef artist,
       required int songNumber}) {
     return _Album(
       id: id,
@@ -38,7 +38,7 @@ const $Album = _$AlbumTearOff();
 mixin _$Album {
   int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
-  String get artist => throw _privateConstructorUsedError;
+  ArtistRef get artist => throw _privateConstructorUsedError;
   int get songNumber => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -49,7 +49,7 @@ mixin _$Album {
 abstract class $AlbumCopyWith<$Res> {
   factory $AlbumCopyWith(Album value, $Res Function(Album) then) =
       _$AlbumCopyWithImpl<$Res>;
-  $Res call({int id, String title, String artist, int songNumber});
+  $Res call({int id, String title, ArtistRef artist, int songNumber});
 }
 
 /// @nodoc
@@ -79,7 +79,7 @@ class _$AlbumCopyWithImpl<$Res> implements $AlbumCopyWith<$Res> {
       artist: artist == freezed
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
-              as String,
+              as ArtistRef,
       songNumber: songNumber == freezed
           ? _value.songNumber
           : songNumber // ignore: cast_nullable_to_non_nullable
@@ -93,7 +93,7 @@ abstract class _$AlbumCopyWith<$Res> implements $AlbumCopyWith<$Res> {
   factory _$AlbumCopyWith(_Album value, $Res Function(_Album) then) =
       __$AlbumCopyWithImpl<$Res>;
   @override
-  $Res call({int id, String title, String artist, int songNumber});
+  $Res call({int id, String title, ArtistRef artist, int songNumber});
 }
 
 /// @nodoc
@@ -124,7 +124,7 @@ class __$AlbumCopyWithImpl<$Res> extends _$AlbumCopyWithImpl<$Res>
       artist: artist == freezed
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
-              as String,
+              as ArtistRef,
       songNumber: songNumber == freezed
           ? _value.songNumber
           : songNumber // ignore: cast_nullable_to_non_nullable
@@ -138,17 +138,18 @@ class __$AlbumCopyWithImpl<$Res> extends _$AlbumCopyWithImpl<$Res>
 class _$_Album extends _Album {
   const _$_Album(
       {required this.id,
-      required this.title,
+      this.title = kFallbackAlbumTitle,
       required this.artist,
       required this.songNumber})
       : super._();
 
   @override
   final int id;
+  @JsonKey(defaultValue: kFallbackAlbumTitle)
   @override
   final String title;
   @override
-  final String artist;
+  final ArtistRef artist;
   @override
   final int songNumber;
 
@@ -189,8 +190,8 @@ class _$_Album extends _Album {
 abstract class _Album extends Album {
   const factory _Album(
       {required int id,
-      required String title,
-      required String artist,
+      String title,
+      required ArtistRef artist,
       required int songNumber}) = _$_Album;
   const _Album._() : super._();
 
@@ -199,7 +200,7 @@ abstract class _Album extends Album {
   @override
   String get title => throw _privateConstructorUsedError;
   @override
-  String get artist => throw _privateConstructorUsedError;
+  ArtistRef get artist => throw _privateConstructorUsedError;
   @override
   int get songNumber => throw _privateConstructorUsedError;
   @override

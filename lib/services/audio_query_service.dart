@@ -9,8 +9,14 @@ extension _ToSong on SongModel {
           title: title,
           duration: Duration(milliseconds: duration ?? 0),
           uri: uri!,
-          artist: artist,
-          album: album,
+          artist: up.ArtistRef(
+            id: artistId,
+            name: artist,
+          ),
+          album: up.AlbumRef(
+            id: albumId,
+            title: album,
+          ),
         )
       : null;
 }
@@ -19,7 +25,11 @@ extension _ToAlbum on AlbumModel {
   up.Album toAlbum() => up.Album(
         id: id,
         title: album,
-        artist: artist ?? "Unknown",
+        artist: up.ArtistRef(
+          //artistId getter return a String?. This is probably a mistake. A git issue is opened
+          id: artistId != null ? int.parse(artistId!) : null,
+          name: artist,
+        ),
         songNumber: numOfSongs,
       );
 }
