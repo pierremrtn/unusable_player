@@ -20,7 +20,6 @@ class AlbumsController extends GetxController with StateMixin<List<up.Album>> {
     final songs = await audioQueryService.queryAlbumSongs(album.id);
     albumSongs = songs;
     showAlbumSongs.value = true;
-    print("Select album");
   }
 
   Future<bool> leaveAlbumView() async {

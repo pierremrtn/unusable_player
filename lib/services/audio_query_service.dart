@@ -34,6 +34,13 @@ extension _ToAlbum on AlbumModel {
       );
 }
 
+extension _ToArtist on ArtistModel {
+  up.Artist toArtist() => up.Artist(
+        id: id,
+        name: artist,
+      );
+}
+
 class AudioQueryService extends GetxService {
   static AudioQueryService get instance => Get.find<AudioQueryService>();
 
@@ -71,11 +78,32 @@ class AudioQueryService extends GetxService {
         .toList();
   }
 
+  Future<List<up.Song>> queryArtistSongs(int artistID) async {
+    final List<SongModel> queryResult = await _audioQuery.queryAudiosFrom(
+      AudiosFromType.ARTIST_ID,
+      artistID,
+    );
+    return queryResult
+        .map((model) => model.toSong())
+        .where((e) => e != null)
+        .map((e) => e!)
+        .toList();
+  }
+
   Future<List<up.Album>> queryAlbums() async {
     final List<AlbumModel> queryResult = await _audioQuery.queryAlbums();
     return queryResult
         .map(
           (model) => model.toAlbum(),
+        )
+        .toList();
+  }
+
+  Future<List<up.Artist>> queryArtists() async {
+    final List<ArtistModel> queryResult = await _audioQuery.queryArtists();
+    return queryResult
+        .map(
+          (model) => model.toArtist(),
         )
         .toList();
   }

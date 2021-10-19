@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
+import 'package:unusable_player/pages/home/widgets/artist_list_tab.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
 import 'widgets/home_inner_list.dart';
@@ -73,10 +74,7 @@ class Home extends StatelessWidget {
                   storageKey: "home_playlists",
                   sliver: SliverPlaylistList(),
                 ),
-                HomeInnerList(
-                  storageKey: "home_artists",
-                  sliver: SliverPlaylistList(),
-                ),
+                ArtistListTab(),
                 AlbumListTab(),
               ],
             ),
