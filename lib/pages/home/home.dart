@@ -22,7 +22,7 @@ class Home extends StatelessWidget {
       backgroundColor: context.colorScheme.background,
       body: SafeArea(
         child: DefaultTabController(
-          length: 5,
+          length: 3,
           child: NestedScrollView(
             floatHeaderSlivers: true,
             headerSliverBuilder: (
@@ -56,8 +56,8 @@ class Home extends StatelessWidget {
                 handle:
                     NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                 sliver: up.SliverPersistentTabBar(
-                  isScrollable: true,
-                  tabs: ["Overview", "Songs", "Playlists", "Artists", "Albums"],
+                  isScrollable: false,
+                  tabs: ["Songs", "Artists", "Albums"],
                   forceExpandSeparator: innerBoxIsScrolled,
                 ),
               ),
@@ -65,15 +65,7 @@ class Home extends StatelessWidget {
             body: TabBarView(
               dragStartBehavior: DragStartBehavior.down,
               children: [
-                HomeInnerList(
-                  storageKey: "home_overview",
-                  sliver: SliverPlaylistList(),
-                ),
                 SongListTab(),
-                HomeInnerList(
-                  storageKey: "home_playlists",
-                  sliver: SliverPlaylistList(),
-                ),
                 ArtistListTab(),
                 AlbumListTab(),
               ],
