@@ -16,7 +16,7 @@ class PlayingSongIndicator extends StatelessWidget {
     final foregroundColor = Theme.of(context).colorScheme.surface;
 
     return up.DoubleBottomCard(
-      padding: up.Dimensions.space3,
+      padding: EdgeInsets.all(up.Dimensions.space3),
       backgroundColor: Theme.of(context).colorScheme.primary,
       child: Row(
         children: [

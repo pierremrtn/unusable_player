@@ -17,7 +17,7 @@ class ArtistCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
       onTap: onTap,
-      padding: up.Dimensions.space4,
+      padding: EdgeInsets.all(up.Dimensions.space4),
       child: Row(
         children: [
           up.Image.s3(AssetImage("assets/skeler.jpg")),

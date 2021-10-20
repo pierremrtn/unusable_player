@@ -11,7 +11,7 @@ class PlaylistCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
       bottomHorizontalPadding: up.Dimensions.space5,
-      padding: up.Dimensions.space5,
+      padding: EdgeInsets.all(up.Dimensions.space5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

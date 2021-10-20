@@ -7,7 +7,7 @@ class Cover extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
-      padding: up.Dimensions.space5,
+      padding: const EdgeInsets.all(up.Dimensions.space5),
       child: up.Image(
         AssetImage("assets/skeler.jpg"),
         // fit: BoxFit.cover,

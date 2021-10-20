@@ -21,7 +21,7 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
-      padding: up.Dimensions.space3,
+      padding: EdgeInsets.all(up.Dimensions.space3),
       backgroundColor: Theme.of(context).colorScheme.primary,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -27,7 +27,7 @@ class SearchBar extends StatelessWidget {
             alignment: Alignment.centerLeft,
             maxWidth: constraints.maxWidth + _kRightShift,
             child: up.DoubleBottomCard(
-              padding: 0,
+              padding: EdgeInsets.zero,
               height: kSearchBarHeight,
               // width: MediaQuery.of(context).size.width,
               backgroundColor: context.colorScheme.secondaryVariant,
@@ -81,58 +81,6 @@ class SearchBar extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
-
-    return up.DoubleBottomCard(
-      padding: 0,
-      height: kSearchBarHeight,
-      // width: MediaQuery.of(context).size.width,
-      backgroundColor: context.colorScheme.secondaryVariant,
-      borderRadius: up.Dimensions.borderRadius2,
-      bottomHorizontalPadding: up.Dimensions.space4,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Container(
-            padding: EdgeInsets.all(up.Dimensions.space4),
-            foregroundDecoration: BoxDecoration(),
-            child: Icon(
-              up.Icons.search,
-              size: up.Dimensions.icon1,
-            ),
-          ),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(left: up.Dimensions.space4),
-              decoration: BoxDecoration(
-                color: context.colorScheme.surface,
-                border: Border(
-                  left: BorderSide(
-                    color: context.colorScheme.onSurface,
-                    width: up.Dimensions.borderSize,
-                  ),
-                ),
-              ),
-              child: Align(
-                child: TextField(
-                  // textAlign: TextAlign.center,
-                  // textAlignVertical: TextAlignVertical.bottom,
-                  onSubmitted: onSearch,
-                  style: context.textTheme.subtitle1?.copyWith(
-                    color: context.colorScheme.onSurface,
-                  ),
-                  decoration: InputDecoration(
-                    hintText: "Search",
-                    hintStyle: context.textTheme.headline4,
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          up.Space2(),
-        ],
       ),
     );
   }

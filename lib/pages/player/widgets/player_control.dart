@@ -17,7 +17,7 @@ class PlayerControl extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: up.Dimensions.space4),
           child: up.DoubleBottomCard(
-            padding: 0,
+            padding: EdgeInsets.zero,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

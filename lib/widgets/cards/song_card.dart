@@ -13,7 +13,7 @@ class SongCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
-      padding: up.Dimensions.space4,
+      padding: EdgeInsets.all(up.Dimensions.space4),
       child: Row(
         children: [
           up.Image.s3(AssetImage("assets/skeler.jpg")),

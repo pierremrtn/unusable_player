@@ -59,7 +59,7 @@ class DoubleBottomCard extends StatelessWidget {
     this.child,
     this.height,
     this.width,
-    this.padding = up.Dimensions.space1,
+    this.padding = const EdgeInsets.all(up.Dimensions.space1),
     this.backgroundColor,
     this.bottomColor = Colors.transparent,
     this.bottomHeight = up.Dimensions.space5,
@@ -69,7 +69,7 @@ class DoubleBottomCard extends StatelessWidget {
   });
 
   final Widget? child;
-  final double padding;
+  final EdgeInsetsGeometry? padding;
 
   final Color? backgroundColor;
 
@@ -107,7 +107,7 @@ class DoubleBottomCard extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(borderRadius),
           ),
-          padding: EdgeInsets.all(padding),
+          padding: padding,
           child: child,
         ),
       ),
