@@ -21,7 +21,7 @@ class AlbumRef {
   const AlbumRef({
     this.id,
     String? title,
-  }) : this.title = title ?? kFallbackAlbumTitle;
+  }) : title = title ?? kFallbackAlbumTitle;
 
   final int? id;
   final String title;

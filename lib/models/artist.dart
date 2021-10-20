@@ -18,7 +18,7 @@ class ArtistRef {
   const ArtistRef({
     this.id,
     String? name,
-  }) : this.name = name ?? kFallbackArtistName;
+  }) : name = name ?? kFallbackArtistName;
 
   final int? id;
   final String name;

@@ -60,7 +60,7 @@ class UIKit extends StatelessWidget {
       ];
 
   get icons => Wrap(
-        children: [
+        children: const [
           Icon(up.Icons.search),
           Icon(up.Icons.library_music),
           Icon(up.Icons.queue_music),
@@ -160,7 +160,7 @@ class UIKit extends StatelessWidget {
         DefaultTabController(
           length: 4,
           child: up.TabBar(
-            tabs: ["Overview", "Songs", "Album", "Artists"],
+            tabs: const ["Overview", "Songs", "Album", "Artists"],
           ),
         ),
         // up.Space1(),
@@ -175,7 +175,7 @@ class UIKit extends StatelessWidget {
         up.Space4(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
+          children: const [
             Expanded(child: up.PlaylistCard()),
             up.Space4(),
             Expanded(child: up.PlaylistCard()),
@@ -196,7 +196,7 @@ class UIKit extends StatelessWidget {
       ];
 
   Widget get navBar => up.NavBar(
-        tabs: [
+        tabs: const [
           up.Icons.home,
           up.Icons.cd,
           up.Icons.library_music,

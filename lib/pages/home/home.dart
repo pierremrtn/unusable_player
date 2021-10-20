@@ -54,14 +54,14 @@ class Home extends StatelessWidget {
                     NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                 sliver: up.SliverPersistentTabBar(
                   isScrollable: false,
-                  tabs: ["Songs", "Artists", "Albums"],
+                  tabs: const ["Songs", "Artists", "Albums"],
                   forceExpandSeparator: innerBoxIsScrolled,
                 ),
               ),
             ],
             body: TabBarView(
               dragStartBehavior: DragStartBehavior.down,
-              children: [
+              children: const [
                 SongListTab(),
                 ArtistListTab(),
                 AlbumListTab(),

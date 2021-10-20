@@ -29,7 +29,7 @@ class SongCard extends StatelessWidget {
                     Expanded(
                       child: context.subtitle2(song.title),
                     ),
-                    context.bodyText2("${song.duration.display}"),
+                    context.bodyText2(song.duration.display),
                   ],
                 ),
               ],
