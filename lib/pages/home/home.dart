@@ -4,9 +4,6 @@ import 'package:neat/neat.dart';
 import 'package:unusable_player/pages/home/widgets/artist_list_tab.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
-import 'widgets/home_inner_list.dart';
-import 'widgets/sliver_playlist_list.dart';
-
 import 'widgets/song_list_tab.dart';
 import 'widgets/album_list_tab.dart';
 

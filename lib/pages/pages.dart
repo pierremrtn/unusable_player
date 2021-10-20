@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:unusable_player/pages/ui_kit/ui_kit.dart';
 import 'package:unusable_player/pages/home/home.dart';
+import 'package:unusable_player/pages/player/player.dart';
 
 part 'routes.dart';
 
@@ -16,6 +17,11 @@ class Pages {
       name: Routes.home,
       page: () => Home(),
       binding: HomeBindings(),
-    )
+    ),
+    GetPage(
+      name: Routes.player,
+      page: () => Player(),
+      // binding: HomeBindings(),
+    ),
   ];
 }
