@@ -26,8 +26,7 @@ extension _ToAlbum on AlbumModel {
         id: id,
         title: album,
         artist: up.ArtistRef(
-          //artistId getter return a String?. This is probably a mistake. A git issue is opened
-          id: artistId != null ? int.parse(artistId!) : null,
+          id: artistId,
           name: artist,
         ),
         songNumber: numOfSongs,
@@ -38,6 +37,12 @@ extension _ToArtist on ArtistModel {
   up.Artist toArtist() => up.Artist(
         id: id,
         name: artist,
+      );
+}
+
+extension _Filter on List<SongModel> {
+  Iterable<SongModel> retainMusics() => where(
+        (element) => element.isMusic ?? false,
       );
 }
 
@@ -60,6 +65,7 @@ class AudioQueryService extends GetxService {
   Future<List<up.Song>> querySongs() async {
     final List<SongModel> queryResult = await _audioQuery.querySongs();
     return queryResult
+        .retainMusics()
         .map((model) => model.toSong())
         .where((e) => e != null)
         .map((e) => e!)
@@ -72,6 +78,7 @@ class AudioQueryService extends GetxService {
       albumID,
     );
     return queryResult
+        .retainMusics()
         .map((model) => model.toSong())
         .where((e) => e != null)
         .map((e) => e!)
@@ -84,6 +91,7 @@ class AudioQueryService extends GetxService {
       artistID,
     );
     return queryResult
+        .retainMusics()
         .map((model) => model.toSong())
         .where((e) => e != null)
         .map((e) => e!)
