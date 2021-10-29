@@ -10,7 +10,7 @@ import 'widgets/album_list_tab.dart';
 export 'home_bindings.dart';
 
 class Home extends StatelessWidget {
-  const Home();
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class Home extends StatelessWidget {
                 ),
               ),
               up.SliverPersistentSearchBar(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: up.Dimensions.space3,
                   bottom: up.Dimensions.space4,
                   left: up.Dimensions.pageMargin,
@@ -59,9 +59,9 @@ class Home extends StatelessWidget {
                 ),
               ),
             ],
-            body: TabBarView(
+            body: const TabBarView(
               dragStartBehavior: DragStartBehavior.down,
-              children: const [
+              children: [
                 SongListTab(),
                 ArtistListTab(),
                 AlbumListTab(),

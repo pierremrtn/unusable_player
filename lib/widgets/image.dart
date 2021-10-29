@@ -9,52 +9,62 @@ class Image extends StatelessWidget {
     this.width,
     this.height,
     this.radius,
-  });
+    Key? key,
+  }) : super(key: key);
 
-  const Image.s1(this.image)
+  const Image.s1(this.image, {Key? key})
       : width = up.Dimensions.image1,
         height = up.Dimensions.image1,
-        radius = up.Dimensions.borderRadius1;
+        radius = up.Dimensions.borderRadius1,
+        super(key: key);
 
-  const Image.w1(this.image)
+  const Image.w1(this.image, {Key? key})
       : width = up.Dimensions.image1,
         height = null,
-        radius = up.Dimensions.borderRadius1;
+        radius = up.Dimensions.borderRadius1,
+        super(key: key);
 
-  const Image.h1(this.image)
+  const Image.h1(this.image, {Key? key})
       : width = null,
         height = up.Dimensions.image1,
-        radius = up.Dimensions.borderRadius1;
+        radius = up.Dimensions.borderRadius1,
+        super(key: key);
 
-  const Image.s2(this.image)
+  const Image.s2(this.image, {Key? key})
       : width = up.Dimensions.image2,
         height = up.Dimensions.image2,
-        radius = up.Dimensions.borderRadius2;
+        radius = up.Dimensions.borderRadius2,
+        super(key: key);
 
-  const Image.w2(this.image)
+  const Image.w2(this.image, {Key? key})
       : width = up.Dimensions.image2,
         height = double.infinity,
-        radius = up.Dimensions.borderRadius2;
+        radius = up.Dimensions.borderRadius2,
+        super(key: key);
 
-  const Image.h2(this.image)
+  const Image.h2(this.image, {Key? key})
       : width = double.infinity,
         height = up.Dimensions.image2,
-        radius = up.Dimensions.borderRadius2;
+        radius = up.Dimensions.borderRadius2,
+        super(key: key);
 
-  const Image.s3(this.image)
+  const Image.s3(this.image, {Key? key})
       : width = up.Dimensions.image3,
         height = up.Dimensions.image3,
-        radius = up.Dimensions.borderRadius3;
+        radius = up.Dimensions.borderRadius3,
+        super(key: key);
 
-  const Image.w3(this.image)
+  const Image.w3(this.image, {Key? key})
       : width = up.Dimensions.image3,
         height = double.infinity,
-        radius = up.Dimensions.borderRadius3;
+        radius = up.Dimensions.borderRadius3,
+        super(key: key);
 
-  const Image.h3(this.image)
+  const Image.h3(this.image, {Key? key})
       : width = double.infinity,
         height = up.Dimensions.image3,
-        radius = up.Dimensions.borderRadius3;
+        radius = up.Dimensions.borderRadius3,
+        super(key: key);
 
   final ImageProvider<Object> image;
   final double? width;

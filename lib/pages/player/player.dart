@@ -6,7 +6,7 @@ import 'widgets/cover.dart';
 import 'widgets/player_control.dart';
 
 class Player extends StatelessWidget {
-  const Player();
+  const Player({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +20,10 @@ class Player extends StatelessWidget {
         children: [
           context.headline1("Music title"),
           context.subtitle1("artist"),
-          up.Space1(),
-          Cover(),
-          up.Space1(),
-          PlayerControl(),
+          const up.Space1(),
+          const Cover(),
+          const up.Space1(),
+          const PlayerControl(),
         ],
       ),
     );

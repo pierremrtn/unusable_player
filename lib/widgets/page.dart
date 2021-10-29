@@ -4,12 +4,13 @@ import 'package:unusable_player/theme/theme.dart' as up;
 
 class Page extends StatelessWidget {
   const Page({
+    Key? key,
     this.padding = const EdgeInsets.symmetric(
       horizontal: up.Dimensions.pageMargin,
     ),
     this.appBar,
     this.body,
-  });
+  }) : super(key: key);
 
   final EdgeInsetsGeometry padding;
   final PreferredSizeWidget? appBar;

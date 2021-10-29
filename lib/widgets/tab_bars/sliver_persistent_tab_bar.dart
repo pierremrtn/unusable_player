@@ -73,7 +73,9 @@ class SliverPersistentTabBar extends SliverPersistentHeader {
     required List<String> tabs,
     bool? forceExpandSeparator,
     bool isScrollable = false,
+    Key? key,
   }) : super(
+          key: key,
           delegate: _SliverPersistentTabBarDelegate(
             tabs: tabs,
             forceExpandSeparator: forceExpandSeparator,

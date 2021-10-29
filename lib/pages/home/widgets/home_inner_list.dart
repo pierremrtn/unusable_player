@@ -5,7 +5,8 @@ class HomeInnerList extends StatelessWidget {
   const HomeInnerList({
     this.storageKey,
     required this.sliver,
-  });
+    Key? key,
+  }) : super(key: key);
 
   final String? storageKey;
   final Widget sliver;
@@ -19,7 +20,7 @@ class HomeInnerList extends StatelessWidget {
           handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
         ),
         SliverPadding(
-          padding: EdgeInsets.all(up.Dimensions.pageMargin),
+          padding: const EdgeInsets.all(up.Dimensions.pageMargin),
           sliver: sliver,
         ),
       ],

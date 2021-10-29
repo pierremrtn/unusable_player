@@ -74,7 +74,7 @@ class Button extends StatelessWidget {
   final ButtonStyle style;
 
   MaterialStateProperty<OutlinedBorder>? get shape =>
-      round ? MaterialStateProperty.all(CircleBorder()) : null;
+      round ? MaterialStateProperty.all(const CircleBorder()) : null;
 
   MaterialStateProperty<Color>? backgroundColor(BuildContext context) {
     switch (style) {

@@ -6,7 +6,8 @@ class SliverAlbumList extends StatelessWidget {
   const SliverAlbumList({
     required this.albums,
     required this.onSelectAlbum,
-  });
+    Key? key,
+  }) : super(key: key);
 
   final List<up.Album> albums;
   final void Function(up.Album) onSelectAlbum;

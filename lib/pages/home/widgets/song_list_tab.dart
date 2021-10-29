@@ -7,7 +7,7 @@ import 'home_inner_list.dart';
 import 'sliver_song_list.dart';
 
 class SongListTab extends GetView<SongsController> {
-  const SongListTab();
+  const SongListTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

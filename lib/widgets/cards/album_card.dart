@@ -9,7 +9,8 @@ class AlbumCard extends StatelessWidget {
   const AlbumCard({
     required this.album,
     this.onTap,
-  });
+    Key? key,
+  }) : super(key: key);
 
   final up.Album album;
   final VoidCallback? onTap;
@@ -19,11 +20,11 @@ class AlbumCard extends StatelessWidget {
     return up.DoubleBottomCard(
       onTap: onTap,
       bottomHorizontalPadding: up.Dimensions.space5,
-      padding: EdgeInsets.all(up.Dimensions.space5),
+      padding: const EdgeInsets.all(up.Dimensions.space5),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          up.Image.h2(
+          const up.Image.h2(
             AssetImage("assets/skeler.jpg"),
           ),
           Padding(
@@ -41,8 +42,8 @@ class AlbumCard extends StatelessWidget {
                         overflow: TextOverflow.fade,
                       ),
                     ),
-                    up.Space5.w(),
-                    Icon(up.Icons.play_circle_filled),
+                    const up.Space5.w(),
+                    const Icon(up.Icons.play_circle_filled),
                   ],
                 ),
                 context.headline4(

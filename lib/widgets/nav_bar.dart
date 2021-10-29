@@ -5,10 +5,11 @@ import 'package:unusable_player/widgets/widgets.dart' as up;
 
 class NavBar extends StatelessWidget {
   const NavBar({
+    Key? key,
     required this.tabs,
     required this.selected,
     required this.onSelected,
-  });
+  }) : super(key: key);
 
   final List<IconData> tabs;
   final int selected;
@@ -21,7 +22,7 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
-      padding: EdgeInsets.all(up.Dimensions.space3),
+      padding: const EdgeInsets.all(up.Dimensions.space3),
       backgroundColor: Theme.of(context).colorScheme.primary,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

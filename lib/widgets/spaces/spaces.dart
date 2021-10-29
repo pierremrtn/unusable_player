@@ -5,6 +5,7 @@ import 'package:unusable_player/theme/theme.dart' as up;
 part 'spaces.nt.dart';
 
 @nt_space
+// ignore: unused_element
 const List<double> _spaces = [
   up.Dimensions.space1,
   up.Dimensions.space2,

@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
 
@@ -66,7 +65,8 @@ class DoubleBottomCard extends StatelessWidget {
     this.bottomHorizontalPadding = up.Dimensions.space4,
     this.borderRadius = up.Dimensions.borderRadius1,
     this.onTap,
-  });
+    Key? key,
+  }) : super(key: key);
 
   final Widget? child;
   final EdgeInsetsGeometry? padding;

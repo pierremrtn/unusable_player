@@ -10,7 +10,8 @@ class TabBar extends StatelessWidget with PreferredSizeWidget {
     this.controller,
     required this.tabs,
     this.isScrollable = false,
-  });
+    Key? key,
+  }) : super(key: key);
 
   final TabController? controller;
   final List<String> tabs;
@@ -21,7 +22,7 @@ class TabBar extends StatelessWidget with PreferredSizeWidget {
     return flutter.TabBar(
       controller: controller,
       tabs: tabs.map(_buildTab).toList(),
-      padding: EdgeInsets.only(bottom: up.Dimensions.space4),
+      padding: const EdgeInsets.only(bottom: up.Dimensions.space4),
       isScrollable: isScrollable,
       //labels
       labelPadding: EdgeInsets.zero,
@@ -60,5 +61,5 @@ class TabBar extends StatelessWidget with PreferredSizeWidget {
       );
 
   @override
-  Size get preferredSize => Size.fromHeight(kTabBarHeight);
+  Size get preferredSize => const Size.fromHeight(kTabBarHeight);
 }

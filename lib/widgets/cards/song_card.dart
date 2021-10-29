@@ -6,24 +6,25 @@ import 'package:unusable_player/unusable_player.dart' as up;
 class SongCard extends StatelessWidget {
   const SongCard({
     required this.song,
-  });
+    Key? key,
+  }) : super(key: key);
 
   final up.Song song;
 
   @override
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
-      padding: EdgeInsets.all(up.Dimensions.space4),
+      padding: const EdgeInsets.all(up.Dimensions.space4),
       child: Row(
         children: [
-          up.Image.s3(AssetImage("assets/skeler.jpg")),
-          up.Space4(),
+          const up.Image.s3(AssetImage("assets/skeler.jpg")),
+          const up.Space4(),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 context.headline5(song.artist.name),
-                up.Space5(),
+                const up.Space5(),
                 Row(
                   children: [
                     Expanded(

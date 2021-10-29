@@ -3,12 +3,12 @@ import 'package:neat/neat.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
 class ControlBackground extends StatelessWidget {
-  const ControlBackground();
+  const ControlBackground({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: up.Dimensions.space3),
+      margin: const EdgeInsets.symmetric(vertical: up.Dimensions.space3),
       decoration: BoxDecoration(
         border: Border.all(
           color: context.colorScheme.onSurface,
@@ -18,7 +18,7 @@ class ControlBackground extends StatelessWidget {
         color: context.colorScheme.primary,
       ),
       child: Container(
-        margin: EdgeInsets.all(up.Dimensions.space5),
+        margin: const EdgeInsets.all(up.Dimensions.space5),
         decoration: BoxDecoration(
           border: Border.all(
             color: context.colorScheme.onSurface,

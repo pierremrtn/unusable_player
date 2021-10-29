@@ -11,16 +11,16 @@ class Pages {
   static List<GetPage> pages = [
     GetPage(
       name: Routes.UIKit,
-      page: () => UIKit(),
+      page: () => const UIKit(),
     ),
     GetPage(
       name: Routes.home,
-      page: () => Home(),
+      page: () => const Home(),
       binding: HomeBindings(),
     ),
     GetPage(
       name: Routes.player,
-      page: () => Player(),
+      page: () => const Player(),
       // binding: HomeBindings(),
     ),
   ];

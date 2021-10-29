@@ -6,8 +6,9 @@ import 'package:neat/neat.dart';
 
 class PlayingSongIndicator extends StatelessWidget {
   const PlayingSongIndicator({
+    Key? key,
     this.onTap,
-  });
+  }) : super(key: key);
 
   final VoidCallback? onTap;
 
@@ -16,7 +17,7 @@ class PlayingSongIndicator extends StatelessWidget {
     final foregroundColor = Theme.of(context).colorScheme.surface;
 
     return up.DoubleBottomCard(
-      padding: EdgeInsets.all(up.Dimensions.space3),
+      padding: const EdgeInsets.all(up.Dimensions.space3),
       backgroundColor: Theme.of(context).colorScheme.primary,
       child: Row(
         children: [
@@ -24,7 +25,7 @@ class PlayingSongIndicator extends StatelessWidget {
             up.Icons.cd,
             color: foregroundColor,
           ),
-          up.Space4(),
+          const up.Space4(),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -40,7 +41,7 @@ class PlayingSongIndicator extends StatelessWidget {
               ],
             ),
           ),
-          up.Space4(),
+          const up.Space4(),
           Icon(
             up.Icons.play,
             color: foregroundColor,

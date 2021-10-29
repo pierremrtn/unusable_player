@@ -7,9 +7,10 @@ const double _kBottomDisplacement = 2;
 
 class EmptyListIndicator extends StatelessWidget {
   const EmptyListIndicator({
+    Key? key,
     this.message,
     this.padding = const EdgeInsets.all(up.Dimensions.space1),
-  });
+  }) : super(key: key);
 
   static Widget sliver({
     String? message,
@@ -45,7 +46,7 @@ class EmptyListIndicator extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     bottom: _kBottomDisplacement,
                     right: _kLeftDisplacement,
                   ),
@@ -57,7 +58,7 @@ class EmptyListIndicator extends StatelessWidget {
                 ),
               ],
             ),
-            up.Space4(),
+            const up.Space4(),
             context.bodyText2(
               message ?? "There is nothing here",
             ),

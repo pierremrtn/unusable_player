@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:unusable_player/theme/theme.dart' as up;
 import 'package:neat/neat.dart';
 import 'search_bar.dart' as up;
 
@@ -41,7 +40,7 @@ class _SliverPersistentSearchBarDelegate
         child: ClipRect(
           child: Transform.translate(
             offset: Offset(xOffest, 0),
-            child: up.SearchBar(),
+            child: const up.SearchBar(),
           ),
         ),
       ),
@@ -62,9 +61,11 @@ class _SliverPersistentSearchBarDelegate
 
 class SliverPersistentSearchBar extends SliverPersistentHeader {
   SliverPersistentSearchBar({
+    Key? key,
     Function(String)? onSearch,
     EdgeInsets? padding,
   }) : super(
+          key: key,
           delegate: _SliverPersistentSearchBarDelegate(
             onSearch: onSearch,
             padding: padding,

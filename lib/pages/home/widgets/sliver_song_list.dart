@@ -4,7 +4,8 @@ import 'package:unusable_player/unusable_player.dart' as up;
 class SliverSongList extends StatelessWidget {
   const SliverSongList({
     required this.songs,
-  });
+    Key? key,
+  }) : super(key: key);
 
   final List<up.Song> songs;
 

@@ -10,17 +10,20 @@ part of 'spaces.dart';
 // **************************************************************************
 
 class Space1 extends StatelessWidget {
-  const Space1()
+  const Space1({Key? key})
       : width = 32,
-        height = 32;
+        height = 32,
+        super(key: key);
 
-  const Space1.w()
+  const Space1.w({Key? key})
       : width = 32,
-        height = 0;
+        height = 0,
+        super(key: key);
 
-  const Space1.h()
+  const Space1.h({Key? key})
       : width = 0,
-        height = 32;
+        height = 32,
+        super(key: key);
 
   final double width;
 
@@ -33,17 +36,20 @@ class Space1 extends StatelessWidget {
 }
 
 class Space2 extends StatelessWidget {
-  const Space2()
+  const Space2({Key? key})
       : width = 26,
-        height = 26;
+        height = 26,
+        super(key: key);
 
-  const Space2.w()
+  const Space2.w({Key? key})
       : width = 26,
-        height = 0;
+        height = 0,
+        super(key: key);
 
-  const Space2.h()
+  const Space2.h({Key? key})
       : width = 0,
-        height = 26;
+        height = 26,
+        super(key: key);
 
   final double width;
 
@@ -56,17 +62,20 @@ class Space2 extends StatelessWidget {
 }
 
 class Space3 extends StatelessWidget {
-  const Space3()
+  const Space3({Key? key})
       : width = 18,
-        height = 18;
+        height = 18,
+        super(key: key);
 
-  const Space3.w()
+  const Space3.w({Key? key})
       : width = 18,
-        height = 0;
+        height = 0,
+        super(key: key);
 
-  const Space3.h()
+  const Space3.h({Key? key})
       : width = 0,
-        height = 18;
+        height = 18,
+        super(key: key);
 
   final double width;
 
@@ -79,17 +88,20 @@ class Space3 extends StatelessWidget {
 }
 
 class Space4 extends StatelessWidget {
-  const Space4()
+  const Space4({Key? key})
       : width = 12,
-        height = 12;
+        height = 12,
+        super(key: key);
 
-  const Space4.w()
+  const Space4.w({Key? key})
       : width = 12,
-        height = 0;
+        height = 0,
+        super(key: key);
 
-  const Space4.h()
+  const Space4.h({Key? key})
       : width = 0,
-        height = 12;
+        height = 12,
+        super(key: key);
 
   final double width;
 
@@ -102,17 +114,20 @@ class Space4 extends StatelessWidget {
 }
 
 class Space5 extends StatelessWidget {
-  const Space5()
+  const Space5({Key? key})
       : width = 5,
-        height = 5;
+        height = 5,
+        super(key: key);
 
-  const Space5.w()
+  const Space5.w({Key? key})
       : width = 5,
-        height = 0;
+        height = 0,
+        super(key: key);
 
-  const Space5.h()
+  const Space5.h({Key? key})
       : width = 0,
-        height = 5;
+        height = 5,
+        super(key: key);
 
   final double width;
 

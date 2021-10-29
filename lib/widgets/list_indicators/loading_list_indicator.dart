@@ -4,8 +4,9 @@ import 'package:unusable_player/unusable_player.dart' as up;
 
 class LoadingListIndicator extends StatelessWidget {
   const LoadingListIndicator({
+    Key? key,
     this.padding = const EdgeInsets.all(up.Dimensions.space1),
-  });
+  }) : super(key: key);
 
   static Widget sliver({
     EdgeInsetsGeometry padding = const EdgeInsets.all(up.Dimensions.space1),

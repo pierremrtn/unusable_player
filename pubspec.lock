@@ -336,7 +336,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: da7b9431a1dab5e6f083874641f98535942387a6
+      resolved-ref: da3d92615f8eac566f1b6a2948964cc8464d8cd0
       url: "https://github.com/pmtothemoon/neat"
     source: git
     version: "0.0.1"

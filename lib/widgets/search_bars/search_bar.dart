@@ -8,8 +8,9 @@ const double _kRightShift = up.Dimensions.space1;
 
 class SearchBar extends StatelessWidget {
   const SearchBar({
+    Key? key,
     this.onSearch,
-  });
+  }) : super(key: key);
 
   final Function(String)? onSearch;
 
@@ -37,9 +38,9 @@ class SearchBar extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
-                    padding: EdgeInsets.all(up.Dimensions.space4),
-                    foregroundDecoration: BoxDecoration(),
-                    child: Icon(
+                    padding: const EdgeInsets.all(up.Dimensions.space4),
+                    foregroundDecoration: const BoxDecoration(),
+                    child: const Icon(
                       up.Icons.search,
                       size: up.Dimensions.icon1,
                     ),

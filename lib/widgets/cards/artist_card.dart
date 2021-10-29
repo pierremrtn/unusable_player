@@ -8,7 +8,8 @@ class ArtistCard extends StatelessWidget {
   const ArtistCard({
     required this.artist,
     this.onTap,
-  });
+    Key? key,
+  }) : super(key: key);
 
   final up.Artist artist;
   final VoidCallback? onTap;
@@ -17,11 +18,11 @@ class ArtistCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
       onTap: onTap,
-      padding: EdgeInsets.all(up.Dimensions.space4),
+      padding: const EdgeInsets.all(up.Dimensions.space4),
       child: Row(
         children: [
-          up.Image.s3(AssetImage("assets/skeler.jpg")),
-          up.Space4(),
+          const up.Image.s3(AssetImage("assets/skeler.jpg")),
+          const up.Space4(),
           Expanded(
             child: context.headline5(artist.name),
           ),

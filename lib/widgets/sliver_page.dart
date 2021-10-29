@@ -9,7 +9,8 @@ class SliverPage extends StatelessWidget {
       horizontal: up.Dimensions.pageMargin,
     ),
     required this.slivers,
-  });
+    Key? key,
+  }) : super(key: key);
 
   final PreferredSizeWidget? appBar;
   final EdgeInsetsGeometry padding;

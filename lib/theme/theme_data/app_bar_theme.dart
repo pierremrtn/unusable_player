@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
 
-final appBarTheme = AppBarTheme(
+const appBarTheme = AppBarTheme(
   backgroundColor: up.Colors.white,
   systemOverlayStyle: SystemUiOverlayStyle(
     statusBarColor: up.Colors.white,

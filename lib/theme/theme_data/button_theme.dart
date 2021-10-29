@@ -6,7 +6,7 @@ import 'package:unusable_player/theme/theme.dart' as up;
 final outlinedButtonTheme = OutlinedButtonThemeData(
   style: ButtonStyle(
     padding: MaterialStateProperty.all(
-      EdgeInsets.all(
+      const EdgeInsets.all(
         up.Dimensions.space4,
       ),
     ),
@@ -21,13 +21,13 @@ final outlinedButtonTheme = OutlinedButtonThemeData(
       ),
     ),
     minimumSize: MaterialStateProperty.all(
-      Size(
+      const Size(
         up.Dimensions.space5,
         up.Dimensions.space5,
       ),
     ),
     side: MaterialStateProperty.all(
-      BorderSide(
+      const BorderSide(
         color: up.Colors.black,
         width: up.Dimensions.borderSize,
       ),

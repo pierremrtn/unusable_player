@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
 class UIKit extends StatelessWidget {
-  const UIKit();
+  const UIKit({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,31 +17,31 @@ class UIKit extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          up.Space1(),
+          const up.Space1(),
           ...artistCards,
-          Divider(),
+          const Divider(),
           ...albums,
-          Divider(),
+          const Divider(),
           ...listIndicators(),
-          Divider(),
+          const Divider(),
           ...playingSongIndicators,
-          Divider(),
+          const Divider(),
           navBar,
-          Divider(),
+          const Divider(),
           ...songCards,
-          Divider(),
+          const Divider(),
           ...playlistCards,
-          Divider(),
+          const Divider(),
           ...searchBars,
-          Divider(),
+          const Divider(),
           ...tabs,
-          Divider(),
+          const Divider(),
           ...texts(context),
-          Divider(),
+          const Divider(),
           icons,
-          Divider(),
+          const Divider(),
           ...cards(context),
-          Divider(),
+          const Divider(),
           ...buttons,
         ],
       ),
@@ -91,19 +91,19 @@ class UIKit extends StatelessWidget {
         ],
       );
 
-  listIndicators() => [
+  listIndicators() => const [
         up.EmptyListIndicator(),
         up.LoadingListIndicator(),
       ];
 
   cards(BuildContext context) => [
         up.DoubleBottomCard(
-          padding: EdgeInsets.all(up.Dimensions.space1),
+          padding: const EdgeInsets.all(up.Dimensions.space1),
           child: context.bodyText1("X Double Bottom Card"),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         up.DoubleBottomCard(
-          padding: EdgeInsets.all(up.Dimensions.space1),
+          padding: const EdgeInsets.all(up.Dimensions.space1),
           child: context.bodyText1("X Double Bottom Card"),
           bottomColor: Get.theme.colorScheme.secondary,
         ),
@@ -117,14 +117,14 @@ class UIKit extends StatelessWidget {
               onPressed: () {},
               style: up.ButtonStyle.primary,
             ),
-            up.Space4(),
+            const up.Space4(),
             up.Button(
               label: "home",
               icon: up.Icons.home,
               onPressed: () {},
               style: up.ButtonStyle.secondary,
             ),
-            up.Space4(),
+            const up.Space4(),
             up.Button(
               label: "transparent",
               onPressed: () {},
@@ -132,7 +132,7 @@ class UIKit extends StatelessWidget {
             ),
           ],
         ),
-        up.Space4(),
+        const up.Space4(),
         Row(
           children: [
             up.Button.round(
@@ -140,13 +140,13 @@ class UIKit extends StatelessWidget {
               onPressed: () {},
               style: up.ButtonStyle.primary,
             ),
-            up.Space4(),
+            const up.Space4(),
             up.Button.round(
               icon: up.Icons.home,
               onPressed: () {},
               style: up.ButtonStyle.secondary,
             ),
-            up.Space4(),
+            const up.Space4(),
             up.Button.round(
               icon: up.Icons.globe,
               onPressed: () {},
@@ -157,22 +157,22 @@ class UIKit extends StatelessWidget {
       ];
 
   List<Widget> get tabs => [
-        DefaultTabController(
+        const DefaultTabController(
           length: 4,
           child: up.TabBar(
-            tabs: const ["Overview", "Songs", "Album", "Artists"],
+            tabs: ["Overview", "Songs", "Album", "Artists"],
           ),
         ),
-        // up.Space1(),
+        // const up.Space1(),
       ];
 
   List<Widget> get searchBars => [
-        up.SearchBar(),
+        const up.SearchBar(),
       ];
 
   List<Widget> get playlistCards => [
-        up.PlaylistCard(),
-        up.Space4(),
+        const up.PlaylistCard(),
+        const up.Space4(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: const [
@@ -184,7 +184,7 @@ class UIKit extends StatelessWidget {
       ];
 
   List<Widget> get songCards => [
-        up.SongCard(
+        const up.SongCard(
           song: up.Song(
             uri: "",
             title: "title",
@@ -206,11 +206,11 @@ class UIKit extends StatelessWidget {
       );
 
   List<Widget> get playingSongIndicators => [
-        up.PlayingSongIndicator(),
+        const up.PlayingSongIndicator(),
       ];
 
   List<Widget> get albums => [
-        up.AlbumCard(
+        const up.AlbumCard(
           album: up.Album(
             id: 0,
             artist: up.ArtistRef(id: 0, name: "Artist"),
@@ -221,7 +221,7 @@ class UIKit extends StatelessWidget {
       ];
 
   List<Widget> get artistCards => [
-        up.ArtistCard(
+        const up.ArtistCard(
           artist: up.Artist(
             id: 0,
             name: "Skeler",
