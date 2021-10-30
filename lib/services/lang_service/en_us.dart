@@ -6,6 +6,6 @@ const enUS = {
   "home_artists_tab": "Artists",
   "home_songs_tab": "Songs",
   "home_albums_tab": "Albums",
-  "number_song": "@number song",
-  "number_song_plural": "@number songs"
+  "song_number": "@number song",
+  "song_number_plural": "@number songs"
 };

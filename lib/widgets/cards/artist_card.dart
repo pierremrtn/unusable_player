@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
+import 'package:get/get.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
-
-//TODO: Redesign
 
 class ArtistCard extends StatelessWidget {
   const ArtistCard({
@@ -19,13 +18,20 @@ class ArtistCard extends StatelessWidget {
     return up.DoubleBottomCard(
       onTap: onTap,
       padding: const EdgeInsets.all(up.Dimensions.space4),
+      borderRadius: up.Dimensions.borderRadius2,
       child: Row(
         children: [
-          const up.Image.s3(AssetImage("assets/skeler.jpg")),
-          const up.Space4(),
           Expanded(
             child: context.headline5(artist.name),
           ),
+          const up.Space4(),
+          context.bodyText1(
+            "song_number".trPluralParams(
+              "song_number_plural",
+              artist.numberOfTracks,
+              {"number": artist.numberOfTracks.toString()},
+            ),
+          )
         ],
       ),
     );
