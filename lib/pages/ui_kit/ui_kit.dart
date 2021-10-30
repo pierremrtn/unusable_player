@@ -225,6 +225,7 @@ class UIKit extends StatelessWidget {
           artist: up.Artist(
             id: 0,
             name: "Skeler",
+            numberOfTracks: 1,
           ),
         ),
       ];

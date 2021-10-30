@@ -11,6 +11,7 @@ class Artist with _$Artist {
   const factory Artist({
     required int id,
     @Default(kFallbackArtistName) String name,
+    required int numberOfTracks,
   }) = _Artist;
 }
 

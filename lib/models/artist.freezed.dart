@@ -17,10 +17,14 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ArtistTearOff {
   const _$ArtistTearOff();
 
-  _Artist call({required int id, String name = kFallbackArtistName}) {
+  _Artist call(
+      {required int id,
+      String name = kFallbackArtistName,
+      required int numberOfTracks}) {
     return _Artist(
       id: id,
       name: name,
+      numberOfTracks: numberOfTracks,
     );
   }
 }
@@ -32,6 +36,7 @@ const $Artist = _$ArtistTearOff();
 mixin _$Artist {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  int get numberOfTracks => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ArtistCopyWith<Artist> get copyWith => throw _privateConstructorUsedError;
@@ -41,7 +46,7 @@ mixin _$Artist {
 abstract class $ArtistCopyWith<$Res> {
   factory $ArtistCopyWith(Artist value, $Res Function(Artist) then) =
       _$ArtistCopyWithImpl<$Res>;
-  $Res call({int id, String name});
+  $Res call({int id, String name, int numberOfTracks});
 }
 
 /// @nodoc
@@ -56,6 +61,7 @@ class _$ArtistCopyWithImpl<$Res> implements $ArtistCopyWith<$Res> {
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
+    Object? numberOfTracks = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -66,6 +72,10 @@ class _$ArtistCopyWithImpl<$Res> implements $ArtistCopyWith<$Res> {
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      numberOfTracks: numberOfTracks == freezed
+          ? _value.numberOfTracks
+          : numberOfTracks // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -75,7 +85,7 @@ abstract class _$ArtistCopyWith<$Res> implements $ArtistCopyWith<$Res> {
   factory _$ArtistCopyWith(_Artist value, $Res Function(_Artist) then) =
       __$ArtistCopyWithImpl<$Res>;
   @override
-  $Res call({int id, String name});
+  $Res call({int id, String name, int numberOfTracks});
 }
 
 /// @nodoc
@@ -91,6 +101,7 @@ class __$ArtistCopyWithImpl<$Res> extends _$ArtistCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? name = freezed,
+    Object? numberOfTracks = freezed,
   }) {
     return _then(_Artist(
       id: id == freezed
@@ -101,6 +112,10 @@ class __$ArtistCopyWithImpl<$Res> extends _$ArtistCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      numberOfTracks: numberOfTracks == freezed
+          ? _value.numberOfTracks
+          : numberOfTracks // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -108,7 +123,10 @@ class __$ArtistCopyWithImpl<$Res> extends _$ArtistCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Artist extends _Artist {
-  const _$_Artist({required this.id, this.name = kFallbackArtistName})
+  const _$_Artist(
+      {required this.id,
+      this.name = kFallbackArtistName,
+      required this.numberOfTracks})
       : super._();
 
   @override
@@ -116,10 +134,12 @@ class _$_Artist extends _Artist {
   @JsonKey(defaultValue: kFallbackArtistName)
   @override
   final String name;
+  @override
+  final int numberOfTracks;
 
   @override
   String toString() {
-    return 'Artist(id: $id, name: $name)';
+    return 'Artist(id: $id, name: $name, numberOfTracks: $numberOfTracks)';
   }
 
   @override
@@ -129,14 +149,18 @@ class _$_Artist extends _Artist {
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)));
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.numberOfTracks, numberOfTracks) ||
+                const DeepCollectionEquality()
+                    .equals(other.numberOfTracks, numberOfTracks)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(name);
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(numberOfTracks);
 
   @JsonKey(ignore: true)
   @override
@@ -145,13 +169,16 @@ class _$_Artist extends _Artist {
 }
 
 abstract class _Artist extends Artist {
-  const factory _Artist({required int id, String name}) = _$_Artist;
+  const factory _Artist(
+      {required int id, String name, required int numberOfTracks}) = _$_Artist;
   const _Artist._() : super._();
 
   @override
   int get id => throw _privateConstructorUsedError;
   @override
   String get name => throw _privateConstructorUsedError;
+  @override
+  int get numberOfTracks => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$ArtistCopyWith<_Artist> get copyWith => throw _privateConstructorUsedError;
