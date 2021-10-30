@@ -3,49 +3,6 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 import 'package:unusable_player/unusable_player.dart' as up;
 
-extension _ToSong on SongModel {
-  up.Song? toSong() => uri != null
-      ? up.Song(
-          title: title,
-          duration: Duration(milliseconds: duration ?? 0),
-          uri: uri!,
-          artist: up.ArtistRef(
-            id: artistId,
-            name: artist,
-          ),
-          album: up.AlbumRef(
-            id: albumId,
-            title: album,
-          ),
-        )
-      : null;
-}
-
-extension _ToAlbum on AlbumModel {
-  up.Album toAlbum() => up.Album(
-        id: id,
-        title: album,
-        artist: up.ArtistRef(
-          id: artistId,
-          name: artist,
-        ),
-        songNumber: numOfSongs,
-      );
-}
-
-extension _ToArtist on ArtistModel {
-  up.Artist toArtist() => up.Artist(
-        id: id,
-        name: artist,
-      );
-}
-
-extension _Filter on List<SongModel> {
-  Iterable<SongModel> retainMusics() => where(
-        (element) => element.isMusic ?? false,
-      );
-}
-
 class AudioQueryService extends GetxService {
   static AudioQueryService get instance => Get.find<AudioQueryService>();
 
@@ -115,4 +72,48 @@ class AudioQueryService extends GetxService {
         )
         .toList();
   }
+}
+
+extension _ToSong on SongModel {
+  up.Song? toSong() => uri != null
+      ? up.Song(
+          title: title,
+          duration: Duration(milliseconds: duration ?? 0),
+          uri: uri!,
+          artist: up.ArtistRef(
+            id: artistId,
+            name: artist,
+          ),
+          album: up.AlbumRef(
+            id: albumId,
+            title: album,
+          ),
+        )
+      : null;
+}
+
+extension _ToAlbum on AlbumModel {
+  up.Album toAlbum() => up.Album(
+        id: id,
+        title: album,
+        artist: up.ArtistRef(
+          id: artistId,
+          name: artist,
+        ),
+        songNumber: numOfSongs,
+      );
+}
+
+extension _ToArtist on ArtistModel {
+  up.Artist toArtist() => up.Artist(
+        id: id,
+        name: artist,
+        numberOfTracks: numberOfTracks ?? 0,
+      );
+}
+
+extension _Filter on List<SongModel> {
+  Iterable<SongModel> retainMusics() => where(
+        (element) => element.isMusic ?? false,
+      );
 }
