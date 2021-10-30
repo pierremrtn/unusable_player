@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:neat/neat.dart';
 import 'package:unusable_player/pages/home/widgets/artist_list_tab.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
@@ -36,8 +37,8 @@ class Home extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      context.headline1("Unusable Player"),
-                      context.subtitle1("Sexy but unusable"),
+                      context.headline1("home_title".tr),
+                      context.subtitle1("home_subtitle".tr),
                     ],
                   ),
                 ),
@@ -54,7 +55,11 @@ class Home extends StatelessWidget {
                     NestedScrollView.sliverOverlapAbsorberHandleFor(context),
                 sliver: up.SliverPersistentTabBar(
                   isScrollable: false,
-                  tabs: const ["Songs", "Artists", "Albums"],
+                  tabs: [
+                    "home_songs_tab".tr,
+                    "home_artists_tab".tr,
+                    "home_albums_tab".tr,
+                  ],
                   forceExpandSeparator: innerBoxIsScrolled,
                 ),
               ),

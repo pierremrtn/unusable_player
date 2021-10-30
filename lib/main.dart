@@ -18,10 +18,14 @@ class UnusablePlayer extends StatelessWidget {
       theme: up.lightTheme,
       initialRoute: up.Pages.initial,
       getPages: up.Pages.pages,
+      translations: up.LangService(),
+      locale: up.LangService.initialLocale,
+      fallbackLocale: up.LangService.fallbackLocale,
     );
   }
 }
 
 Future<void> initServices() async {
   await Get.putAsync(() => up.AudioQueryService().init());
+  await Get.putAsync(() => up.LangService().init());
 }
