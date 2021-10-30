@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -20,46 +22,37 @@ class AudioQueryService extends GetxService {
   }
 
   Future<List<up.Song>> querySongs() async {
-    final List<SongModel> queryResult = await _audioQuery.querySongs();
-    return queryResult
-        .retainMusics()
-        .map((model) => model.toSong())
-        .where((e) => e != null)
-        .map((e) => e!)
-        .toList();
+    return _convertToSongList(await _audioQuery.querySongs());
   }
 
   Future<List<up.Song>> queryAlbumSongs(int albumID) async {
-    final List<SongModel> queryResult = await _audioQuery.queryAudiosFrom(
-      AudiosFromType.ALBUM_ID,
-      albumID,
+    return _convertToSongList(
+      await _audioQuery.queryAudiosFrom(
+        AudiosFromType.ALBUM_ID,
+        albumID,
+      ),
     );
-    return queryResult
-        .retainMusics()
-        .map((model) => model.toSong())
-        .where((e) => e != null)
-        .map((e) => e!)
-        .toList();
   }
 
   Future<List<up.Song>> queryArtistSongs(int artistID) async {
-    final List<SongModel> queryResult = await _audioQuery.queryAudiosFrom(
-      AudiosFromType.ARTIST_ID,
-      artistID,
+    return _convertToSongList(
+      await _audioQuery.queryAudiosFrom(
+        AudiosFromType.ARTIST_ID,
+        artistID,
+      ),
     );
-    return queryResult
-        .retainMusics()
-        .map((model) => model.toSong())
-        .where((e) => e != null)
-        .map((e) => e!)
-        .toList();
   }
 
   Future<List<up.Album>> queryAlbums() async {
     final List<AlbumModel> queryResult = await _audioQuery.queryAlbums();
-    return queryResult
-        .map(
-          (model) => model.toAlbum(),
+    return Stream.fromIterable(queryResult)
+        .asyncMap(
+          (model) async => model.toAlbum(
+            artwork: await _audioQuery.queryArtwork(
+              model.id,
+              ArtworkType.ALBUM,
+            ),
+          ),
         )
         .toList();
   }
@@ -72,10 +65,28 @@ class AudioQueryService extends GetxService {
         )
         .toList();
   }
+
+  Future<List<up.Song>> _convertToSongList(
+    Iterable<SongModel> songModels,
+  ) async {
+    return Stream.fromIterable(songModels)
+        .retainMusics()
+        .asyncMap(
+          (model) async => model.toSong(
+            artwork: await _audioQuery.queryArtwork(
+              model.id,
+              ArtworkType.AUDIO,
+            ),
+          ),
+        )
+        .where((e) => e != null)
+        .map((e) => e!)
+        .toList();
+  }
 }
 
 extension _ToSong on SongModel {
-  up.Song? toSong() => uri != null
+  up.Song? toSong({required Uint8List? artwork}) => uri != null
       ? up.Song(
           title: title,
           duration: Duration(milliseconds: duration ?? 0),
@@ -88,12 +99,13 @@ extension _ToSong on SongModel {
             id: albumId,
             title: album,
           ),
+          artwork: artwork,
         )
       : null;
 }
 
 extension _ToAlbum on AlbumModel {
-  up.Album toAlbum() => up.Album(
+  up.Album toAlbum({required Uint8List? artwork}) => up.Album(
         id: id,
         title: album,
         artist: up.ArtistRef(
@@ -101,6 +113,7 @@ extension _ToAlbum on AlbumModel {
           name: artist,
         ),
         songNumber: numOfSongs,
+        artwork: artwork,
       );
 }
 
@@ -112,8 +125,8 @@ extension _ToArtist on ArtistModel {
       );
 }
 
-extension _Filter on List<SongModel> {
-  Iterable<SongModel> retainMusics() => where(
+extension _FilterSongs on Stream<SongModel> {
+  Stream<SongModel> retainMusics() => where(
         (element) => element.isMusic ?? false,
       );
 }

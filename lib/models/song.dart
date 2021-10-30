@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'artist.dart';
 import 'album.dart';
@@ -14,5 +16,6 @@ class Song with _$Song {
     required Duration duration,
     required ArtistRef artist,
     required AlbumRef album,
+    Uint8List? artwork,
   }) = _Song;
 }

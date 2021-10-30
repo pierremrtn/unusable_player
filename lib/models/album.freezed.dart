@@ -21,12 +21,14 @@ class _$AlbumTearOff {
       {required int id,
       String title = kFallbackAlbumTitle,
       required ArtistRef artist,
-      required int songNumber}) {
+      required int songNumber,
+      Uint8List? artwork}) {
     return _Album(
       id: id,
       title: title,
       artist: artist,
       songNumber: songNumber,
+      artwork: artwork,
     );
   }
 }
@@ -40,6 +42,7 @@ mixin _$Album {
   String get title => throw _privateConstructorUsedError;
   ArtistRef get artist => throw _privateConstructorUsedError;
   int get songNumber => throw _privateConstructorUsedError;
+  Uint8List? get artwork => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AlbumCopyWith<Album> get copyWith => throw _privateConstructorUsedError;
@@ -49,7 +52,12 @@ mixin _$Album {
 abstract class $AlbumCopyWith<$Res> {
   factory $AlbumCopyWith(Album value, $Res Function(Album) then) =
       _$AlbumCopyWithImpl<$Res>;
-  $Res call({int id, String title, ArtistRef artist, int songNumber});
+  $Res call(
+      {int id,
+      String title,
+      ArtistRef artist,
+      int songNumber,
+      Uint8List? artwork});
 }
 
 /// @nodoc
@@ -66,6 +74,7 @@ class _$AlbumCopyWithImpl<$Res> implements $AlbumCopyWith<$Res> {
     Object? title = freezed,
     Object? artist = freezed,
     Object? songNumber = freezed,
+    Object? artwork = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -84,6 +93,10 @@ class _$AlbumCopyWithImpl<$Res> implements $AlbumCopyWith<$Res> {
           ? _value.songNumber
           : songNumber // ignore: cast_nullable_to_non_nullable
               as int,
+      artwork: artwork == freezed
+          ? _value.artwork
+          : artwork // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
     ));
   }
 }
@@ -93,7 +106,12 @@ abstract class _$AlbumCopyWith<$Res> implements $AlbumCopyWith<$Res> {
   factory _$AlbumCopyWith(_Album value, $Res Function(_Album) then) =
       __$AlbumCopyWithImpl<$Res>;
   @override
-  $Res call({int id, String title, ArtistRef artist, int songNumber});
+  $Res call(
+      {int id,
+      String title,
+      ArtistRef artist,
+      int songNumber,
+      Uint8List? artwork});
 }
 
 /// @nodoc
@@ -111,6 +129,7 @@ class __$AlbumCopyWithImpl<$Res> extends _$AlbumCopyWithImpl<$Res>
     Object? title = freezed,
     Object? artist = freezed,
     Object? songNumber = freezed,
+    Object? artwork = freezed,
   }) {
     return _then(_Album(
       id: id == freezed
@@ -129,6 +148,10 @@ class __$AlbumCopyWithImpl<$Res> extends _$AlbumCopyWithImpl<$Res>
           ? _value.songNumber
           : songNumber // ignore: cast_nullable_to_non_nullable
               as int,
+      artwork: artwork == freezed
+          ? _value.artwork
+          : artwork // ignore: cast_nullable_to_non_nullable
+              as Uint8List?,
     ));
   }
 }
@@ -140,7 +163,8 @@ class _$_Album extends _Album {
       {required this.id,
       this.title = kFallbackAlbumTitle,
       required this.artist,
-      required this.songNumber})
+      required this.songNumber,
+      this.artwork})
       : super._();
 
   @override
@@ -152,10 +176,12 @@ class _$_Album extends _Album {
   final ArtistRef artist;
   @override
   final int songNumber;
+  @override
+  final Uint8List? artwork;
 
   @override
   String toString() {
-    return 'Album(id: $id, title: $title, artist: $artist, songNumber: $songNumber)';
+    return 'Album(id: $id, title: $title, artist: $artist, songNumber: $songNumber, artwork: $artwork)';
   }
 
   @override
@@ -170,7 +196,9 @@ class _$_Album extends _Album {
                 const DeepCollectionEquality().equals(other.artist, artist)) &&
             (identical(other.songNumber, songNumber) ||
                 const DeepCollectionEquality()
-                    .equals(other.songNumber, songNumber)));
+                    .equals(other.songNumber, songNumber)) &&
+            (identical(other.artwork, artwork) ||
+                const DeepCollectionEquality().equals(other.artwork, artwork)));
   }
 
   @override
@@ -179,7 +207,8 @@ class _$_Album extends _Album {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(artist) ^
-      const DeepCollectionEquality().hash(songNumber);
+      const DeepCollectionEquality().hash(songNumber) ^
+      const DeepCollectionEquality().hash(artwork);
 
   @JsonKey(ignore: true)
   @override
@@ -192,7 +221,8 @@ abstract class _Album extends Album {
       {required int id,
       String title,
       required ArtistRef artist,
-      required int songNumber}) = _$_Album;
+      required int songNumber,
+      Uint8List? artwork}) = _$_Album;
   const _Album._() : super._();
 
   @override
@@ -203,6 +233,8 @@ abstract class _Album extends Album {
   ArtistRef get artist => throw _privateConstructorUsedError;
   @override
   int get songNumber => throw _privateConstructorUsedError;
+  @override
+  Uint8List? get artwork => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AlbumCopyWith<_Album> get copyWith => throw _privateConstructorUsedError;

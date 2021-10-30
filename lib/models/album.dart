@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'artist.dart';
 
@@ -14,6 +16,7 @@ class Album with _$Album {
     @Default(kFallbackAlbumTitle) String title,
     required ArtistRef artist,
     required int songNumber,
+    Uint8List? artwork,
   }) = _Album;
 }
 

@@ -17,18 +17,26 @@ class SongCard extends StatelessWidget {
       padding: const EdgeInsets.all(up.Dimensions.space4),
       child: Row(
         children: [
-          const up.Image.s3(AssetImage("assets/skeler.jpg")),
+          up.Image.s3(
+            song.artwork != null
+                ? MemoryImage(song.artwork!) as ImageProvider<Object>
+                : const AssetImage("assets/skeler.jpg"),
+          ),
           const up.Space4(),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                context.headline5(song.artist.name),
+                context.headline5(
+                  song.title,
+                  softWrap: false,
+                  overflow: TextOverflow.ellipsis,
+                ),
                 const up.Space5(),
                 Row(
                   children: [
                     Expanded(
-                      child: context.subtitle2(song.title),
+                      child: context.subtitle2(song.artist.name),
                     ),
                     context.bodyText2(song.duration.display),
                   ],
