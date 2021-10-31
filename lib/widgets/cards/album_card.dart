@@ -25,10 +25,12 @@ class AlbumCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          up.Image.h2(
-            album.artwork != null
-                ? MemoryImage(album.artwork!) as ImageProvider<Object>
-                : const AssetImage("assets/skeler.jpg"),
+          Flexible(
+            child: up.Image.h2(
+              album.artwork != null
+                  ? MemoryImage(album.artwork!) as ImageProvider<Object>
+                  : const AssetImage("assets/skeler.jpg"),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(
@@ -38,13 +40,17 @@ class AlbumCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Wrap(
-                  alignment: WrapAlignment.spaceBetween,
-                  // crossAxisAlignment: CrossAxisAlignment.center,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(child: context.bodyText2(album.artist.name)),
-                    const up.Space5.w(),
                     Expanded(
+                        child: context.bodyText2(
+                      album.artist.name,
+                      softWrap: false,
+                      overflow: TextOverflow.ellipsis,
+                    )),
+                    const up.Space5.w(),
+                    Flexible(
                       child: context.bodyText2(
                         "song_number".trPluralParams(
                           "song_number_plural",
