@@ -98,11 +98,13 @@ class UIKit extends StatelessWidget {
 
   cards(BuildContext context) => [
         up.DoubleBottomCard(
+          onTap: () {},
           padding: const EdgeInsets.all(up.Dimensions.space1),
           child: context.bodyText1("X Double Bottom Card"),
         ),
         const SizedBox(height: 10),
         up.DoubleBottomCard(
+          onTap: () {},
           padding: const EdgeInsets.all(up.Dimensions.space1),
           child: context.bodyText1("X Double Bottom Card"),
           bottomColor: Get.theme.colorScheme.secondary,

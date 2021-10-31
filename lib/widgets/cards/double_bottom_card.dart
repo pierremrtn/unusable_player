@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:unusable_player/theme/theme.dart' as up;
+import 'package:neat/neat.dart';
+import 'package:unusable_player/unusable_player.dart' as up;
 
 class _DoubleBorderPainter extends CustomPainter {
   const _DoubleBorderPainter({
@@ -87,28 +88,37 @@ class DoubleBottomCard extends StatelessWidget {
     return CustomPaint(
       painter: _DoubleBorderPainter(
         color: bottomColor,
-        borderColor: Theme.of(context).colorScheme.onSurface,
+        borderColor: context.colorScheme.onSurface,
         borderWidth: up.Dimensions.borderSize,
         height: bottomHeight,
         radius: borderRadius,
         horizontalPadding: bottomHorizontalPadding,
       ),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          height: height,
-          width: width,
-          margin: EdgeInsets.only(bottom: bottomHeight),
-          decoration: BoxDecoration(
-            color: backgroundColor ?? Theme.of(context).colorScheme.surface,
-            border: Border.all(
-              color: Theme.of(context).colorScheme.onSurface,
-              width: up.Dimensions.borderSize,
-            ),
-            borderRadius: BorderRadius.circular(borderRadius),
+      child: Container(
+        height: height,
+        width: width,
+        margin: EdgeInsets.only(bottom: bottomHeight),
+        decoration: BoxDecoration(
+          color: backgroundColor ?? context.colorScheme.surface,
+          border: Border.all(
+            color: context.colorScheme.onSurface,
+            width: up.Dimensions.borderSize,
           ),
-          padding: padding,
-          child: child,
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: onTap,
+            splashColor: bottomColor != Colors.transparent
+                ? bottomColor
+                : context.colorScheme.primary,
+            borderRadius: BorderRadius.circular(borderRadius),
+            child: Padding(
+              padding: padding ?? EdgeInsets.zero,
+              child: child,
+            ),
+          ),
         ),
       ),
     );
