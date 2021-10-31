@@ -6,14 +6,17 @@ import 'package:unusable_player/unusable_player.dart' as up;
 class SongCard extends StatelessWidget {
   const SongCard({
     required this.song,
+    this.onTap,
     Key? key,
   }) : super(key: key);
 
   final up.Song song;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
+      onTap: onTap,
       padding: const EdgeInsets.all(up.Dimensions.space4),
       child: Row(
         children: [

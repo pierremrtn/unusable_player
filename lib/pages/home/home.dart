@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:neat/neat.dart';
+import 'package:unusable_player/pages/home/controllers/home_controller.dart';
 import 'package:unusable_player/pages/home/widgets/artist_list_tab.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
@@ -10,7 +11,7 @@ import 'widgets/album_list_tab.dart';
 
 export 'home_bindings.dart';
 
-class Home extends StatelessWidget {
+class Home extends GetView<HomeController> {
   const Home({Key? key}) : super(key: key);
 
   @override
@@ -64,12 +65,18 @@ class Home extends StatelessWidget {
                 ),
               ),
             ],
-            body: const TabBarView(
+            body: TabBarView(
               dragStartBehavior: DragStartBehavior.down,
               children: [
-                SongListTab(),
-                ArtistListTab(),
-                AlbumListTab(),
+                SongListTab(
+                  onSongTap: controller.onSongTap,
+                ),
+                ArtistListTab(
+                  onSongTap: controller.onSongTap,
+                ),
+                AlbumListTab(
+                  onSongTap: controller.onSongTap,
+                ),
               ],
             ),
           ),

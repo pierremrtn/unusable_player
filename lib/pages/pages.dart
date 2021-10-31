@@ -21,7 +21,8 @@ class Pages {
     GetPage(
       name: Routes.player,
       page: () => const Player(),
-      // binding: HomeBindings(),
+      binding: PlayerBindings(),
+      transition: Transition.rightToLeft,
     ),
   ];
 }

@@ -8,7 +8,12 @@ import 'home_inner_list.dart';
 import 'sliver_artist_list.dart';
 
 class ArtistListTab extends GetView<ArtistsController> {
-  const ArtistListTab({Key? key}) : super(key: key);
+  const ArtistListTab({
+    this.onSongTap,
+    Key? key,
+  }) : super(key: key);
+
+  final OnSongTap? onSongTap;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +55,7 @@ class ArtistListTab extends GetView<ArtistsController> {
       child: HomeInnerList(
         sliver: SliverSongList(
           songs: controller.artistSongs ?? [],
+          onSongTap: onSongTap,
         ),
       ),
     );
