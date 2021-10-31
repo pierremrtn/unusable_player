@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
 import 'package:get/get.dart';
-import 'package:on_audio_query/on_audio_query.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
-
-//TODO: redesign card
 
 class AlbumCard extends StatelessWidget {
   const AlbumCard({
