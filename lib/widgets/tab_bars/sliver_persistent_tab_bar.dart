@@ -39,7 +39,8 @@ class _SliverPersistentTabBarDelegate extends SliverPersistentHeaderDelegate {
           ),
           AnimatedContainer(
             height: 0,
-            duration: kThemeAnimationDuration,
+            duration: up.Feel.animationDuration,
+            curve: up.Feel.animationCurve,
             margin: expandSeparator
                 ? EdgeInsets.zero
                 : const EdgeInsets.symmetric(horizontal: up.Dimensions.space3),

@@ -19,7 +19,9 @@ class AlbumListTab extends GetView<AlbumsController> {
   Widget build(BuildContext context) {
     return Obx(
       () => AnimatedSwitcher(
-        duration: kThemeAnimationDuration,
+        duration: up.Feel.animationDuration,
+        switchInCurve: up.Feel.animationCurve,
+        switchOutCurve: up.Feel.animationCurve,
         transitionBuilder: _transitionBuilder,
         child: controller.showAlbumSongs.value
             ? _buildAlbumSongList(context)

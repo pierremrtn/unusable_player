@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:neat/neat.dart';
-import 'search_bar.dart' as up;
+import 'package:unusable_player/unusable_player.dart' as up;
 
 class _SliverPersistentSearchBarDelegate
     extends SliverPersistentHeaderDelegate {
@@ -11,7 +11,7 @@ class _SliverPersistentSearchBarDelegate
     EdgeInsets? padding,
     Curve? curve,
   })  : padding = padding ?? EdgeInsets.zero,
-        curve = curve ?? Curves.easeInOutCubicEmphasized;
+        curve = curve ?? up.Feel.animationCurve;
 
   final EdgeInsets padding;
   final Curve curve;
