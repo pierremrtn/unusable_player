@@ -20,8 +20,10 @@ class Player extends GetView<PlayerController> {
         title: "Now playing",
       ),
       body: controller.obx(
-        (song) {
-          song!;
+        (state) {
+          state!;
+          final song = state.displayedSong!;
+          final isPlaying = state.isPlaying;
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -30,7 +32,11 @@ class Player extends GetView<PlayerController> {
               const up.Space1(),
               Cover(artwork: song.artwork),
               const up.Space1(),
-              const PlayerControl(),
+              PlayerControl(
+                isPlaying: isPlaying,
+                onPlay: () => controller.play(song),
+                onPause: controller.pause,
+              ),
             ],
           );
         },

@@ -5,7 +5,16 @@ import 'package:unusable_player/unusable_player.dart' as up;
 import 'control_background.dart';
 
 class PlayerControl extends StatelessWidget {
-  const PlayerControl({Key? key}) : super(key: key);
+  const PlayerControl({
+    required this.isPlaying,
+    this.onPlay,
+    this.onPause,
+    Key? key,
+  }) : super(key: key);
+
+  final bool isPlaying;
+  final VoidCallback? onPlay;
+  final VoidCallback? onPause;
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +48,7 @@ class PlayerControl extends StatelessWidget {
                     up.Button.icon(up.Icons.loop, onPressed: () {}),
                     up.Button.icon(up.Icons.fast_backward, onPressed: () {}),
                     Expanded(
-                      child: up.Button.round(
-                        onPressed: () {},
-                        icon: up.Icons.play,
-                        style: up.ButtonStyle.secondary,
-                        padding: const EdgeInsets.all(up.Dimensions.space4),
-                      ),
+                      child: _buildPlayButton(),
                     ),
                     up.Button.icon(up.Icons.fast_forward, onPressed: () {}),
                     up.Button.icon(up.Icons.shuffle, onPressed: () {}),
@@ -64,6 +68,15 @@ class PlayerControl extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildPlayButton() {
+    return up.Button.round(
+      onPressed: isPlaying ? onPause : onPlay,
+      icon: isPlaying ? up.Icons.pause : up.Icons.play,
+      style: up.ButtonStyle.secondary,
+      padding: const EdgeInsets.all(up.Dimensions.space4),
     );
   }
 }

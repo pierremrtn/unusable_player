@@ -12,7 +12,7 @@ enum ButtonStyle {
 
 class Button extends StatelessWidget {
   const Button._({
-    required this.onPressed,
+    this.onPressed,
     this.icon,
     this.label,
     this.padding,
@@ -24,7 +24,7 @@ class Button extends StatelessWidget {
         round = round ?? false;
 
   factory Button({
-    required VoidCallback onPressed,
+    VoidCallback? onPressed,
     IconData? icon,
     String? label,
     ButtonStyle? style,
@@ -40,7 +40,7 @@ class Button extends StatelessWidget {
       );
 
   factory Button.round({
-    required VoidCallback onPressed,
+    VoidCallback? onPressed,
     IconData? icon,
     ButtonStyle? style,
     EdgeInsetsGeometry? padding,
@@ -68,7 +68,7 @@ class Button extends StatelessWidget {
 
   final IconData? icon;
   final String? label;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final bool round;
   final EdgeInsetsGeometry? padding;
   final ButtonStyle style;
