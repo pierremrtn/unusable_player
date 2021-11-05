@@ -19,27 +19,25 @@ class Player extends GetView<PlayerController> {
         context: context,
         title: "Now playing",
       ),
-      body: controller.obx(
-        (state) {
-          state!;
-          final song = state.displayedSong!;
-          final isPlaying = state.isPlaying;
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              context.headline1(song.title),
-              context.subtitle1(song.artist.name),
-              const up.Space1(),
-              Cover(artwork: song.artwork),
-              const up.Space1(),
-              PlayerControl(
-                isPlaying: isPlaying,
-                onPlay: () => controller.play(song),
+      body: Obx(
+        () => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            context.headline1(controller.displayedSong.title),
+            context.subtitle1(controller.displayedSong.artist.name),
+            const up.Space1(),
+            Cover(artwork: controller.displayedSong.artwork),
+            const up.Space1(),
+            Obx(
+              () => PlayerControl(
+                state: controller.controlState,
+                onSetTime: controller.setTime,
+                onPlay: controller.play,
                 onPause: controller.pause,
               ),
-            ],
-          );
-        },
+            ),
+          ],
+        ),
       ),
     );
   }

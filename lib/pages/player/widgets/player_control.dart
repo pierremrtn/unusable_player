@@ -1,20 +1,25 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
+import 'package:unusable_player/pages/player/models/player_control_state.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
 import 'control_background.dart';
 
 class PlayerControl extends StatelessWidget {
   const PlayerControl({
-    required this.isPlaying,
+    required this.state,
     this.onPlay,
     this.onPause,
+    this.onSetTime,
     Key? key,
   }) : super(key: key);
 
-  final bool isPlaying;
+  final PlayerControlState state;
   final VoidCallback? onPlay;
   final VoidCallback? onPause;
+  final ValueChanged<Duration>? onSetTime;
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +40,32 @@ class PlayerControl extends StatelessWidget {
                     horizontal: up.Dimensions.space3,
                   ),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      context.headline5("01:11"),
-                      context.headline5("03:56"),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        child: context.headline5(
+                          _formatedCurrentTime,
+                          textAlign: TextAlign.right,
+                          style: const TextStyle(
+                            fontFeatures: [FontFeature.tabularFigures()],
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 4,
+                        child: _buildDurationSlider(),
+                      ),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        child: context.headline5(
+                          _formatedSongDuration,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontFeatures: [FontFeature.tabularFigures()],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -73,10 +100,33 @@ class PlayerControl extends StatelessWidget {
 
   Widget _buildPlayButton() {
     return up.Button.round(
-      onPressed: isPlaying ? onPause : onPlay,
-      icon: isPlaying ? up.Icons.pause : up.Icons.play,
+      onPressed: state.isPlaying ? onPause : onPlay,
+      icon: state.isPlaying ? up.Icons.pause : up.Icons.play,
       style: up.ButtonStyle.secondary,
       padding: const EdgeInsets.all(up.Dimensions.space4),
     );
   }
+
+  Widget _buildDurationSlider() {
+    double value = 0;
+    double max = 0;
+    if (state.songDuration != null && state.currentTime != null) {
+      max = state.songDuration!.inMilliseconds.toDouble();
+      value = state.currentTime!.inMilliseconds / max;
+    }
+    return Slider(
+      value: value.toDouble(),
+      onChanged: onSetTime != null
+          ? (value) => onSetTime!(
+                Duration(
+                  milliseconds: (value * max).toInt(),
+                ),
+              )
+          : null,
+    );
+  }
+
+  String get _formatedCurrentTime => state.currentTime?.display ?? "--:--";
+
+  String get _formatedSongDuration => state.songDuration?.display ?? "--:--";
 }

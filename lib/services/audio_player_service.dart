@@ -2,15 +2,12 @@ import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
-export '../pages/player/models/player_state.dart';
-
 class AudioPlayerService extends GetxService {
   static AudioPlayerService get instance => Get.find<AudioPlayerService>();
 
   final _player = AudioPlayer();
 
   up.Song? playingSong;
-  bool isPlaying = false;
 
   Future<void> playSong(up.Song song) async {
     if (song != playingSong) {
@@ -19,11 +16,22 @@ class AudioPlayerService extends GetxService {
       playingSong = song;
     }
     _player.play();
-    isPlaying = true;
   }
 
   Future<void> pause() async {
     _player.pause();
-    isPlaying = false;
   }
+
+  Future<void> setTime(Duration time) async {
+    _player.seek(time);
+  }
+
+  Stream<up.Song> get songStream async* {
+    //todo playlist List<{up.Song, audioSource}>
+    // return _player.playbackEventStream.map((event) => playingSong!);
+  }
+
+  Stream<bool> get isPlayingStream => _player.playingStream;
+  Stream<Duration> get currentTimeStream => _player.positionStream;
+  Stream<double> get volumeStream => _player.volumeStream;
 }
