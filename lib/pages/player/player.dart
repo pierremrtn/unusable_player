@@ -41,6 +41,7 @@ class Player extends GetView<PlayerController> {
                 onNext: controller.next,
               ),
             ),
+            const up.Space1(),
           ],
         ),
       ),
