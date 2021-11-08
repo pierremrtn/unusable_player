@@ -9,7 +9,11 @@ import 'controllers/artists_controller.dart';
 class HomeBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(HomeController());
+    Get.put(
+      HomeController(
+        audioPlayerService: up.AudioPlayerService.instance,
+      ),
+    );
     Get.lazyPut(
       () => SongsController(
         audioQueryService: up.AudioQueryService.instance,

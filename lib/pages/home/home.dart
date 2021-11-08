@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:neat/neat.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:unusable_player/pages/home/controllers/home_controller.dart';
 import 'package:unusable_player/pages/home/widgets/artist_list_tab.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
@@ -19,6 +20,10 @@ class Home extends GetView<HomeController> {
     return Scaffold(
       appBar: up.emptyAppBar(),
       backgroundColor: context.colorScheme.background,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: up.Dimensions.space3),
+          child: _buildPlayingIndicator(context)),
       body: SafeArea(
         child: DefaultTabController(
           length: 3,
@@ -81,6 +86,44 @@ class Home extends GetView<HomeController> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildPlayingIndicator(BuildContext context) {
+    return Obx(
+      () => AnimatedSwitcher(
+        duration: up.Feel.animationDuration,
+        switchInCurve: up.Feel.animationCurve,
+        switchOutCurve: up.Feel.animationCurve,
+        transitionBuilder: (
+          Widget child,
+          Animation<double> animation,
+        ) =>
+            ScaleTransition(
+          child: child,
+          scale: animation,
+        ),
+        child: controller.playingSong != null && controller.isPlaying
+            ? BounceInUp(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(boxShadow: [
+                    BoxShadow(
+                      color: context.colorScheme.surface,
+                      blurRadius: 10,
+                      spreadRadius: 10,
+                    ),
+                  ]),
+                  child: up.PlayingSongIndicator(
+                    song: controller.playingSong!,
+                    isPlaying: controller.isPlaying,
+                    onPlay: controller.playingSongIndicatorPlay,
+                    onPause: controller.playingSongIndicatorPause,
+                    onTap: controller.onPlayingSongIndicatorTap,
+                  ),
+                ),
+              )
+            : const SizedBox.shrink(),
       ),
     );
   }

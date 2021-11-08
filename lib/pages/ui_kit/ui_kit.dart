@@ -208,7 +208,15 @@ class UIKit extends StatelessWidget {
       );
 
   List<Widget> get playingSongIndicators => [
-        const up.PlayingSongIndicator(),
+        const up.PlayingSongIndicator(
+          song: up.Song(
+            title: "z",
+            uri: "",
+            duration: Duration(),
+            artist: up.ArtistRef(),
+            album: up.AlbumRef(),
+          ),
+        ),
       ];
 
   List<Widget> get albums => [
