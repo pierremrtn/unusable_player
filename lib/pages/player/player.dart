@@ -23,17 +23,22 @@ class Player extends GetView<PlayerController> {
         () => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            context.headline1(controller.displayedSong.title),
-            context.subtitle1(controller.displayedSong.artist.name),
+            context.headline1(controller.song.title),
+            context.subtitle1(controller.song.artist.name),
             const up.Space1(),
-            Cover(artwork: controller.displayedSong.artwork),
+            Cover(artwork: controller.song.artwork),
             const up.Space1(),
-            Obx(
-              () => PlayerControl(
-                state: controller.controlState,
+            controller.obx(
+              (controlState) => PlayerControl(
+                state: controlState!,
                 onSetTime: controller.setTime,
+                onSetVolume: controller.setVolume,
                 onPlay: controller.play,
                 onPause: controller.pause,
+                onToggleLoopMode: controller.toggleLoopMode,
+                onToggleShuffleMode: controller.toggleShuffleMode,
+                onPrevious: controller.previous,
+                onNext: controller.next,
               ),
             ),
           ],

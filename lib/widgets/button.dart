@@ -16,12 +16,15 @@ class Button extends StatelessWidget {
     this.icon,
     this.label,
     this.padding,
+    this.iconColor,
     bool? round,
     ButtonStyle? style,
+    bool? enabled,
   })  : assert(icon != null || label != null),
         assert(style != ButtonStyle.icon || icon != null),
         style = style ?? ButtonStyle.primary,
-        round = round ?? false;
+        round = round ?? false,
+        enabled = enabled ?? true;
 
   factory Button({
     VoidCallback? onPressed,
@@ -29,6 +32,8 @@ class Button extends StatelessWidget {
     String? label,
     ButtonStyle? style,
     EdgeInsetsGeometry? padding,
+    bool? enabled,
+    Color? iconColor,
   }) =>
       Button._(
         onPressed: onPressed,
@@ -37,6 +42,8 @@ class Button extends StatelessWidget {
         round: false,
         style: style,
         padding: padding,
+        enabled: enabled,
+        iconColor: iconColor,
       );
 
   factory Button.round({
@@ -44,6 +51,8 @@ class Button extends StatelessWidget {
     IconData? icon,
     ButtonStyle? style,
     EdgeInsetsGeometry? padding,
+    bool? enabled,
+    Color? iconColor,
   }) =>
       Button._(
         onPressed: onPressed,
@@ -51,12 +60,17 @@ class Button extends StatelessWidget {
         round: true,
         style: style,
         padding: padding,
+        enabled: enabled,
+        iconColor: iconColor,
       );
 
   factory Button.icon(
     IconData icon, {
-    required VoidCallback onPressed,
+    VoidCallback? onPressed,
     EdgeInsetsGeometry? padding,
+    bool? enabled,
+    Color? color,
+    Color? disabledColor,
   }) =>
       Button._(
         onPressed: onPressed,
@@ -64,14 +78,19 @@ class Button extends StatelessWidget {
         round: true,
         style: ButtonStyle.icon,
         padding: padding,
+        enabled: enabled,
+        iconColor:
+            (enabled ?? true) || disabledColor == null ? color : disabledColor,
       );
 
+  final Color? iconColor;
   final IconData? icon;
   final String? label;
   final VoidCallback? onPressed;
   final bool round;
   final EdgeInsetsGeometry? padding;
   final ButtonStyle style;
+  final bool enabled;
 
   MaterialStateProperty<OutlinedBorder>? get shape =>
       round ? MaterialStateProperty.all(const CircleBorder()) : null;
@@ -119,15 +138,15 @@ class Button extends StatelessWidget {
         child: IconButton(
           iconSize: up.Dimensions.icon2,
           splashRadius: up.Dimensions.icon2,
-          icon: _buildIcon(),
-          onPressed: onPressed,
+          icon: _buildIcon(context),
+          onPressed: enabled ? onPressed : null,
           splashColor: context.colorScheme.secondary,
         ),
       );
     }
 
     return OutlinedButton(
-      onPressed: onPressed,
+      onPressed: enabled ? onPressed : null,
       style: flutter.ButtonStyle(
         shape: shape,
         backgroundColor: backgroundColor(context),
@@ -139,7 +158,7 @@ class Button extends StatelessWidget {
   }
 
   Widget _buildInner(BuildContext context) {
-    final Widget? iconWidget = icon != null ? _buildIcon() : null;
+    final Widget? iconWidget = icon != null ? _buildIcon(context) : null;
     final Widget? textWidget = label != null
         ? Text(
             label!,
@@ -163,10 +182,12 @@ class Button extends StatelessWidget {
         : innerWidget;
   }
 
-  Widget _buildIcon() {
+  Widget _buildIcon(BuildContext context) {
+    final color = iconColor ?? context.colorScheme.onSurface;
     return Icon(
       icon,
       size: up.Dimensions.icon2,
+      color: enabled ? color : color.withOpacity(0.3),
     );
   }
 

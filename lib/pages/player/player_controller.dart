@@ -1,84 +1,63 @@
 import 'package:get/get.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
-import 'models/page_state.dart';
 import 'models/player_control_state.dart';
 
-class PlayerController extends GetxController {
+class PlayerController extends GetxController
+    with StateMixin<PlayerControlState> {
+  PlayerController({
+    required this.audioService,
+  });
+
   @override
   void onInit() {
     super.onInit();
     try {
       final args = Get.arguments;
-      final song = args[0] as up.Song;
-      _setDisplayedSong(song);
+      _song.value = args[0] as up.Song;
       _bindStreams();
+      play();
     } catch (e) {
       Get.back();
     }
   }
 
-  final Rx<up.PageState> pageState = PageState(
-    displayedSong: null,
-    displayPlayingSong: false,
-  ).obs;
-  final Rx<Duration?> currentTime = Rx(null);
-  final RxDouble volume = 0.0.obs;
-  final RxBool isPlaying = false.obs;
+  final up.AudioPlayerService audioService;
+  final Rx<up.Song?> _song = Rx(null);
 
-  up.Song get displayedSong => pageState.value.displayedSong!;
+  up.Song get song => _song.value!;
 
-  PlayerControlState get controlState {
-    if (pageState.value.displayPlayingSong) {
-      return PlayerControlState(
-        isPlaying: isPlaying.value,
-        currentTime: currentTime.value,
-        songDuration: pageState.value.displayedSong?.duration,
-      );
-    } else {
-      return PlayerControlState(
-        isPlaying: false,
-        currentTime: null,
-        songDuration: pageState.value.displayedSong?.duration,
-      );
-    }
-  }
-
-  Future<void> play() async {
-    await up.AudioPlayerService.instance.playSong(
-      pageState.value.displayedSong!,
-    );
-    pageState.update(
-      (state) {
-        state!.displayPlayingSong = true;
-      },
-    );
-  }
-
-  Future<void> pause() async {
-    await up.AudioPlayerService.instance.pause();
-  }
-
-  Future<void> setTime(Duration time) async {
-    await up.AudioPlayerService.instance.setTime(time);
-  }
-
-  void _setDisplayedSong(up.Song song) {
-    pageState.update(
-      (state) {
-        if (state != null) {
-          state.displayPlayingSong =
-              song == up.AudioPlayerService.instance.playingSong;
-          state.displayedSong = song;
-        }
-      },
-    );
-  }
+  Future<void> play() async => audioService.playSong(song);
+  Future<void> pause() async => audioService.pause();
+  Future<void> setTime(Duration time) async => audioService.setTime(time);
+  Future<void> setVolume(double volume) async => audioService.setVolume(volume);
+  Future<void> toggleShuffleMode() async => audioService.toggleShuffleMode();
+  Future<void> toggleLoopMode() async => audioService.toggleLoopMode();
+  Future<void> previous() async => audioService.previous();
+  Future<void> next() async => audioService.next();
 
   void _bindStreams() {
     //bind song stream, map to page state
-    // pageState.bindStream(up.AudioPlayerService.instance.songStream.map())
-    isPlaying.bindStream(up.AudioPlayerService.instance.isPlayingStream);
-    volume.bindStream(up.AudioPlayerService.instance.volumeStream);
-    currentTime.bindStream(up.AudioPlayerService.instance.currentTimeStream);
+    // pageState.bindStream(audioService.songStream.map())
+    audioService.isPlayingStream.listen((_) => _updateControlState());
+    audioService.volumeStream.listen((_) => _updateControlState());
+    audioService.currentTimeStream.listen((_) => _updateControlState());
+    audioService.loopModeStream.listen((_) => _updateControlState());
+    audioService.shuffleModeStream.listen((_) => _updateControlState());
   }
+
+  void _updateControlState() {
+    change(_controlState, status: RxStatus.success());
+  }
+
+  PlayerControlState get _controlState => PlayerControlState(
+        isPlaying: audioService.isPlaying,
+        currentTime: audioService.currentTime,
+        songDuration: _song.value?.duration,
+        nextSongButtonEnabled: audioService.hasPrevious,
+        previousSongButtonEnabled: audioService.hasNext,
+        loopModeEnabled: audioService.loopModeEnabled,
+        canEnableShuffleMode: audioService.canEnableShuffleMode,
+        shuffleModeEnabled: audioService.shuffleModeEnabled,
+        volume: audioService.volume,
+      );
 }
