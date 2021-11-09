@@ -24,7 +24,7 @@ class AudioPlayerService extends GetxService {
 
   bool get hasNext => _player.hasNext;
   bool get hasPrevious => _player.hasPrevious;
-  bool get canEnableShuffleMode => false;
+  bool get canEnableShuffleMode => _songs.length > 1;
   bool get shuffleModeEnabled => _player.shuffleModeEnabled;
   bool get loopModeEnabled => _player.loopMode != LoopMode.off;
   bool get isPlaying => _player.playing;
@@ -67,7 +67,7 @@ class AudioPlayerService extends GetxService {
 
   Future<void> toggleShuffleMode() async {
     if (_player.shuffleModeEnabled) {
-      await _player.setShuffleModeEnabled(true);
+      await _player.setShuffleModeEnabled(false);
     } else {
       await _player.setShuffleModeEnabled(false);
     }
