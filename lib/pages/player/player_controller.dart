@@ -13,9 +13,9 @@ class PlayerController extends GetxController
     super.onInit();
     try {
       final args = Get.arguments;
-      _song.value = args[0] as up.Song;
+      final songs = args[0] as List<up.Song>?;
       _bindStreams();
-      play();
+      _initPlayer(songs);
     } catch (e) {
       Get.back();
     }
@@ -24,9 +24,9 @@ class PlayerController extends GetxController
   final up.AudioPlayerService audioService;
   final Rx<up.Song?> _song = Rx(null);
 
-  up.Song get song => _song.value!;
+  up.Song? get song => _song.value;
 
-  Future<void> play() async => audioService.playSong(song);
+  Future<void> play() async => audioService.play();
   Future<void> pause() async => audioService.pause();
   Future<void> setTime(Duration time) async => audioService.setTime(time);
   Future<void> setVolume(double volume) async => audioService.setVolume(volume);
@@ -36,13 +36,21 @@ class PlayerController extends GetxController
   Future<void> next() async => audioService.next();
 
   void _bindStreams() {
-    //bind song stream, map to page state
-    // pageState.bindStream(audioService.songStream.map())
+    _song.bindStream(audioService.songStream);
     audioService.isPlayingStream.listen((_) => _updateControlState());
     audioService.volumeStream.listen((_) => _updateControlState());
     audioService.currentTimeStream.listen((_) => _updateControlState());
     audioService.loopModeStream.listen((_) => _updateControlState());
     audioService.shuffleModeStream.listen((_) => _updateControlState());
+  }
+
+  Future<void> _initPlayer(List<up.Song>? songs) async {
+    if (songs != null) {
+      await audioService.setSongsList(songs);
+      play();
+    } else {
+      _song.value = audioService.playingSong;
+    }
   }
 
   void _updateControlState() {

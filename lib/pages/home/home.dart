@@ -104,7 +104,7 @@ class Home extends GetView<HomeController> {
           child: child,
           scale: animation,
         ),
-        child: controller.playingSong != null && controller.isPlaying
+        child: controller.playingSong != null
             ? BounceInUp(
                 child: DecoratedBox(
                   decoration: BoxDecoration(boxShadow: [

@@ -20,30 +20,36 @@ class Player extends GetView<PlayerController> {
         title: "Now playing",
       ),
       body: Obx(
-        () => Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            context.headline1(controller.song.title),
-            context.subtitle1(controller.song.artist.name),
-            const up.Space1(),
-            Cover(artwork: controller.song.artwork),
-            const up.Space1(),
-            controller.obx(
-              (controlState) => PlayerControl(
-                state: controlState!,
-                onSetTime: controller.setTime,
-                onSetVolume: controller.setVolume,
-                onPlay: controller.play,
-                onPause: controller.pause,
-                onToggleLoopMode: controller.toggleLoopMode,
-                onToggleShuffleMode: controller.toggleShuffleMode,
-                onPrevious: controller.previous,
-                onNext: controller.next,
+        () {
+          final song = controller.song;
+          if (song == null) {
+            return const SizedBox.shrink();
+          }
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              context.headline1(song.title),
+              context.subtitle1(song.artist.name),
+              const up.Space1(),
+              Cover(artwork: song.artwork),
+              const up.Space1(),
+              controller.obx(
+                (controlState) => PlayerControl(
+                  state: controlState!,
+                  onSetTime: controller.setTime,
+                  onSetVolume: controller.setVolume,
+                  onPlay: controller.play,
+                  onPause: controller.pause,
+                  onToggleLoopMode: controller.toggleLoopMode,
+                  onToggleShuffleMode: controller.toggleShuffleMode,
+                  onPrevious: controller.previous,
+                  onNext: controller.next,
+                ),
               ),
-            ),
-            const up.Space1(),
-          ],
-        ),
+              const up.Space1(),
+            ],
+          );
+        },
       ),
     );
   }

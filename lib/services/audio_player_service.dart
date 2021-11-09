@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
@@ -9,7 +7,19 @@ class AudioPlayerService extends GetxService {
 
   final _player = AudioPlayer();
 
-  up.Song? playingSong;
+  final List<up.Song> _songs = [];
+
+  up.Song? get playingSong {
+    if (_songs.isNotEmpty) {
+      if (_player.currentIndex != null) {
+        return _songs[_player.currentIndex!];
+      } else {
+        return _songs.first;
+      }
+    }
+
+    return null;
+  }
 
   bool get hasNext => _player.hasNext;
   bool get hasPrevious => _player.hasPrevious;
@@ -20,28 +30,35 @@ class AudioPlayerService extends GetxService {
   double get volume => _player.volume;
   Duration get currentTime => _player.position;
 
-  Future<void> playSong(up.Song song) async {
-    if (song != playingSong) {
-      final uri = Uri.parse(song.uri);
-      await _player.setAudioSource(AudioSource.uri(uri));
-      playingSong = song;
-    }
-    //do not await
-    //await will wait until the end of the song
-    _player.play();
+  Future<void> setSong(up.Song song) async {
+    _songs.clear();
+    _songs.addAll([song]);
+    final uri = Uri.parse(song.uri);
+    await _player.setAudioSource(AudioSource.uri(uri));
   }
 
-  Future<void> pause() async {
-    await _player.pause();
+  Future<void> setSongsList(List<up.Song> songs, [int index = 0]) async {
+    _songs.clear();
+    _songs.addAll(songs);
+    await _player.setAudioSource(
+      ConcatenatingAudioSource(
+        children: songs.map(
+          (song) {
+            final uri = Uri.parse(song.uri);
+            return AudioSource.uri(uri);
+          },
+        ).toList(),
+      ),
+      initialIndex: index,
+    );
   }
 
-  Future<void> setTime(Duration time) async {
-    await _player.seek(time);
-  }
-
-  Future<void> setVolume(double volume) async {
-    await _player.setVolume(volume);
-  }
+  Future<void> play() async => _player.play();
+  Future<void> pause() async => _player.pause();
+  Future<void> setTime(Duration time) async => _player.seek(time);
+  Future<void> setVolume(double volume) async => _player.setVolume(volume);
+  Future<void> previous() async => _player.seekToPrevious();
+  Future<void> next() async => _player.seekToNext();
 
   Future<void> toggleShuffleMode() async {
     if (_player.shuffleModeEnabled) {
@@ -59,19 +76,9 @@ class AudioPlayerService extends GetxService {
     }
   }
 
-  Future<void> previous() async {
-    await _player.seekToPrevious();
-  }
-
-  Future<void> next() async {
-    await _player.seekToNext();
-  }
-
-  Stream<up.Song> get songStream async* {
-    //todo playlist List<{up.Song, audioSource}>
-    // return _player.playbackEventStream.map((event) => playingSong!);
-  }
-
+  Stream<up.Song?> get songStream => _player.currentIndexStream.map(
+        (_) => playingSong,
+      );
   Stream<bool> get isPlayingStream => _player.playingStream;
   Stream<Duration> get currentTimeStream => _player.positionStream;
   Stream<double> get volumeStream => _player.volumeStream;

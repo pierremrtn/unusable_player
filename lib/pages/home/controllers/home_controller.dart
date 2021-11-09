@@ -19,20 +19,26 @@ class HomeController extends GetxController {
   final RxBool _isPlaying = false.obs;
 
   Future<void> onSongTap(up.Song song) async {
-    await Get.toNamed(up.Routes.player, arguments: [song]);
+    await Get.toNamed(
+      up.Routes.player,
+      arguments: [
+        song != audioPlayerService.playingSong ? [song] : null,
+      ],
+    );
     _updatePlayingSongIndicator();
   }
 
   up.Song? get playingSong => _playingSong.value;
   bool get isPlaying => _isPlaying.value;
 
-  Future<void> playingSongIndicatorPlay() async =>
-      audioPlayerService.playSong(audioPlayerService.playingSong!);
-
+  Future<void> playingSongIndicatorPlay() async => audioPlayerService.play();
   Future<void> playingSongIndicatorPause() async => audioPlayerService.pause();
 
   Future<void> onPlayingSongIndicatorTap() async {
-    await Get.toNamed(up.Routes.player, arguments: [playingSong]);
+    await Get.toNamed(
+      up.Routes.player,
+      arguments: [null],
+    );
     _updatePlayingSongIndicator();
   }
 
