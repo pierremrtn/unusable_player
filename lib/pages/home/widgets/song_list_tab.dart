@@ -8,11 +8,11 @@ import 'sliver_song_list.dart';
 
 class SongListTab extends GetView<SongsController> {
   const SongListTab({
-    this.onSongTap,
+    this.onSelectSong,
     Key? key,
   }) : super(key: key);
 
-  final OnSongTap? onSongTap;
+  final SelectSongCallback? onSelectSong;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class SongListTab extends GetView<SongsController> {
       sliver: controller.obx(
         (List<up.Song>? songs) => SliverSongList(
           songs: songs ?? [],
-          onSongTap: onSongTap,
+          onSelectSong: onSelectSong,
         ),
         onEmpty: up.EmptyListIndicator.sliver(),
         onLoading: up.LoadingListIndicator.sliver(),

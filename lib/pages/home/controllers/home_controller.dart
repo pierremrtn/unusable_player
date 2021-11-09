@@ -8,8 +8,6 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    //TODO: bind to song stream;
-    // _playingSong.bindStream(audioPlayerService.songStream);
     _isPlaying.bindStream(audioPlayerService.isPlayingStream);
     super.onInit();
   }
@@ -18,11 +16,12 @@ class HomeController extends GetxController {
   final Rx<up.Song?> _playingSong = Rx(null);
   final RxBool _isPlaying = false.obs;
 
-  Future<void> onSongTap(up.Song song) async {
+  Future<void> onSelectSong(List<up.Song> songs, int index) async {
     await Get.toNamed(
       up.Routes.player,
       arguments: [
-        song != audioPlayerService.playingSong ? [song] : null,
+        songs[index] != audioPlayerService.playingSong ? songs : null,
+        index,
       ],
     );
     _updatePlayingSongIndicator();
@@ -37,7 +36,7 @@ class HomeController extends GetxController {
   Future<void> onPlayingSongIndicatorTap() async {
     await Get.toNamed(
       up.Routes.player,
-      arguments: [null],
+      arguments: [null, null],
     );
     _updatePlayingSongIndicator();
   }

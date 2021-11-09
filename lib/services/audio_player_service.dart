@@ -37,7 +37,7 @@ class AudioPlayerService extends GetxService {
     await _player.setAudioSource(AudioSource.uri(uri));
   }
 
-  Future<void> setSongsList(List<up.Song> songs, [int index = 0]) async {
+  Future<void> setSongsList(List<up.Song> songs, [int? index]) async {
     _songs.clear();
     _songs.addAll(songs);
     await _player.setAudioSource(

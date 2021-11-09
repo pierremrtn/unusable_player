@@ -14,8 +14,9 @@ class PlayerController extends GetxController
     try {
       final args = Get.arguments;
       final songs = args[0] as List<up.Song>?;
+      final index = args[1] as int?;
       _bindStreams();
-      _initPlayer(songs);
+      _initPlayer(songs, index);
     } catch (e) {
       Get.back();
     }
@@ -37,6 +38,7 @@ class PlayerController extends GetxController
 
   void _bindStreams() {
     _song.bindStream(audioService.songStream);
+    audioService.songStream.listen((_) => _updateControlState());
     audioService.isPlayingStream.listen((_) => _updateControlState());
     audioService.volumeStream.listen((_) => _updateControlState());
     audioService.currentTimeStream.listen((_) => _updateControlState());
@@ -44,9 +46,9 @@ class PlayerController extends GetxController
     audioService.shuffleModeStream.listen((_) => _updateControlState());
   }
 
-  Future<void> _initPlayer(List<up.Song>? songs) async {
+  Future<void> _initPlayer(List<up.Song>? songs, int? index) async {
     if (songs != null) {
-      await audioService.setSongsList(songs);
+      await audioService.setSongsList(songs, index);
       play();
     } else {
       _song.value = audioService.playingSong;
@@ -61,8 +63,8 @@ class PlayerController extends GetxController
         isPlaying: audioService.isPlaying,
         currentTime: audioService.currentTime,
         songDuration: _song.value?.duration,
-        nextSongButtonEnabled: audioService.hasPrevious,
-        previousSongButtonEnabled: audioService.hasNext,
+        nextSongButtonEnabled: audioService.hasNext,
+        previousSongButtonEnabled: audioService.hasPrevious,
         loopModeEnabled: audioService.loopModeEnabled,
         canEnableShuffleMode: audioService.canEnableShuffleMode,
         shuffleModeEnabled: audioService.shuffleModeEnabled,

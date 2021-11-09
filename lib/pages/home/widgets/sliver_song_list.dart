@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
-typedef OnSongTap = void Function(up.Song);
+typedef SelectSongCallback = void Function(List<up.Song>, int);
 
 class SliverSongList extends StatelessWidget {
   const SliverSongList({
     required this.songs,
-    this.onSongTap,
+    this.onSelectSong,
     Key? key,
   }) : super(key: key);
 
   final List<up.Song> songs;
-  final OnSongTap? onSongTap;
+  final SelectSongCallback? onSelectSong;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,9 @@ class SliverSongList extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 10.0),
             child: up.SongCard(
               song: songs[index],
-              onTap: onSongTap != null ? () => onSongTap!(songs[index]) : null,
+              onTap: onSelectSong != null
+                  ? () => onSelectSong!(songs, index)
+                  : null,
             ),
           );
         },

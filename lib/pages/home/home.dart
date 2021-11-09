@@ -74,13 +74,13 @@ class Home extends GetView<HomeController> {
               dragStartBehavior: DragStartBehavior.down,
               children: [
                 SongListTab(
-                  onSongTap: controller.onSongTap,
+                  onSelectSong: controller.onSelectSong,
                 ),
                 ArtistListTab(
-                  onSongTap: controller.onSongTap,
+                  onSelectSong: controller.onSelectSong,
                 ),
                 AlbumListTab(
-                  onSongTap: controller.onSongTap,
+                  onSelectSong: controller.onSelectSong,
                 ),
               ],
             ),
