@@ -1,6 +1,5 @@
 # Locale playlist
 - better arguments for player_controller
-- shuffle support
 - player stop stream
 - remove song indicator if player stop
 
