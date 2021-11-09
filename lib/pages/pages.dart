@@ -2,8 +2,9 @@ import 'package:get/get.dart';
 import 'package:unusable_player/pages/ui_kit/ui_kit.dart';
 import 'package:unusable_player/pages/home/home.dart';
 import 'package:unusable_player/pages/player/player.dart';
-
 import 'package:unusable_player/unusable_player.dart' as up;
+
+export 'player/models/player_parameters.dart';
 
 part 'routes.dart';
 

@@ -1,7 +1,10 @@
 # Locale playlist
-- better arguments for player_controller
+- register song indicator to song stream
 - player stop stream
 - remove song indicator if player stop
+
+# code enhancements
+- add page suffix to pages
 
 # general enhancements
 - audio session plugin

@@ -19,10 +19,10 @@ class HomeController extends GetxController {
   Future<void> onSelectSong(List<up.Song> songs, int index) async {
     await Get.toNamed(
       up.Routes.player,
-      arguments: [
-        songs[index] != audioPlayerService.playingSong ? songs : null,
-        index,
-      ],
+      arguments: up.PlayerParameters(
+        songs: songs[index] != audioPlayerService.playingSong ? songs : null,
+        index: index,
+      ),
     );
     _updatePlayingSongIndicator();
   }
@@ -36,7 +36,7 @@ class HomeController extends GetxController {
   Future<void> onPlayingSongIndicatorTap() async {
     await Get.toNamed(
       up.Routes.player,
-      arguments: [null, null],
+      arguments: const up.PlayerParameters.openCurrentSong(),
     );
     _updatePlayingSongIndicator();
   }

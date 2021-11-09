@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:unusable_player/pages/player/models/player_parameters.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 import 'models/player_control_state.dart';
 
@@ -12,11 +13,9 @@ class PlayerController extends GetxController
   void onInit() {
     super.onInit();
     try {
-      final args = Get.arguments;
-      final songs = args[0] as List<up.Song>?;
-      final index = args[1] as int?;
+      final params = Get.arguments as PlayerParameters;
       _bindStreams();
-      _initPlayer(songs, index);
+      _initPlayer(params);
     } catch (e) {
       Get.back();
     }
@@ -46,12 +45,12 @@ class PlayerController extends GetxController
     audioService.shuffleModeStream.listen((_) => _updateControlState());
   }
 
-  Future<void> _initPlayer(List<up.Song>? songs, int? index) async {
-    if (songs != null) {
-      await audioService.setSongsList(songs, index);
-      play();
-    } else {
+  Future<void> _initPlayer(PlayerParameters params) async {
+    if (params.openCurrentSong) {
       _song.value = audioService.playingSong;
+    } else {
+      await audioService.setSongsList(params.songs!, params.index);
+      play();
     }
   }
 

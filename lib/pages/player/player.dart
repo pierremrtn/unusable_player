@@ -8,6 +8,7 @@ import 'widgets/player_control.dart';
 import 'player_controller.dart';
 
 export 'player_bindings.dart';
+export 'models/player_parameters.dart';
 
 class Player extends GetView<PlayerController> {
   const Player({Key? key}) : super(key: key);
