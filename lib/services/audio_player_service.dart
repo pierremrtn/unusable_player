@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:collection/collection.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
 class AudioPlayerService extends GetxService {
@@ -31,26 +32,30 @@ class AudioPlayerService extends GetxService {
   Duration get currentTime => _player.position;
 
   Future<void> setSong(up.Song song) async {
-    _songs.clear();
-    _songs.addAll([song]);
-    final uri = Uri.parse(song.uri);
-    await _player.setAudioSource(AudioSource.uri(uri));
+    if (!_songs.equals([song])) {
+      _songs.clear();
+      _songs.addAll([song]);
+      final uri = Uri.parse(song.uri);
+      await _player.setAudioSource(AudioSource.uri(uri));
+    }
   }
 
   Future<void> setSongsList(List<up.Song> songs, [int? index]) async {
-    _songs.clear();
-    _songs.addAll(songs);
-    await _player.setAudioSource(
-      ConcatenatingAudioSource(
-        children: songs.map(
-          (song) {
-            final uri = Uri.parse(song.uri);
-            return AudioSource.uri(uri);
-          },
-        ).toList(),
-      ),
-      initialIndex: index,
-    );
+    if (index != _player.currentIndex || !_songs.equals(songs)) {
+      _songs.clear();
+      _songs.addAll(songs);
+      await _player.setAudioSource(
+        ConcatenatingAudioSource(
+          children: songs.map(
+            (song) {
+              final uri = Uri.parse(song.uri);
+              return AudioSource.uri(uri);
+            },
+          ).toList(),
+        ),
+        initialIndex: index,
+      );
+    }
   }
 
   Future<void> play() async => _player.play();
