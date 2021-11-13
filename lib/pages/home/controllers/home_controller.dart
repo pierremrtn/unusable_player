@@ -30,6 +30,7 @@ class HomeController extends GetxController {
 
   up.Song? get playingSong => _playingSong.value;
   bool get isPlaying => _isPlaying.value;
+  bool get showPlayingSongIndicator => playingSong != null;
 
   Future<void> playingSongIndicatorPlay() async => audioPlayerService.play();
   Future<void> playingSongIndicatorPause() async => audioPlayerService.pause();

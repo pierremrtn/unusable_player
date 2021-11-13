@@ -70,25 +70,38 @@ class Home extends GetView<HomeController> {
                 ),
               ),
             ],
-            body: TabBarView(
-              dragStartBehavior: DragStartBehavior.down,
-              children: [
-                SongListTab(
-                  onSelectSong: controller.onSelectSong,
+            body: Obx(
+              () => Padding(
+                padding: _buildTabViewBottomPadding(),
+                child: TabBarView(
+                  dragStartBehavior: DragStartBehavior.down,
+                  children: [
+                    SongListTab(
+                      onSelectSong: controller.onSelectSong,
+                    ),
+                    ArtistListTab(
+                      onSelectSong: controller.onSelectSong,
+                    ),
+                    AlbumListTab(
+                      onSelectSong: controller.onSelectSong,
+                    ),
+                  ],
                 ),
-                ArtistListTab(
-                  onSelectSong: controller.onSelectSong,
-                ),
-                AlbumListTab(
-                  onSelectSong: controller.onSelectSong,
-                ),
-              ],
+              ),
             ),
           ),
         ),
       ),
     );
   }
+
+  EdgeInsetsGeometry _buildTabViewBottomPadding() =>
+      controller.showPlayingSongIndicator
+          ? const EdgeInsets.only(
+              bottom:
+                  up.kPlayingSongIndicatorHeight + kFloatingActionButtonMargin,
+            )
+          : EdgeInsets.zero;
 
   Widget _buildPlayingIndicator(BuildContext context) {
     return Obx(
@@ -104,23 +117,14 @@ class Home extends GetView<HomeController> {
           child: child,
           scale: animation,
         ),
-        child: controller.playingSong != null
+        child: controller.showPlayingSongIndicator
             ? BounceInUp(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(boxShadow: [
-                    BoxShadow(
-                      color: context.colorScheme.surface,
-                      blurRadius: 10,
-                      spreadRadius: 10,
-                    ),
-                  ]),
-                  child: up.PlayingSongIndicator(
-                    song: controller.playingSong!,
-                    isPlaying: controller.isPlaying,
-                    onPlay: controller.playingSongIndicatorPlay,
-                    onPause: controller.playingSongIndicatorPause,
-                    onTap: controller.onPlayingSongIndicatorTap,
-                  ),
+                child: up.PlayingSongIndicator(
+                  song: controller.playingSong!,
+                  isPlaying: controller.isPlaying,
+                  onPlay: controller.playingSongIndicatorPlay,
+                  onPause: controller.playingSongIndicatorPause,
+                  onTap: controller.onPlayingSongIndicatorTap,
                 ),
               )
             : const SizedBox.shrink(),
