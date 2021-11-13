@@ -8,6 +8,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
+    _playingSong.bindStream(audioPlayerService.songStream);
     _isPlaying.bindStream(audioPlayerService.isPlayingStream);
     super.onInit();
   }

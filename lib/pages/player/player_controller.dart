@@ -11,10 +11,14 @@ class PlayerController extends GetxController
 
   @override
   void onInit() {
+    _bindStreams();
     super.onInit();
+  }
+
+  @override
+  void onReady() {
     try {
       final params = Get.arguments as PlayerParameters;
-      _bindStreams();
       _initPlayer(params);
     } catch (e) {
       Get.back();
