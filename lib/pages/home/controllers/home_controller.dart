@@ -9,7 +9,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     _playingSong.bindStream(audioPlayerService.songStream);
-    _isPlaying.bindStream(audioPlayerService.isPlayingStream);
+    audioPlayerService.playerStateStream.listen(_onPlayerStateChange);
     super.onInit();
   }
 
@@ -40,6 +40,20 @@ class HomeController extends GetxController {
       arguments: const up.PlayerParameters.openCurrentSong(),
     );
     _updatePlayingSongIndicator();
+  }
+
+  void _onPlayerStateChange(up.AudioPlayerState state) {
+    switch (state) {
+      case up.AudioPlayerState.playing:
+        _isPlaying.value = true;
+        break;
+      case up.AudioPlayerState.paused:
+        _isPlaying.value = false;
+        break;
+      case up.AudioPlayerState.completed:
+        _playingSong.value = null;
+        break;
+    }
   }
 
   void _updatePlayingSongIndicator() {

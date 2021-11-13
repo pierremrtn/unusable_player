@@ -42,7 +42,7 @@ class PlayerController extends GetxController
   void _bindStreams() {
     _song.bindStream(audioService.songStream);
     audioService.songStream.listen((_) => _updateControlState());
-    audioService.isPlayingStream.listen((_) => _updateControlState());
+    audioService.playerStateStream.listen((_) => _updateControlState());
     audioService.volumeStream.listen((_) => _updateControlState());
     audioService.currentTimeStream.listen((_) => _updateControlState());
     audioService.loopModeStream.listen((_) => _updateControlState());

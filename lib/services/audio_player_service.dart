@@ -3,6 +3,12 @@ import 'package:just_audio/just_audio.dart';
 import 'package:collection/collection.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
+enum AudioPlayerState {
+  playing,
+  paused,
+  completed,
+}
+
 class AudioPlayerService extends GetxService {
   static AudioPlayerService get instance => Get.find<AudioPlayerService>();
 
@@ -22,6 +28,7 @@ class AudioPlayerService extends GetxService {
     return null;
   }
 
+  AudioPlayerState get playerState => _player.playerState.toAudioPlayerState();
   bool get hasNext => _player.hasNext;
   bool get hasPrevious => _player.hasPrevious;
   bool get canEnableShuffleMode => _songs.length > 1;
@@ -81,18 +88,28 @@ class AudioPlayerService extends GetxService {
     }
   }
 
-  Stream<up.Song?> get songStream => _player.currentIndexStream.map(
-        (_) => playingSong,
-      );
-  Stream<bool> get isPlayingStream => _player.playingStream;
+  Stream<AudioPlayerState> get playerStateStream =>
+      _player.playerStateStream.map((state) => state.toAudioPlayerState());
+  Stream<up.Song?> get songStream =>
+      _player.currentIndexStream.map((_) => playingSong);
   Stream<Duration> get currentTimeStream => _player.positionStream;
   Stream<double> get volumeStream => _player.volumeStream;
-  Stream<bool> get loopModeStream => _player.loopModeStream.map(
-        (mode) => mode.enabled,
-      );
+  Stream<bool> get loopModeStream =>
+      _player.loopModeStream.map((mode) => mode.enabled);
   Stream<bool> get shuffleModeStream => _player.shuffleModeEnabledStream;
 }
 
 extension _IsEnabled on LoopMode {
   bool get enabled => this != LoopMode.off;
+}
+
+extension _ToAudioPlayerState on PlayerState {
+  AudioPlayerState toAudioPlayerState() {
+    switch (processingState) {
+      case ProcessingState.completed:
+        return AudioPlayerState.completed;
+      default:
+        return playing ? AudioPlayerState.playing : AudioPlayerState.paused;
+    }
+  }
 }
