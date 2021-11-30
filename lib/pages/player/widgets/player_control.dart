@@ -59,10 +59,7 @@ class PlayerControl extends StatelessWidget {
                           fontFeatures: [FontFeature.tabularFigures()],
                         ),
                       ),
-                      Expanded(
-                        flex: 4,
-                        child: _buildDurationSlider(),
-                      ),
+                      const Spacer(),
                       context.headline5(
                         _formattedSongDuration,
                         textAlign: TextAlign.center,
@@ -73,6 +70,7 @@ class PlayerControl extends StatelessWidget {
                     ],
                   ),
                 ),
+                _buildDurationSlider(),
                 const up.Space1(),
                 Row(
                   children: [
@@ -115,9 +113,7 @@ class PlayerControl extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       context.headline5("Speaker"),
-                      Expanded(
-                        child: _buildVolumeSlider(),
-                      ),
+                      const Spacer(),
                       context.headline5(
                         _formattedVolume,
                         style: TextStyle(
@@ -128,6 +124,7 @@ class PlayerControl extends StatelessWidget {
                     ],
                   ),
                 ),
+                _buildVolumeSlider(),
               ],
             ),
           ),
@@ -153,7 +150,7 @@ class PlayerControl extends StatelessWidget {
       value = state.currentTime!.inMilliseconds / totalDurationMS;
       value = value.clamp(0, 1);
     }
-    return Slider(
+    return up.JigglingSlider(
       value: value,
       onChanged: onSetTime != null
           ? (value) => onSetTime!(
@@ -166,7 +163,7 @@ class PlayerControl extends StatelessWidget {
   }
 
   Widget _buildVolumeSlider() {
-    return Slider(
+    return up.JigglingSlider(
       value: state.volume,
       onChanged: onSetVolume,
     );

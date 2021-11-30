@@ -16,5 +16,9 @@ export 'cards/cards.dart';
 // LISTS
 export 'list_indicators/list_indicators.dart';
 
+// SLIDERS
+export 'slider_thumb_shapes/slider_thumb_shapes.dart';
+export 'jiggling_slider.dart';
+
 // OTHERS
 export 'playing_song_indicator.dart';

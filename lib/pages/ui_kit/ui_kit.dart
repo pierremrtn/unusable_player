@@ -18,31 +18,33 @@ class UIKit extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const up.Space1(),
-          ...artistCards,
-          const Divider(),
-          ...albums,
-          const Divider(),
-          ...listIndicators(),
-          const Divider(),
-          ...playingSongIndicators,
-          const Divider(),
-          navBar,
-          const Divider(),
-          ...songCards,
-          const Divider(),
-          ...playlistCards,
-          const Divider(),
-          ...searchBars,
-          const Divider(),
-          ...tabs,
-          const Divider(),
-          ...texts(context),
-          const Divider(),
-          icons,
-          const Divider(),
-          ...cards(context),
-          const Divider(),
-          ...buttons,
+          ...sliders,
+          // const up.Space1(),
+          // ...artistCards,
+          // const Divider(),
+          // ...albums,
+          // const Divider(),
+          // ...listIndicators(),
+          // const Divider(),
+          // ...playingSongIndicators,
+          // const Divider(),
+          // navBar,
+          // const Divider(),
+          // ...songCards,
+          // const Divider(),
+          // ...playlistCards,
+          // const Divider(),
+          // ...searchBars,
+          // const Divider(),
+          // ...tabs,
+          // const Divider(),
+          // ...texts(context),
+          // const Divider(),
+          // icons,
+          // const Divider(),
+          // ...cards(context),
+          // const Divider(),
+          // ...buttons,
         ],
       ),
     );
@@ -236,6 +238,55 @@ class UIKit extends StatelessWidget {
             id: 0,
             name: "Skeler",
             numberOfTracks: 1,
+          ),
+        ),
+      ];
+
+  List<Widget> get sliders => [
+        SliderTheme(
+          data: const SliderThemeData(thumbShape: up.RRectSliderThumbShape()),
+          child: ValueBuilder<double>(
+            initialValue: 0,
+            builder: (double? value, void Function(double) onChange) => Slider(
+              value: value ?? 0,
+              onChanged: onChange,
+            ),
+          ),
+        ),
+        SliderTheme(
+          data: SliderThemeData(thumbShape: up.JiggleSliderThumbShape()),
+          child: ValueBuilder<double>(
+            initialValue: 0,
+            builder: (double? value, void Function(double) onChange) => Slider(
+              value: value ?? 0,
+              onChanged: onChange,
+            ),
+          ),
+        ),
+        SliderTheme(
+          data: SliderThemeData(thumbShape: up.JiggleSliderThumbShape()),
+          child: ValueBuilder<double>(
+            initialValue: 0,
+            builder: (double? value, void Function(double) onChange) => Slider(
+              value: value ?? 0,
+              onChanged: onChange,
+            ),
+          ),
+        ),
+        ValueBuilder<double>(
+          initialValue: 0,
+          builder: (double? value, void Function(double) onChange) =>
+              up.JigglingSlider(
+            value: value ?? 0,
+            onChanged: onChange,
+          ),
+        ),
+        ValueBuilder<double>(
+          initialValue: 0,
+          builder: (double? value, void Function(double) onChange) =>
+              up.JigglingSlider(
+            value: value ?? 0,
+            onChanged: onChange,
           ),
         ),
       ];

@@ -6,6 +6,7 @@ import 'button_theme.dart';
 import 'colors_scheme.dart';
 import 'text_theme.dart';
 import 'app_bar_theme.dart';
+import 'slider_theme.dart';
 
 final lightTheme = ThemeData(
   fontFamily: "Montserrat",
@@ -14,6 +15,7 @@ final lightTheme = ThemeData(
   outlinedButtonTheme: outlinedButtonTheme,
   appBarTheme: appBarTheme,
   dividerTheme: dividerTheme,
+  sliderTheme: sliderTheme,
 
   //Actually, colorScheme isn't fully suported
   //use leagcy themeColor here
