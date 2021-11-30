@@ -12,8 +12,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  neat:
-    git: https://github.com/pierre2tm/neat
   cupertino_icons: ^1.0.2
   get: ^4.3.8
   freezed_annotation: ^0.14.3
@@ -21,6 +19,7 @@ dependencies:
   on_audio_query: ^2.5.2
   just_audio: ^0.9.15
   animate_do: ^2.0.0
+  neat: ^0.1.1
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +27,7 @@ dev_dependencies:
   build_runner: ^2.1.2
   freezed: ^0.14.5
   flutter_lints: ^1.0.4
+  neat_generator: ^0.1.0
 
 flutter:
   uses-material-design: true

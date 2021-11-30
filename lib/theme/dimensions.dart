@@ -1,3 +1,8 @@
+import 'package:neat/generator.dart';
+
+part 'dimensions.nt.dart';
+
+@Neat.generateSpace
 class Dimensions {
   //spaces
   static const double space1 = 32;
