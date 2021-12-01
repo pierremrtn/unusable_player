@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:unusable_player/pages/ui_kit/ui_kit.dart';
-import 'package:unusable_player/pages/home/home.dart';
-import 'package:unusable_player/pages/player/player.dart';
+import 'package:unusable_player/pages/ui_kit/ui_kit_page.dart';
+import 'package:unusable_player/pages/home/home_page.dart';
+import 'package:unusable_player/pages/player/player_page.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
 export 'player/models/player_parameters.dart';
@@ -14,16 +14,16 @@ class Pages {
   static List<GetPage> pages = [
     GetPage(
       name: Routes.UIKit,
-      page: () => const UIKit(),
+      page: () => const UIKitPage(),
     ),
     GetPage(
       name: Routes.home,
-      page: () => const Home(),
+      page: () => const HomePage(),
       binding: HomeBindings(),
     ),
     GetPage(
       name: Routes.player,
-      page: () => const Player(),
+      page: () => const PlayerPage(),
       binding: PlayerBindings(),
       transition: Transition.rightToLeft,
       curve: up.Feel.animationCurve,

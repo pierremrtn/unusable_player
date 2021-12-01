@@ -12,8 +12,8 @@ import 'widgets/album_list_tab.dart';
 
 export 'home_bindings.dart';
 
-class Home extends GetView<HomeController> {
-  const Home({Key? key}) : super(key: key);
+class HomePage extends GetView<HomeController> {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

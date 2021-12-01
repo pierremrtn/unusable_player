@@ -3,8 +3,8 @@ import 'package:neat/neat.dart';
 import 'package:get/get.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
-class UIKit extends StatelessWidget {
-  const UIKit({Key? key}) : super(key: key);
+class UIKitPage extends StatelessWidget {
+  const UIKitPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

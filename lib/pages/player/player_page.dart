@@ -10,8 +10,8 @@ import 'player_controller.dart';
 export 'player_bindings.dart';
 export 'models/player_parameters.dart';
 
-class Player extends GetView<PlayerController> {
-  const Player({Key? key}) : super(key: key);
+class PlayerPage extends GetView<PlayerController> {
+  const PlayerPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
