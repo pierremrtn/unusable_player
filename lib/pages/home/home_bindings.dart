@@ -5,13 +5,20 @@ import 'controllers/home_controller.dart';
 import 'controllers/songs_controller.dart';
 import 'controllers/albums_controller.dart';
 import 'controllers/artists_controller.dart';
+import 'controllers/search_controller.dart';
 
 class HomeBindings extends Bindings {
   @override
   void dependencies() {
     Get.put(
+      SearchController(
+        audioQueryService: up.AudioQueryService.instance,
+      ),
+    );
+    Get.put(
       HomeController(
         audioPlayerService: up.AudioPlayerService.instance,
+        searchController: SearchController.instance,
       ),
     );
     Get.lazyPut(

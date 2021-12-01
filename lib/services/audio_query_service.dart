@@ -20,6 +20,16 @@ class AudioQueryService extends GetxService {
     }
   }
 
+  Future<List<up.Song>> searchSong(String search) async {
+    final searchResult = await _audioQuery.queryWithFilters(
+      search,
+      WithFiltersType.AUDIOS,
+    );
+    return _convertToSongList(
+      searchResult.map((e) => SongModel(e)),
+    );
+  }
+
   Future<List<up.Song>> querySongs() async {
     return _convertToSongList(await _audioQuery.querySongs());
   }

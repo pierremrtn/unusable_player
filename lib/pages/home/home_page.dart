@@ -4,11 +4,12 @@ import 'package:get/get.dart';
 import 'package:neat/neat.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:unusable_player/pages/home/controllers/home_controller.dart';
-import 'package:unusable_player/pages/home/widgets/artist_list_tab.dart';
+import 'package:unusable_player/pages/home/widgets/home_body.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
-import 'widgets/song_list_tab.dart';
 import 'widgets/album_list_tab.dart';
+import 'widgets/artist_list_tab.dart';
+import 'widgets/song_list_tab.dart';
 
 export 'home_bindings.dart';
 
@@ -22,8 +23,9 @@ class HomePage extends GetView<HomeController> {
       backgroundColor: context.colorScheme.background,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: up.Dimensions.space3),
-          child: _buildPlayingIndicator(context)),
+        padding: const up.Padding3.horizontal(),
+        child: _buildPlayingIndicator(context),
+      ),
       body: SafeArea(
         child: DefaultTabController(
           length: 3,
@@ -50,42 +52,24 @@ class HomePage extends GetView<HomeController> {
                 ),
               ),
               up.SliverPersistentSearchBar(
+                onSearch: controller.search,
                 padding: const EdgeInsets.only(
-                  top: up.Dimensions.space3,
-                  bottom: up.Dimensions.space4,
+                  top: up.Dimensions.padding3,
+                  bottom: up.Dimensions.padding4,
                   left: up.Dimensions.pageMargin,
                 ),
               ),
-              SliverOverlapAbsorber(
-                handle:
-                    NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                sliver: up.SliverPersistentTabBar(
-                  isScrollable: false,
-                  tabs: [
-                    "home_songs_tab".tr,
-                    "home_artists_tab".tr,
-                    "home_albums_tab".tr,
-                  ],
-                  forceExpandSeparator: innerBoxIsScrolled,
-                ),
+              _buildTabBar(
+                context,
+                innerBoxIsScrolled,
               ),
             ],
             body: Obx(
               () => Padding(
                 padding: _buildTabViewBottomPadding(),
-                child: TabBarView(
-                  dragStartBehavior: DragStartBehavior.down,
-                  children: [
-                    SongListTab(
-                      onSelectSong: controller.onSelectSong,
-                    ),
-                    ArtistListTab(
-                      onSelectSong: controller.onSelectSong,
-                    ),
-                    AlbumListTab(
-                      onSelectSong: controller.onSelectSong,
-                    ),
-                  ],
+                child: HomeBody(
+                  showSearchResults: controller.showSearchResult,
+                  onSelectSong: controller.onSelectSong,
                 ),
               ),
             ),
@@ -94,6 +78,31 @@ class HomePage extends GetView<HomeController> {
       ),
     );
   }
+
+  Widget _buildTabBar(
+    BuildContext context,
+    bool innerBoxIsScrolled,
+  ) =>
+      Obx(() {
+        if (controller.showSearchResult == false) {
+          return SliverOverlapAbsorber(
+            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+            sliver: up.SliverPersistentTabBar(
+              isScrollable: false,
+              tabs: [
+                "home_songs_tab".tr,
+                "home_artists_tab".tr,
+                "home_albums_tab".tr,
+              ],
+              forceExpandSeparator: innerBoxIsScrolled,
+            ),
+          );
+        } else {
+          return const SliverToBoxAdapter(
+            child: SizedBox.shrink(),
+          );
+        }
+      });
 
   EdgeInsetsGeometry _buildTabViewBottomPadding() =>
       controller.showPlayingSongIndicator

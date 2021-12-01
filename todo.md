@@ -1,8 +1,3 @@
-# Locale playlist
-- register song indicator to song stream
-- player stop stream
-- remove song indicator if player stop
-
 # code enhancements
 - add page suffix to pages
 
@@ -13,9 +8,11 @@
 - language support
 - hive service
 
+# home page
+- search
+- dismissable playing song indicator
+
 # player enhancements
-- redesign slider position
 - slide cover to switch song
-- cover hasPrev/hasNext indicators
-- custom slider
-- long title
+- song cover: next song / previous song available indicator
+- long song title edge case

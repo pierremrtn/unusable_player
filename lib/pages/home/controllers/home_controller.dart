@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
+import 'package:unusable_player/pages/home/controllers/search_controller.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
 class HomeController extends GetxController {
   HomeController({
     required this.audioPlayerService,
+    required this.searchController,
   });
 
   @override
@@ -14,8 +16,18 @@ class HomeController extends GetxController {
   }
 
   final up.AudioPlayerService audioPlayerService;
+  final SearchController searchController;
   final Rx<up.Song?> _playingSong = Rx(null);
   final RxBool _isPlaying = false.obs;
+
+  bool get showSearchResult => searchController.showSearchResult;
+  up.Song? get playingSong => _playingSong.value;
+  bool get isPlaying => _isPlaying.value;
+  bool get showPlayingSongIndicator => playingSong != null;
+
+  Future<void> search(String arg) async {
+    searchController.search(arg);
+  }
 
   Future<void> onSelectSong(List<up.Song> songs, int index) async {
     await Get.toNamed(
@@ -28,13 +40,8 @@ class HomeController extends GetxController {
     _updatePlayingSongIndicator();
   }
 
-  up.Song? get playingSong => _playingSong.value;
-  bool get isPlaying => _isPlaying.value;
-  bool get showPlayingSongIndicator => playingSong != null;
-
   Future<void> playingSongIndicatorPlay() async => audioPlayerService.play();
   Future<void> playingSongIndicatorPause() async => audioPlayerService.pause();
-
   Future<void> onPlayingSongIndicatorTap() async {
     await Get.toNamed(
       up.Routes.player,

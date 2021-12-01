@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:neat/neat.dart';
@@ -7,15 +6,17 @@ import 'package:unusable_player/unusable_player.dart' as up;
 class _SliverPersistentSearchBarDelegate
     extends SliverPersistentHeaderDelegate {
   const _SliverPersistentSearchBarDelegate({
-    this.onSearch,
     EdgeInsets? padding,
     Curve? curve,
+    this.onSearch,
+    this.onChanged,
   })  : padding = padding ?? EdgeInsets.zero,
         curve = curve ?? up.Feel.animationCurve;
 
   final EdgeInsets padding;
   final Curve curve;
-  final Function(String)? onSearch;
+  final ValueChanged<String>? onSearch;
+  final ValueChanged<String>? onChanged;
 
   double get extent => padding.vertical + up.kSearchBarHeight;
 
@@ -29,7 +30,7 @@ class _SliverPersistentSearchBarDelegate
       (extent - shrinkOffset) / extent,
     );
     final deviceWidth = MediaQuery.of(context).size.width;
-    final xOffest = deviceWidth * (1 - normalizedVisibility);
+    final xOffset = deviceWidth * (1 - normalizedVisibility);
     final opacity = 1 - (shrinkOffset / extent);
 
     return Container(
@@ -39,8 +40,11 @@ class _SliverPersistentSearchBarDelegate
         opacity: opacity,
         child: ClipRect(
           child: Transform.translate(
-            offset: Offset(xOffest, 0),
-            child: const up.SearchBar(),
+            offset: Offset(xOffset, 0),
+            child: up.SearchBar(
+              onChanged: onChanged,
+              onSearch: onSearch,
+            ),
           ),
         ),
       ),
@@ -62,12 +66,14 @@ class _SliverPersistentSearchBarDelegate
 class SliverPersistentSearchBar extends SliverPersistentHeader {
   SliverPersistentSearchBar({
     Key? key,
-    Function(String)? onSearch,
+    ValueChanged<String>? onSearch,
+    ValueChanged<String>? onChanged,
     EdgeInsets? padding,
   }) : super(
           key: key,
           delegate: _SliverPersistentSearchBarDelegate(
             onSearch: onSearch,
+            onChanged: onChanged,
             padding: padding,
           ),
           floating: true,

@@ -8,11 +8,13 @@ const double _kRightShift = up.Dimensions.space1;
 
 class SearchBar extends StatelessWidget {
   const SearchBar({
-    Key? key,
     this.onSearch,
+    this.onChanged,
+    Key? key,
   }) : super(key: key);
 
-  final Function(String)? onSearch;
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSearch;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,6 @@ class SearchBar extends StatelessWidget {
             child: up.DoubleBottomCard(
               padding: EdgeInsets.zero,
               height: kSearchBarHeight,
-              // width: MediaQuery.of(context).size.width,
               backgroundColor: context.colorScheme.secondaryVariant,
               borderRadius: up.Dimensions.borderRadius2,
               bottomHorizontalPadding: up.Dimensions.space4,
@@ -62,9 +63,9 @@ class SearchBar extends StatelessWidget {
                       ),
                       child: Align(
                         child: TextField(
-                          // textAlign: TextAlign.center,
-                          // textAlignVertical: TextAlignVertical.bottom,
+                          textInputAction: TextInputAction.search,
                           onSubmitted: onSearch,
+                          onChanged: onChanged,
                           style: context.textTheme.subtitle1?.copyWith(
                             color: context.colorScheme.onSurface,
                           ),
