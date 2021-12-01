@@ -1,21 +1,14 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class JiggleSliderThumbShape extends SliderComponentShape {
   /// This class MUST be instantiated once for each slider
   /// that use it, otherwise it will not works properly
   JiggleSliderThumbShape({
-    // this.width = 6,
-    // this.height = 8,
-    // this.pressedWidth = 6,
-    // this.pressedHeight = 13,
-    // this.maxDragDistance = 3,
     this.width = 6,
     this.height = 8,
     this.pressedWidth = 6,
-    this.pressedHeight = 21,
-    this.maxDragDistance = 13,
+    this.pressedHeight = 13,
+    this.maxDragDistance = 3,
   });
 
   ///minimum width of the thumb
@@ -109,17 +102,6 @@ class JiggleSliderThumbShape extends SliderComponentShape {
         ..strokeCap = StrokeCap.round
         ..strokeWidth = evaluatedWidth,
     );
-
-    // canvas.drawRRect(
-    //     RRect.fromRectAndRadius(
-    //       Rect.fromCenter(
-    //         center: center,
-    //         width: width,
-    //         height: evaluatedHeight,
-    //       ),
-    //       Radius.circular(borderRadius),
-    //     ),
-    //     Paint()..color = color);
 
     lastCenter = center;
   }
