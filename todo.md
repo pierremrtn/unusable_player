@@ -9,8 +9,7 @@
 - hive service
 
 # home page
-- search
-- dismissable playing song indicator
+- dismissible playing song indicator
 
 # player enhancements
 - slide cover to switch song

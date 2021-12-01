@@ -1,15 +1,11 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:neat/neat.dart';
 import 'package:animate_do/animate_do.dart';
-import 'package:unusable_player/pages/home/controllers/home_controller.dart';
-import 'package:unusable_player/pages/home/widgets/home_body.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
-import 'widgets/album_list_tab.dart';
-import 'widgets/artist_list_tab.dart';
-import 'widgets/song_list_tab.dart';
+import 'controllers/home_controller.dart';
+import 'widgets/home_body.dart';
 
 export 'home_bindings.dart';
 
@@ -59,9 +55,26 @@ class HomePage extends GetView<HomeController> {
                   left: up.Dimensions.pageMargin,
                 ),
               ),
-              _buildTabBar(
-                context,
-                innerBoxIsScrolled,
+              Obx(
+                () => SliverAnimatedOpacity(
+                  sliver: SliverOverlapAbsorber(
+                    handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                      context,
+                    ),
+                    sliver: up.SliverPersistentTabBar(
+                      isScrollable: false,
+                      tabs: [
+                        "home_songs_tab".tr,
+                        "home_artists_tab".tr,
+                        "home_albums_tab".tr,
+                      ],
+                      forceExpandSeparator: innerBoxIsScrolled,
+                    ),
+                  ),
+                  opacity: controller.showSearchResult ? 0 : 1,
+                  duration: up.Feel.animationDuration,
+                  curve: up.Feel.animationCurve,
+                ),
               ),
             ],
             body: Obx(
@@ -78,31 +91,6 @@ class HomePage extends GetView<HomeController> {
       ),
     );
   }
-
-  Widget _buildTabBar(
-    BuildContext context,
-    bool innerBoxIsScrolled,
-  ) =>
-      Obx(() {
-        if (controller.showSearchResult == false) {
-          return SliverOverlapAbsorber(
-            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-            sliver: up.SliverPersistentTabBar(
-              isScrollable: false,
-              tabs: [
-                "home_songs_tab".tr,
-                "home_artists_tab".tr,
-                "home_albums_tab".tr,
-              ],
-              forceExpandSeparator: innerBoxIsScrolled,
-            ),
-          );
-        } else {
-          return const SliverToBoxAdapter(
-            child: SizedBox.shrink(),
-          );
-        }
-      });
 
   EdgeInsetsGeometry _buildTabViewBottomPadding() =>
       controller.showPlayingSongIndicator

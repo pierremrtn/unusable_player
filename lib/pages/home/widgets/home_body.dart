@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'search_results.dart';
+import 'package:unusable_player/unusable_player.dart' as up;
 
+import 'search_results.dart';
 import 'sliver_song_list.dart';
 import 'artist_list_tab.dart';
 import 'song_list_tab.dart';
@@ -18,12 +19,33 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (showSearchResults) {
-      return SearchResults(
+    return AnimatedSwitcher(
+      duration: up.Feel.animationDuration,
+      switchInCurve: up.Feel.animationCurve,
+      switchOutCurve: up.Feel.animationCurve,
+      transitionBuilder: _transitionBuilder,
+      child: showSearchResults ? _buildSearchResults() : _buildTabBarView(),
+    );
+  }
+
+  Widget _transitionBuilder(Widget child, Animation<double> animation) {
+    final offsetTween =
+        Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0));
+
+    return FadeTransition(
+      opacity: animation,
+      child: SlideTransition(
+        position: offsetTween.animate(animation),
+        child: child,
+      ),
+    );
+  }
+
+  Widget _buildSearchResults() => SearchResults(
         onSelectSong: onSelectSong,
       );
-    } else {
-      return TabBarView(
+
+  Widget _buildTabBarView() => TabBarView(
         children: [
           SongListTab(
             onSelectSong: onSelectSong,
@@ -36,6 +58,4 @@ class HomeBody extends StatelessWidget {
           ),
         ],
       );
-    }
-  }
 }
