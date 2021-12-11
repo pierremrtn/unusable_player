@@ -174,6 +174,38 @@ class Padding5 extends EdgeInsets {
             horizontal: horizontal ? 5 : 0, vertical: vertical ? 5 : 0);
 }
 
+class PaddingPage extends EdgeInsets {
+  const PaddingPage([int padding = 0])
+      : super.only(
+          left: padding & left == left ? 18 : 0,
+          right: padding & right == right ? 18 : 0,
+          top: padding & top == top ? 18 : 0,
+          bottom: padding & bottom == bottom ? 18 : 0,
+        );
+
+  const PaddingPage.all() : super.all(18);
+
+  const PaddingPage.only(
+      {bool left = false,
+      bool right = false,
+      bool top = false,
+      bool bottom = false})
+      : super.only(
+          left: left ? 18 : 0,
+          right: right ? 18 : 0,
+          top: top ? 18 : 0,
+          bottom: bottom ? 18 : 0,
+        );
+
+  const PaddingPage.horizontal() : super.symmetric(horizontal: 18, vertical: 0);
+
+  const PaddingPage.vertical() : super.symmetric(vertical: 18, horizontal: 0);
+
+  const PaddingPage.symmetric({bool horizontal = false, bool vertical = false})
+      : super.symmetric(
+            horizontal: horizontal ? 18 : 0, vertical: vertical ? 18 : 0);
+}
+
 class Space1 extends SizedBox {
   const Space1({Key? key})
       : super(

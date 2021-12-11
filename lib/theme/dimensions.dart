@@ -37,5 +37,7 @@ class Dimensions {
   static const double divider1 = 1;
 
   //pages
+  static const double paddingPage = space3;
+  @Deprecated("use paddingPage instead")
   static const double pageMargin = space3;
 }
