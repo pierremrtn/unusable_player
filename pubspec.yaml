@@ -20,6 +20,7 @@ dependencies:
   just_audio: ^0.9.15
   animate_do: ^2.0.0
   neat: ^0.1.1
+  rive: ^0.7.33
 
 dev_dependencies:
   flutter_test:
@@ -49,3 +50,4 @@ flutter:
           weight: 600
   assets:
     - assets/
+    - assets/rive/

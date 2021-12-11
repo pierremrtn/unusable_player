@@ -16,6 +16,7 @@ class PlayerPage extends GetView<PlayerController> {
   @override
   Widget build(BuildContext context) {
     return up.Page(
+      padding: const up.PaddingPage.vertical(),
       appBar: up.normalAppBar(
         context: context,
         title: "Now playing",
@@ -29,22 +30,33 @@ class PlayerPage extends GetView<PlayerController> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              context.headline1(song.title),
-              context.subtitle1(song.artist.name),
+              Padding(
+                padding: const up.PaddingPage.horizontal(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    context.headline1(song.title),
+                    context.subtitle1(song.artist.name),
+                  ],
+                ),
+              ),
               const up.Space1(),
               Cover(artwork: song.artwork),
               const up.Space1(),
-              controller.obx(
-                (controlState) => PlayerControl(
-                  state: controlState!,
-                  onSetTime: controller.setTime,
-                  onSetVolume: controller.setVolume,
-                  onPlay: controller.play,
-                  onPause: controller.pause,
-                  onToggleLoopMode: controller.toggleLoopMode,
-                  onToggleShuffleMode: controller.toggleShuffleMode,
-                  onPrevious: controller.previous,
-                  onNext: controller.next,
+              Padding(
+                padding: const up.PaddingPage.horizontal(),
+                child: controller.obx(
+                  (controlState) => PlayerControl(
+                    state: controlState!,
+                    onSetTime: controller.setTime,
+                    onSetVolume: controller.setVolume,
+                    onPlay: controller.play,
+                    onPause: controller.pause,
+                    onToggleLoopMode: controller.toggleLoopMode,
+                    onToggleShuffleMode: controller.toggleShuffleMode,
+                    onPrevious: controller.previous,
+                    onNext: controller.next,
+                  ),
                 ),
               ),
               const up.Space1(),
