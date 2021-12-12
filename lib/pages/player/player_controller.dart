@@ -12,7 +12,8 @@ class PlayerController extends GetxController
 
   @override
   void onInit() {
-    coverController = CoverController(vsync: this);
+    final params = Get.arguments as PlayerParameters;
+    _initCover(params);
     _bindStreams();
     super.onInit();
   }
@@ -42,14 +43,21 @@ class PlayerController extends GetxController
   Future<void> previous() async => audioService.previous();
   Future<void> next() async => audioService.next();
 
-  void _bindStreams() {
-    _song.bindStream(audioService.songStream);
-    audioService.songStream.listen((_) => _updateControlState());
-    audioService.playerStateStream.listen((_) => _updateControlState());
-    audioService.volumeStream.listen((_) => _updateControlState());
-    audioService.currentTimeStream.listen((_) => _updateControlState());
-    audioService.loopModeStream.listen((_) => _updateControlState());
-    audioService.shuffleModeStream.listen((_) => _updateControlState());
+  void _initCover(PlayerParameters params) {
+    bool? showPrev;
+    bool? showNext;
+    if (!params.openCurrentSong) {
+      showPrev = params.index! > 0;
+      showNext = params.index! < params.songs!.length - 1;
+    } else {
+      showPrev = audioService.hasPrevious;
+      showNext = audioService.hasNext;
+    }
+    coverController = CoverController(
+      showPrevAtInit: showPrev,
+      showNextAtInit: showNext,
+      vsync: this,
+    );
   }
 
   Future<void> _initPlayer(PlayerParameters params) async {
@@ -59,6 +67,16 @@ class PlayerController extends GetxController
       await audioService.setSongsList(params.songs!, params.index);
       play();
     }
+  }
+
+  void _bindStreams() {
+    _song.bindStream(audioService.songStream);
+    audioService.songStream.listen((_) => _updateControlState());
+    audioService.playerStateStream.listen((_) => _updateControlState());
+    audioService.volumeStream.listen((_) => _updateControlState());
+    audioService.currentTimeStream.listen((_) => _updateControlState());
+    audioService.loopModeStream.listen((_) => _updateControlState());
+    audioService.shuffleModeStream.listen((_) => _updateControlState());
   }
 
   void _updateControlState() {

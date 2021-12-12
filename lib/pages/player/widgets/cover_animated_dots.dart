@@ -37,8 +37,8 @@ class AnimatedDotsController {
     _pressed = controller.findInput<bool>('pressed');
     _initHidePrev = controller.findInput<bool>('initHidePrev');
     _initHideNext = controller.findInput<bool>('initHideNext');
-    _initHidePrev?.value = true;
-    _initHideNext?.value = false;
+    _initHidePrev?.value = !showPrev;
+    _initHideNext?.value = !showNext;
   }
 
   void onDrag(double value) {

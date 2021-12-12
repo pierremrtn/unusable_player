@@ -7,6 +7,8 @@ import 'cover_animated_dots.dart';
 class CoverController {
   CoverController({
     required TickerProvider vsync,
+    required bool showPrevAtInit,
+    required bool showNextAtInit,
     this.triggerThreshold = 0.3,
     this.dragSensibility = 0.01,
   })  : _animController = AnimationController(
@@ -15,8 +17,8 @@ class CoverController {
           vsync: vsync,
         ),
         dotsController = AnimatedDotsController(
-          showPrev: true,
-          showNext: true,
+          showPrev: showPrevAtInit,
+          showNext: showNextAtInit,
         );
 
   final double triggerThreshold;
