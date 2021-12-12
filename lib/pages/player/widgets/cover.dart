@@ -1,17 +1,22 @@
 import 'dart:typed_data';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
+import 'package:unusable_player/pages/player/widgets/cover_animated_artwork.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 import 'cover_animated_dots.dart';
 
 class CoverController {
+  static const endAnimationDuration =
+      AnimatedDotsController.resetAnimationDuration;
+
   CoverController({
     required TickerProvider vsync,
     required bool showPrevAtInit,
     required bool showNextAtInit,
-    this.triggerThreshold = 0.3,
+    this.triggerThreshold = 0.1,
     this.dragSensibility = 0.01,
-  })  : _animController = AnimationController(
+  })  : artworkAnimation = AnimationController(
           value: 0.5,
           duration: const Duration(milliseconds: 300),
           vsync: vsync,
@@ -23,32 +28,53 @@ class CoverController {
 
   final double triggerThreshold;
   final double dragSensibility;
-  final AnimationController _animController;
+  final AnimationController artworkAnimation;
   final AnimatedDotsController dotsController;
+  double dragValue = 0.5;
 
   void verticalDragStartHandle(DragStartDetails drag) {
-    _animController.value = 0.5;
-    dotsController.onDrag(0.5);
+    dragValue = 0.5;
   }
 
   void verticalDragHandle(DragUpdateDetails drag) {
     final deltaY = drag.primaryDelta!;
-    final currentValue = _animController.value;
-    final newValue = currentValue + (deltaY * dragSensibility);
-    dotsController.onDrag(newValue);
-    _animController.value = newValue;
+    dragValue = (dragValue + (deltaY * dragSensibility)).clamp(0, 1);
+    dotsController.onDrag(dragValue);
+    artworkAnimation.value =
+        lerpDouble(triggerThreshold, 1 - triggerThreshold, dragValue)!;
   }
 
-  void verticalDragEndHandle(DragEndDetails drag) {
-    final value = _animController.value;
-    if (value < triggerThreshold) {
-      dotsController.goPrev();
-    } else if (value > 1 - triggerThreshold) {
-      dotsController.goNext();
+  Future<void> verticalDragEndHandle(DragEndDetails drag) async {
+    if (dragValue < triggerThreshold) {
+      prev();
+    } else if (dragValue > 1 - triggerThreshold) {
+      next();
     } else {
-      dotsController.cancel();
+      cancel();
     }
-    _animController.value = 0.5;
+    dragValue = 0.5;
+  }
+
+  Future<void> prev() async {
+    artworkAnimation.animateTo(0, duration: endAnimationDuration);
+    await dotsController.goPrev();
+    _reset();
+  }
+
+  Future<void> next() async {
+    artworkAnimation.animateTo(1, duration: endAnimationDuration);
+    await dotsController.goNext();
+    _reset();
+  }
+
+  Future<void> cancel() async {
+    artworkAnimation.animateTo(0.5, duration: endAnimationDuration);
+    await dotsController.cancel();
+    _reset();
+  }
+
+  void _reset() {
+    artworkAnimation.value = 0.5;
   }
 }
 
@@ -78,15 +104,10 @@ class Cover extends StatelessWidget {
           children: [
             const up.Space3(),
             Expanded(
-              child: up.DoubleBottomCard(
-                padding: const EdgeInsets.all(up.Dimensions.space5),
-                child: up.Image(
-                  artwork != null
-                      ? MemoryImage(artwork!) as ImageProvider<Object>
-                      : const AssetImage("assets/skeler.jpg"),
-                  height: up.Dimensions.image1,
-                  radius: up.Dimensions.borderRadius2,
-                ),
+              child: CoverAnimatedArtwork(
+                triggerThreshold: controller.triggerThreshold,
+                animation: controller.artworkAnimation,
+                artwork: artwork,
               ),
             ),
             SizedBox(
