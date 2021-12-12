@@ -4,52 +4,72 @@ import 'package:neat/neat.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 import 'cover_animated_dots.dart';
 
-class Cover extends StatefulWidget {
-  const Cover({
-    this.height = 189,
+class CoverController {
+  CoverController({
+    required TickerProvider vsync,
     this.triggerThreshold = 0.3,
     this.dragSensibility = 0.01,
+  })  : _animController = AnimationController(
+          value: 0.5,
+          duration: const Duration(milliseconds: 300),
+          vsync: vsync,
+        ),
+        dotsController = AnimatedDotsController(
+          showPrev: true,
+          showNext: true,
+        );
+
+  final double triggerThreshold;
+  final double dragSensibility;
+  final AnimationController _animController;
+  final AnimatedDotsController dotsController;
+
+  void verticalDragStartHandle(DragStartDetails drag) {
+    _animController.value = 0.5;
+    dotsController.onDrag(0.5);
+  }
+
+  void verticalDragHandle(DragUpdateDetails drag) {
+    final deltaY = drag.primaryDelta!;
+    final currentValue = _animController.value;
+    final newValue = currentValue + (deltaY * dragSensibility);
+    dotsController.onDrag(newValue);
+    _animController.value = newValue;
+  }
+
+  void verticalDragEndHandle(DragEndDetails drag) {
+    final value = _animController.value;
+    if (value < triggerThreshold) {
+      dotsController.goPrev();
+    } else if (value > 1 - triggerThreshold) {
+      dotsController.goNext();
+    } else {
+      dotsController.cancel();
+    }
+    _animController.value = 0.5;
+  }
+}
+
+class Cover extends StatelessWidget {
+  const Cover({
     required this.artwork,
+    required this.controller,
+    this.height = 189,
     Key? key,
   }) : super(key: key);
 
   final double height;
-  final double triggerThreshold;
-  final double dragSensibility;
   final Uint8List? artwork;
-
-  @override
-  _CoverState createState() => _CoverState();
-}
-
-class _CoverState extends State<Cover> with SingleTickerProviderStateMixin {
-  _CoverState();
-
-  late AnimationController _animController;
-  late AnimatedDotsController _dotsController;
-
-  @override
-  void initState() {
-    super.initState();
-    _animController = AnimationController(
-      value: 0.5,
-      duration: const Duration(milliseconds: 300),
-      vsync: this,
-    );
-    _dotsController = AnimatedDotsController(
-      showPrev: true,
-      showNext: true,
-    );
-  }
+  final CoverController controller;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.height,
+      height: height,
       child: GestureDetector(
-        onVerticalDragEnd: _verticalDragEndHandle,
-        onVerticalDragUpdate: _verticalDragHandle,
-        onVerticalDragStart: _verticalDragStartHandle,
+        onVerticalDragEnd: controller.verticalDragEndHandle,
+        onVerticalDragUpdate: controller.verticalDragHandle,
+        onVerticalDragStart: controller.verticalDragStartHandle,
         child: Row(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -59,8 +79,8 @@ class _CoverState extends State<Cover> with SingleTickerProviderStateMixin {
               child: up.DoubleBottomCard(
                 padding: const EdgeInsets.all(up.Dimensions.space5),
                 child: up.Image(
-                  widget.artwork != null
-                      ? MemoryImage(widget.artwork!) as ImageProvider<Object>
+                  artwork != null
+                      ? MemoryImage(artwork!) as ImageProvider<Object>
                       : const AssetImage("assets/skeler.jpg"),
                   height: up.Dimensions.image1,
                   radius: up.Dimensions.borderRadius2,
@@ -72,9 +92,9 @@ class _CoverState extends State<Cover> with SingleTickerProviderStateMixin {
               child: Align(
                 alignment: Alignment.center,
                 child: CoverAnimatedDots(
-                  height: widget.height,
+                  height: height,
                   width: up.Dimensions.space4,
-                  controller: _dotsController,
+                  controller: controller.dotsController,
                 ),
               ),
             ),
@@ -82,31 +102,5 @@ class _CoverState extends State<Cover> with SingleTickerProviderStateMixin {
         ),
       ),
     );
-  }
-
-  void _verticalDragStartHandle(DragStartDetails drag) {
-    // _dotsController.onDrag(newValue);
-    // _animController.value = newValue;
-    _dotsController.onDrag(0.5);
-  }
-
-  void _verticalDragHandle(DragUpdateDetails drag) {
-    final deltaY = drag.primaryDelta!;
-    final currentValue = _animController.value;
-    final newValue = currentValue + (deltaY * widget.dragSensibility);
-    _dotsController.onDrag(newValue);
-    _animController.value = newValue;
-  }
-
-  void _verticalDragEndHandle(DragEndDetails drag) {
-    final value = _animController.value;
-    if (value < widget.triggerThreshold) {
-      _dotsController.goPrev();
-    } else if (value > 1 - widget.triggerThreshold) {
-      _dotsController.goNext();
-    } else {
-      _dotsController.cancel();
-    }
-    _animController.value = 0.5;
   }
 }

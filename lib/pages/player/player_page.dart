@@ -41,7 +41,10 @@ class PlayerPage extends GetView<PlayerController> {
                 ),
               ),
               const up.Space1(),
-              Cover(artwork: song.artwork),
+              Cover(
+                artwork: song.artwork,
+                controller: controller.coverController,
+              ),
               const up.Space1(),
               Padding(
                 padding: const up.PaddingPage.horizontal(),

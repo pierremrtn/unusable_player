@@ -1,16 +1,18 @@
 import 'package:get/get.dart';
 import 'package:unusable_player/pages/player/models/player_parameters.dart';
+import 'package:unusable_player/pages/player/widgets/cover.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 import 'models/player_control_state.dart';
 
 class PlayerController extends GetxController
-    with StateMixin<PlayerControlState> {
+    with StateMixin<PlayerControlState>, GetSingleTickerProviderStateMixin {
   PlayerController({
     required this.audioService,
   });
 
   @override
   void onInit() {
+    coverController = CoverController(vsync: this);
     _bindStreams();
     super.onInit();
   }
@@ -27,6 +29,7 @@ class PlayerController extends GetxController
 
   final up.AudioPlayerService audioService;
   final Rx<up.Song?> _song = Rx(null);
+  late CoverController coverController;
 
   up.Song? get song => _song.value;
 
