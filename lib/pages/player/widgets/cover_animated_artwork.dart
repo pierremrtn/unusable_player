@@ -6,6 +6,8 @@ import 'package:unusable_player/unusable_player.dart' as up;
 class CoverAnimatedArtwork extends StatelessWidget {
   CoverAnimatedArtwork({
     required this.artwork,
+    required this.prevArtwork,
+    required this.nextArtwork,
     required this.animation,
     required double triggerThreshold,
     double currentCardShift = 30,
@@ -73,6 +75,8 @@ class CoverAnimatedArtwork extends StatelessWidget {
         super(key: key);
 
   final Uint8List? artwork;
+  final Uint8List? prevArtwork;
+  final Uint8List? nextArtwork;
   final AnimationController animation;
   final Animation<double> currentCardOpacity;
   final Animation<Offset> currentCardOffset;
@@ -89,21 +93,22 @@ class CoverAnimatedArtwork extends StatelessWidget {
         return Stack(
           fit: StackFit.expand,
           children: [
-            Opacity(
-              opacity: prevCardOpacity.value,
-              child: Transform.translate(
-                transformHitTests: false,
-                offset: prevCardOffset.value,
-                child: up.DoubleBottomCard(
-                  padding: const EdgeInsets.all(up.Dimensions.space5),
-                  child: up.Image(
-                    AssetImage("assets/skeler.jpg"),
-                    height: up.Dimensions.image1,
-                    radius: up.Dimensions.borderRadius2,
+            if (prevArtwork != null)
+              Opacity(
+                opacity: prevCardOpacity.value,
+                child: Transform.translate(
+                  transformHitTests: false,
+                  offset: prevCardOffset.value,
+                  child: up.DoubleBottomCard(
+                    padding: const EdgeInsets.all(up.Dimensions.space5),
+                    child: up.Image(
+                      MemoryImage(prevArtwork!),
+                      height: up.Dimensions.image1,
+                      radius: up.Dimensions.borderRadius2,
+                    ),
                   ),
                 ),
               ),
-            ),
             Opacity(
               opacity: currentCardOpacity.value,
               child: Transform.translate(
@@ -121,21 +126,22 @@ class CoverAnimatedArtwork extends StatelessWidget {
                 ),
               ),
             ),
-            Opacity(
-              opacity: nextCardOpacity.value,
-              child: Transform.translate(
-                transformHitTests: false,
-                offset: nextCardOffset.value,
-                child: up.DoubleBottomCard(
-                  padding: const EdgeInsets.all(up.Dimensions.space5),
-                  child: up.Image(
-                    AssetImage("assets/skeler.jpg"),
-                    height: up.Dimensions.image1,
-                    radius: up.Dimensions.borderRadius2,
+            if (nextArtwork != null)
+              Opacity(
+                opacity: nextCardOpacity.value,
+                child: Transform.translate(
+                  transformHitTests: false,
+                  offset: nextCardOffset.value,
+                  child: up.DoubleBottomCard(
+                    padding: const EdgeInsets.all(up.Dimensions.space5),
+                    child: up.Image(
+                      MemoryImage(nextArtwork!),
+                      height: up.Dimensions.image1,
+                      radius: up.Dimensions.borderRadius2,
+                    ),
                   ),
                 ),
               ),
-            ),
           ],
         );
       },

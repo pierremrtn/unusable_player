@@ -11,6 +11,8 @@ class CoverController {
       AnimatedDotsController.resetAnimationDuration;
 
   CoverController({
+    required this.onNext,
+    required this.onPrev,
     required TickerProvider vsync,
     required bool showPrevAtInit,
     required bool showNextAtInit,
@@ -30,6 +32,8 @@ class CoverController {
   final double dragSensibility;
   final AnimationController artworkAnimation;
   final AnimatedDotsController dotsController;
+  final Future<void> Function() onNext;
+  final Future<void> Function() onPrev;
   double dragValue = 0.5;
 
   void verticalDragStartHandle(DragStartDetails drag) {
@@ -46,24 +50,26 @@ class CoverController {
 
   Future<void> verticalDragEndHandle(DragEndDetails drag) async {
     if (dragValue < triggerThreshold) {
-      prev();
+      // await animateUp();
+      onPrev();
     } else if (dragValue > 1 - triggerThreshold) {
-      next();
+      // await animateDown();
+      onNext();
     } else {
       cancel();
     }
     dragValue = 0.5;
   }
 
-  Future<void> prev() async {
+  Future<void> animateUp({bool hideUp = false}) async {
     artworkAnimation.animateTo(0, duration: endAnimationDuration);
-    await dotsController.goPrev();
+    await dotsController.goPrev(last: hideUp);
     _reset();
   }
 
-  Future<void> next() async {
+  Future<void> animateDown({bool hideDown = false}) async {
     artworkAnimation.animateTo(1, duration: endAnimationDuration);
-    await dotsController.goNext();
+    await dotsController.goNext(last: hideDown);
     _reset();
   }
 
@@ -81,6 +87,8 @@ class CoverController {
 class Cover extends StatelessWidget {
   const Cover({
     required this.artwork,
+    required this.nextArtwork,
+    required this.prevArtwork,
     required this.controller,
     this.height = 189,
     Key? key,
@@ -88,6 +96,9 @@ class Cover extends StatelessWidget {
 
   final double height;
   final Uint8List? artwork;
+  final Uint8List? nextArtwork;
+  final Uint8List? prevArtwork;
+
   final CoverController controller;
 
   @override
@@ -108,6 +119,8 @@ class Cover extends StatelessWidget {
                 triggerThreshold: controller.triggerThreshold,
                 animation: controller.artworkAnimation,
                 artwork: artwork,
+                nextArtwork: nextArtwork,
+                prevArtwork: prevArtwork,
               ),
             ),
             SizedBox(

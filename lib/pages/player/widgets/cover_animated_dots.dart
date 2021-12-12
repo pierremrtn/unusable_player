@@ -52,6 +52,7 @@ class AnimatedDotsController {
   }
 
   Future<void> goPrev({bool last = false}) async {
+    _pressed?.value = true;
     if (last) {
       _goUpLast?.fire();
     } else {
@@ -61,6 +62,7 @@ class AnimatedDotsController {
   }
 
   Future<void> goNext({bool last = false}) async {
+    _pressed?.value = true;
     if (last) {
       _goDownLast?.fire();
     } else {

@@ -1,6 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:collection/collection.dart';
+import 'package:on_audio_query/on_audio_query.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
 enum AudioPlayerState {
@@ -24,7 +27,6 @@ class AudioPlayerService extends GetxService {
         return _songs.first;
       }
     }
-
     return null;
   }
 
@@ -37,6 +39,8 @@ class AudioPlayerService extends GetxService {
   bool get isPlaying => _player.playing;
   double get volume => _player.volume;
   Duration get currentTime => _player.position;
+  List<up.Song> get songList => _songs;
+  int get currentSongIndex => _player.currentIndex ?? 0;
 
   Future<void> setSong(up.Song song) async {
     if (!_songs.equals([song])) {
