@@ -50,10 +50,8 @@ class CoverController {
 
   Future<void> verticalDragEndHandle(DragEndDetails drag) async {
     if (dragValue < triggerThreshold) {
-      // await animateUp();
       onPrev();
     } else if (dragValue > 1 - triggerThreshold) {
-      // await animateDown();
       onNext();
     } else {
       cancel();
