@@ -3,7 +3,7 @@ import 'package:neat/neat.dart';
 import 'package:get/get.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
-import 'widgets/cover.dart';
+import 'widgets/cover/cover.dart';
 import 'widgets/player_control.dart';
 import 'player_controller.dart';
 
@@ -41,12 +41,9 @@ class PlayerPage extends GetView<PlayerController> {
                 ),
               ),
               const up.Space1(),
-              Obx(() => Cover(
-                    artwork: controller.artwork,
-                    prevArtwork: controller.prevArtwork,
-                    nextArtwork: controller.nextArtwork,
-                    controller: controller.coverController,
-                  )),
+              Cover(
+                controller: controller.coverController,
+              ),
               const up.Space1(),
               Padding(
                 padding: const up.PaddingPage.horizontal(),
