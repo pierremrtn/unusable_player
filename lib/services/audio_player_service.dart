@@ -30,6 +30,22 @@ class AudioPlayerService extends GetxService {
     return null;
   }
 
+  up.Song? get previousSong {
+    try {
+      return _songs[_player.previousIndex!];
+    } catch (_) {
+      return null;
+    }
+  }
+
+  up.Song? get nextSong {
+    try {
+      return _songs[_player.nextIndex!];
+    } catch (_) {
+      return null;
+    }
+  }
+
   AudioPlayerState get playerState => _player.playerState.toAudioPlayerState();
   bool get hasNext => _player.hasNext;
   bool get hasPrevious => _player.hasPrevious;

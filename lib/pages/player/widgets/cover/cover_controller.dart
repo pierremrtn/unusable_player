@@ -1,7 +1,6 @@
-import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-
+import 'package:unusable_player/unusable_player.dart' as up;
 import 'cover_animated_dots.dart';
 
 enum CoverAnimation {
@@ -11,15 +10,16 @@ enum CoverAnimation {
 }
 
 class CoverController extends ChangeNotifier {
+  static const fallbackArtwork = AssetImage("assets/artwork_not_found.jpg");
   static const endAnimationDuration =
       AnimatedDotsController.resetAnimationDuration;
 
   CoverController({
     required this.onNext,
     required this.onPrev,
-    required Uint8List? artwork,
-    required Uint8List? nextArtwork,
-    required Uint8List? prevArtwork,
+    required up.Song song,
+    required up.Song? prevSong,
+    required up.Song? nextSong,
     required TickerProvider vsync,
     this.triggerThreshold = 0.1,
     this.dragSensibility = 0.01,
@@ -29,16 +29,16 @@ class CoverController extends ChangeNotifier {
           vsync: vsync,
         ),
         dotsController = AnimatedDotsController(
-          showPrev: prevArtwork != null,
-          showNext: nextArtwork != null,
+          showPrev: prevSong != null,
+          showNext: nextSong != null,
         ),
-        _artwork = artwork,
-        _nextArtwork = nextArtwork,
-        _prevArtwork = prevArtwork;
+        _song = song,
+        _prevSong = prevSong,
+        _nextSong = nextSong;
 
-  Uint8List? _artwork;
-  Uint8List? _nextArtwork;
-  Uint8List? _prevArtwork;
+  up.Song _song;
+  up.Song? _prevSong;
+  up.Song? _nextSong;
   final double triggerThreshold;
   final double dragSensibility;
   final AnimationController artworkAnimation;
@@ -47,40 +47,58 @@ class CoverController extends ChangeNotifier {
   final Future<void> Function() onPrev;
   double dragValue = 0.5;
 
-  Uint8List? get artwork => _artwork;
-  Uint8List? get nextArtwork => _nextArtwork;
-  Uint8List? get prevArtwork => _prevArtwork;
+  ImageProvider<Object> get artwork {
+    if (_song.artwork != null) {
+      return MemoryImage(_song.artwork!);
+    }
+    return fallbackArtwork;
+  }
 
-  ///Animate cover to display new artworks.
-  ///setArtworks will return after animation terminate
-  ///if AnimateCover.up and prevArtwork is null, hide the upper dot
-  ///if AnimateCover.down and nextArtwork is null, hide the lower dot
-  Future<void> setArtworks(
+  ImageProvider<Object>? get prevArtwork {
+    if (_prevSong == null) {
+      return null;
+    }
+    if (_prevSong!.artwork != null) {
+      return MemoryImage(_prevSong!.artwork!);
+    }
+    return fallbackArtwork;
+  }
+
+  ImageProvider<Object>? get nextArtwork {
+    if (_nextSong == null) {
+      return null;
+    }
+    if (_nextSong!.artwork != null) {
+      return MemoryImage(_nextSong!.artwork!);
+    }
+    return fallbackArtwork;
+  }
+
+  ///Animate cover to display new song.
+  ///setSongs will return after animation terminate
+  ///if CoverAnimation.up and prevSong is null, hide the upper dot
+  ///if CoverAnimation.down and nextSong is null, hide the lower dot
+  Future<void> setSongs(
+    up.Song song,
     CoverAnimation animate, {
-    Uint8List? artwork,
-    Uint8List? prevArtwork,
-    Uint8List? nextArtwork,
+    up.Song? prevSong,
+    up.Song? nextSong,
   }) async {
     switch (animate) {
       case CoverAnimation.none:
         return;
       case CoverAnimation.up:
-        await animateUp(hideUp: prevArtwork == null);
-        _changeArtworks(
-          artwork: artwork,
-          prevArtwork: prevArtwork,
-          nextArtwork: nextArtwork,
-        );
-        return;
+        await animateUp(hideUp: prevSong == null);
+        break;
       case CoverAnimation.down:
-        await animateDown(hideDown: nextArtwork == null);
-        _changeArtworks(
-          artwork: artwork,
-          prevArtwork: prevArtwork,
-          nextArtwork: nextArtwork,
-        );
-        return;
+        await animateDown(hideDown: nextSong == null);
+        break;
     }
+    _changeSongs(
+      song,
+      prevSong: prevSong,
+      nextSong: nextSong,
+    );
   }
 
   void verticalDragStartHandle(DragStartDetails drag) {
@@ -96,9 +114,9 @@ class CoverController extends ChangeNotifier {
   }
 
   Future<void> verticalDragEndHandle(DragEndDetails drag) async {
-    if (dragValue < triggerThreshold && _prevArtwork != null) {
+    if (dragValue < triggerThreshold && _prevSong != null) {
       onPrev();
-    } else if (dragValue > 1 - triggerThreshold && _nextArtwork != null) {
+    } else if (dragValue > 1 - triggerThreshold && _nextSong != null) {
       onNext();
     } else {
       cancel();
@@ -124,14 +142,14 @@ class CoverController extends ChangeNotifier {
     _reset();
   }
 
-  void _changeArtworks({
-    Uint8List? artwork,
-    Uint8List? nextArtwork,
-    Uint8List? prevArtwork,
+  void _changeSongs(
+    up.Song song, {
+    up.Song? nextSong,
+    up.Song? prevSong,
   }) {
-    _artwork = artwork;
-    _nextArtwork = nextArtwork;
-    _prevArtwork = prevArtwork;
+    _song = song;
+    _nextSong = nextSong;
+    _prevSong = prevSong;
     notifyListeners();
   }
 

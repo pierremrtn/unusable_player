@@ -31,27 +31,12 @@ class PlayerController extends GetxController
   }
 
   final up.AudioPlayerService audioService;
+  @deprecated
   final Rx<up.Song?> _song = Rx(null);
   late CoverController coverController;
-  late List<Uint8List?> _artworkList;
-  int _currentArtworkIndex = 0;
+  int _currentSongIndex = 0;
 
   up.Song? get song => _song.value;
-
-  Uint8List? get artwork => _artworkList[_currentArtworkIndex];
-  Uint8List? get prevArtwork {
-    if (_currentArtworkIndex - 1 >= 0) {
-      return _artworkList[_currentArtworkIndex - 1];
-    }
-    return null;
-  }
-
-  Uint8List? get nextArtwork {
-    if (_currentArtworkIndex + 1 < _artworkList.length) {
-      return _artworkList[_currentArtworkIndex + 1];
-    }
-    return null;
-  }
 
   Future<void> play() async => audioService.play();
   Future<void> pause() async => audioService.pause();
@@ -63,28 +48,31 @@ class PlayerController extends GetxController
   Future<void> next() async => audioService.next();
 
   void _initCover(PlayerParameters params) {
-    bool? showPrev;
-    bool? showNext;
-
-    if (!params.openCurrentSong) {
-      _currentArtworkIndex = params.index!;
-      _artworkList = params.songs?.map((s) => s.artwork).toList() ?? [];
-      showPrev = params.index! > 0;
-      showNext = params.index! < params.songs!.length - 1;
+    if (params.openCurrentSong == false) {
+      final _idx = params.index!;
+      final _songs = params.songs!;
+      final _prevSong = _idx > 0 ? _songs[_idx - 1] : null;
+      final _nextSong = _idx + 1 < _songs.length ? _songs[_idx + 1] : null;
+      _currentSongIndex = _idx;
+      coverController = CoverController(
+        song: _songs[_idx],
+        prevSong: _prevSong,
+        nextSong: _nextSong,
+        onNext: next,
+        onPrev: previous,
+        vsync: this,
+      );
     } else {
-      _currentArtworkIndex = audioService.currentSongIndex;
-      _artworkList = audioService.songList.map((s) => s.artwork).toList();
-      showPrev = audioService.hasPrevious;
-      showNext = audioService.hasNext;
+      _currentSongIndex = audioService.currentSongIndex;
+      coverController = CoverController(
+        song: audioService.playingSong!,
+        prevSong: audioService.previousSong,
+        nextSong: audioService.nextSong,
+        onNext: next,
+        onPrev: previous,
+        vsync: this,
+      );
     }
-    coverController = CoverController(
-      artwork: artwork,
-      prevArtwork: prevArtwork,
-      nextArtwork: nextArtwork,
-      onNext: next,
-      onPrev: previous,
-      vsync: this,
-    );
   }
 
   Future<void> _initPlayer(PlayerParameters params) async {
@@ -113,18 +101,21 @@ class PlayerController extends GetxController
 
   Future<void> _updateCover() async {
     final idx = audioService.currentSongIndex;
+    if (idx == _currentSongIndex) {
+      return;
+    }
     CoverAnimation animate = CoverAnimation.none;
-    if (idx < _currentArtworkIndex) {
+    if (idx < _currentSongIndex) {
       animate = CoverAnimation.up;
-    } else if (idx > _currentArtworkIndex) {
+    } else if (idx > _currentSongIndex) {
       animate = CoverAnimation.down;
     }
-    _currentArtworkIndex = idx;
-    coverController.setArtworks(
+    _currentSongIndex = idx;
+    coverController.setSongs(
+      audioService.playingSong!,
       animate,
-      artwork: artwork,
-      prevArtwork: prevArtwork,
-      nextArtwork: nextArtwork,
+      prevSong: audioService.previousSong,
+      nextSong: audioService.nextSong,
     );
   }
 
@@ -135,7 +126,7 @@ class PlayerController extends GetxController
   PlayerControlState get _controlState => PlayerControlState(
         isPlaying: audioService.isPlaying,
         currentTime: audioService.currentTime,
-        songDuration: _song.value?.duration,
+        songDuration: audioService.playingSong?.duration,
         nextSongButtonEnabled: audioService.hasNext,
         previousSongButtonEnabled: audioService.hasPrevious,
         loopModeEnabled: audioService.loopModeEnabled,

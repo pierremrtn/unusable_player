@@ -74,9 +74,9 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ),
         super(key: key);
 
-  final Uint8List? artwork;
-  final Uint8List? prevArtwork;
-  final Uint8List? nextArtwork;
+  final ImageProvider<Object> artwork;
+  final ImageProvider<Object>? prevArtwork;
+  final ImageProvider<Object>? nextArtwork;
   final AnimationController animation;
   final Animation<double> currentCardOpacity;
   final Animation<Offset> currentCardOffset;
@@ -102,7 +102,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
                   child: up.DoubleBottomCard(
                     padding: const EdgeInsets.all(up.Dimensions.space5),
                     child: up.Image(
-                      MemoryImage(prevArtwork!),
+                      prevArtwork!,
                       height: up.Dimensions.image1,
                       radius: up.Dimensions.borderRadius2,
                     ),
@@ -117,9 +117,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
                 child: up.DoubleBottomCard(
                   padding: const EdgeInsets.all(up.Dimensions.space5),
                   child: up.Image(
-                    artwork != null
-                        ? MemoryImage(artwork!) as ImageProvider<Object>
-                        : const AssetImage("assets/skeler.jpg"),
+                    artwork,
                     height: up.Dimensions.image1,
                     radius: up.Dimensions.borderRadius2,
                   ),
@@ -135,7 +133,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
                   child: up.DoubleBottomCard(
                     padding: const EdgeInsets.all(up.Dimensions.space5),
                     child: up.Image(
-                      MemoryImage(nextArtwork!),
+                      nextArtwork!,
                       height: up.Dimensions.image1,
                       radius: up.Dimensions.borderRadius2,
                     ),
