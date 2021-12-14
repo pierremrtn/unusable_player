@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 import 'cover_animated_dots.dart';
 
-enum AnimateCover {
+enum CoverAnimation {
+  none,
   up,
   down,
-  cancel,
 }
 
 class CoverController extends ChangeNotifier {
@@ -56,15 +56,15 @@ class CoverController extends ChangeNotifier {
   ///if AnimateCover.up and prevArtwork is null, hide the upper dot
   ///if AnimateCover.down and nextArtwork is null, hide the lower dot
   Future<void> setArtworks(
-    AnimateCover animate, {
+    CoverAnimation animate, {
     Uint8List? artwork,
     Uint8List? prevArtwork,
     Uint8List? nextArtwork,
   }) async {
     switch (animate) {
-      case AnimateCover.cancel:
-        return cancel();
-      case AnimateCover.up:
+      case CoverAnimation.none:
+        return;
+      case CoverAnimation.up:
         await animateUp(hideUp: prevArtwork == null);
         _changeArtworks(
           artwork: artwork,
@@ -72,7 +72,7 @@ class CoverController extends ChangeNotifier {
           nextArtwork: nextArtwork,
         );
         return;
-      case AnimateCover.down:
+      case CoverAnimation.down:
         await animateDown(hideDown: nextArtwork == null);
         _changeArtworks(
           artwork: artwork,

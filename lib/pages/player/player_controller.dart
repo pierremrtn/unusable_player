@@ -113,11 +113,11 @@ class PlayerController extends GetxController
 
   Future<void> _updateCover() async {
     final idx = audioService.currentSongIndex;
-    AnimateCover animate = AnimateCover.cancel;
+    CoverAnimation animate = CoverAnimation.none;
     if (idx < _currentArtworkIndex) {
-      animate = AnimateCover.up;
+      animate = CoverAnimation.up;
     } else if (idx > _currentArtworkIndex) {
-      animate = AnimateCover.down;
+      animate = CoverAnimation.down;
     }
     _currentArtworkIndex = idx;
     coverController.setArtworks(
