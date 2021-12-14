@@ -96,9 +96,9 @@ class CoverController extends ChangeNotifier {
   }
 
   Future<void> verticalDragEndHandle(DragEndDetails drag) async {
-    if (dragValue < triggerThreshold) {
+    if (dragValue < triggerThreshold && _prevArtwork != null) {
       onPrev();
-    } else if (dragValue > 1 - triggerThreshold) {
+    } else if (dragValue > 1 - triggerThreshold && _nextArtwork != null) {
       onNext();
     } else {
       cancel();
