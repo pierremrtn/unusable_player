@@ -57,6 +57,8 @@ class AudioPlayerService extends GetxService {
   Duration get currentTime => _player.position;
   List<up.Song> get songList => _songs;
   int get currentSongIndex => _player.currentIndex ?? 0;
+  int get previousSongIndex => _player.previousIndex ?? 0;
+  int get nextSongIndex => _player.nextIndex ?? 0;
 
   Future<void> setSong(up.Song song) async {
     if (!_songs.equals([song])) {

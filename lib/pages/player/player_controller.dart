@@ -90,7 +90,7 @@ class PlayerController extends GetxController
     audioService.playerStateStream.listen((_) => _updateControlState());
     audioService.volumeStream.listen((_) => _updateControlState());
     audioService.currentTimeStream.listen((_) => _updateControlState());
-    audioService.loopModeStream.listen((_) => _updateControlState());
+    audioService.loopModeStream.listen(_onLoopModeChange);
     audioService.shuffleModeStream.listen((_) => _updateControlState());
   }
 
@@ -105,10 +105,10 @@ class PlayerController extends GetxController
       return;
     }
     CoverAnimation animate = CoverAnimation.none;
-    if (idx < _currentSongIndex) {
-      animate = CoverAnimation.up;
-    } else if (idx > _currentSongIndex) {
+    if (_currentSongIndex == audioService.previousSongIndex) {
       animate = CoverAnimation.down;
+    } else {
+      animate = CoverAnimation.up;
     }
     _currentSongIndex = idx;
     coverController.setSongs(
@@ -117,6 +117,16 @@ class PlayerController extends GetxController
       prevSong: audioService.previousSong,
       nextSong: audioService.nextSong,
     );
+  }
+
+  void _onLoopModeChange(bool enabeled) {
+    coverController.setSongs(
+      audioService.playingSong!,
+      CoverAnimation.none,
+      prevSong: audioService.previousSong,
+      nextSong: audioService.nextSong,
+    );
+    _updateControlState();
   }
 
   void _updateControlState() {

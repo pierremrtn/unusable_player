@@ -86,7 +86,7 @@ class CoverController extends ChangeNotifier {
   }) async {
     switch (animate) {
       case CoverAnimation.none:
-        return;
+        break;
       case CoverAnimation.up:
         await animateUp(hideUp: prevSong == null);
         break;
