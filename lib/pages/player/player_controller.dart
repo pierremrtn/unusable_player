@@ -6,6 +6,11 @@ import 'package:unusable_player/unusable_player.dart' as up;
 import 'models/player_control_state.dart';
 import 'widgets/cover/cover.dart';
 
+//TODO: shuffle not working
+//TODO: update dots when toggle loop mode
+//TODO: music text go inside cover
+//TODO: animate music text
+
 class PlayerController extends GetxController
     with StateMixin<PlayerControlState>, GetSingleTickerProviderStateMixin {
   PlayerController({
@@ -119,7 +124,9 @@ class PlayerController extends GetxController
     );
   }
 
-  void _onLoopModeChange(bool enabeled) {
+  void _onLoopModeChange(bool enabled) {
+    // final prevSong = audioService.previousSong;
+    // final nextSong = audioService.nextSong;
     coverController.setSongs(
       audioService.playingSong!,
       CoverAnimation.none,

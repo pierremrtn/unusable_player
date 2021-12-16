@@ -22,6 +22,10 @@ class AnimatedDotsController {
   late SMITrigger? _goUp;
   late SMITrigger? _goUpLast;
   late SMITrigger? _cancel;
+  late SMITrigger? _showUp;
+  late SMITrigger? _hideUp;
+  late SMITrigger? _showDown;
+  late SMITrigger? _hideDown;
 
   void riveInit(Artboard artboard) {
     final controller = StateMachineController.fromArtboard(
@@ -37,6 +41,10 @@ class AnimatedDotsController {
     _pressed = controller.findInput<bool>('pressed');
     _initHidePrev = controller.findInput<bool>('initHidePrev');
     _initHideNext = controller.findInput<bool>('initHideNext');
+    _showUp = controller.findInput<bool>('showUp') as SMITrigger;
+    _hideUp = controller.findInput<bool>('hideUp') as SMITrigger;
+    _showDown = controller.findInput<bool>('showDown') as SMITrigger;
+    _hideDown = controller.findInput<bool>('hideDown') as SMITrigger;
     _initHidePrev?.value = !showPrev;
     _initHideNext?.value = !showNext;
   }
@@ -68,6 +76,11 @@ class AnimatedDotsController {
     }
     return _resetAnimDelayed();
   }
+
+  void showUp() => _showUp?.fire();
+  void hideUp() => _hideUp?.fire();
+  void showDown() => _showDown?.fire();
+  void hideDown() => _hideDown?.fire();
 
   Future<void> _resetAnimDelayed() async {
     return Future.delayed(resetAnimationDuration, _resetAnim);

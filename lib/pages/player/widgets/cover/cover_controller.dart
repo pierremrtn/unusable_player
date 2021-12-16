@@ -86,6 +86,10 @@ class CoverController extends ChangeNotifier {
   }) async {
     switch (animate) {
       case CoverAnimation.none:
+        await _updateUpDownVisibility(
+          prevSong: prevSong,
+          nextSong: nextSong,
+        );
         break;
       case CoverAnimation.up:
         await animateUp(hideUp: prevSong == null);
@@ -140,6 +144,22 @@ class CoverController extends ChangeNotifier {
     artworkAnimation.animateTo(0.5, duration: endAnimationDuration);
     await dotsController.cancel();
     _reset();
+  }
+
+  Future<void> _updateUpDownVisibility({
+    required up.Song? prevSong,
+    required up.Song? nextSong,
+  }) async {
+    if (_prevSong == null && prevSong != null) {
+      dotsController.showUp();
+    } else if (_prevSong != null && prevSong == null) {
+      dotsController.hideUp();
+    }
+    if (_nextSong == null && nextSong != null) {
+      dotsController.showDown();
+    } else if (_nextSong != null && nextSong == null) {
+      dotsController.hideDown();
+    }
   }
 
   void _changeSongs(
