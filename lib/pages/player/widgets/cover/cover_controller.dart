@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
@@ -10,6 +11,8 @@ enum CoverAnimation {
 }
 
 class CoverController extends ChangeNotifier {
+  static const minRotation = -1;
+  static const maxRotation = 1;
   static const fallbackArtwork = AssetImage("assets/artwork_not_found.jpg");
   static const endAnimationDuration =
       AnimatedDotsController.resetAnimationDuration;
@@ -21,7 +24,7 @@ class CoverController extends ChangeNotifier {
     required up.Song? prevSong,
     required up.Song? nextSong,
     required TickerProvider vsync,
-    this.triggerThreshold = 0.1,
+    this.triggerThreshold = 0.3,
     this.dragSensibility = 0.01,
   })  : artworkAnimation = AnimationController(
           value: 0.5,
@@ -34,8 +37,11 @@ class CoverController extends ChangeNotifier {
         ),
         _song = song,
         _prevSong = prevSong,
-        _nextSong = nextSong;
+        _nextSong = nextSong {
+    _randomizeArtworkRotations();
+  }
 
+  final Random _random = Random();
   up.Song _song;
   up.Song? _prevSong;
   up.Song? _nextSong;
@@ -46,6 +52,9 @@ class CoverController extends ChangeNotifier {
   final Future<void> Function() onNext;
   final Future<void> Function() onPrev;
   double dragValue = 0.5;
+  double prevRotation = 0;
+  double currentRotation = 0;
+  double nextRotation = 0;
 
   ImageProvider<Object> get artwork {
     if (_song.artwork != null) {
@@ -73,6 +82,8 @@ class CoverController extends ChangeNotifier {
     }
     return fallbackArtwork;
   }
+
+  up.Song get song => _song;
 
   ///Animate cover to display new song.
   ///setSongs will return after animation terminate
@@ -131,12 +142,17 @@ class CoverController extends ChangeNotifier {
   Future<void> animateUp({bool hideUp = false}) async {
     artworkAnimation.animateTo(0, duration: endAnimationDuration);
     await dotsController.goPrev(last: hideUp);
+    nextRotation = currentRotation;
+    currentRotation = prevRotation;
+    prevRotation = _randomRotation;
+    _randomizeArtworkRotations();
     _reset();
   }
 
   Future<void> animateDown({bool hideDown = false}) async {
     artworkAnimation.animateTo(1, duration: endAnimationDuration);
     await dotsController.goNext(last: hideDown);
+    _randomizeArtworkRotations();
     _reset();
   }
 
@@ -161,6 +177,15 @@ class CoverController extends ChangeNotifier {
       dotsController.hideDown();
     }
   }
+
+  void _randomizeArtworkRotations() {
+    prevRotation = _randomRotation;
+    currentRotation = _randomRotation;
+    nextRotation = _randomRotation;
+  }
+
+  double get _randomRotation =>
+      (_random.nextDouble() * (maxRotation - minRotation)) + minRotation;
 
   void _changeSongs(
     up.Song song, {

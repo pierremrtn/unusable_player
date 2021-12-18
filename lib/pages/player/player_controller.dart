@@ -7,9 +7,9 @@ import 'models/player_control_state.dart';
 import 'widgets/cover/cover.dart';
 
 //TODO: shuffle not working
-//TODO: update dots when toggle loop mode
 //TODO: music text go inside cover
 //TODO: animate music text
+//TODO: better cover switch animation
 
 class PlayerController extends GetxController
     with StateMixin<PlayerControlState>, GetSingleTickerProviderStateMixin {
@@ -36,12 +36,8 @@ class PlayerController extends GetxController
   }
 
   final up.AudioPlayerService audioService;
-  @deprecated
-  final Rx<up.Song?> _song = Rx(null);
   late CoverController coverController;
   int _currentSongIndex = 0;
-
-  up.Song? get song => _song.value;
 
   Future<void> play() async => audioService.play();
   Future<void> pause() async => audioService.pause();
@@ -81,16 +77,13 @@ class PlayerController extends GetxController
   }
 
   Future<void> _initPlayer(PlayerParameters params) async {
-    if (params.openCurrentSong) {
-      _song.value = audioService.playingSong;
-    } else {
+    if (!params.openCurrentSong) {
       await audioService.setSongsList(params.songs!, params.index);
       play();
     }
   }
 
   void _bindStreams() {
-    _song.bindStream(audioService.songStream);
     audioService.songStream.listen((_) => _onSongChange());
     audioService.playerStateStream.listen((_) => _updateControlState());
     audioService.volumeStream.listen((_) => _updateControlState());
@@ -125,8 +118,6 @@ class PlayerController extends GetxController
   }
 
   void _onLoopModeChange(bool enabled) {
-    // final prevSong = audioService.previousSong;
-    // final nextSong = audioService.nextSong;
     coverController.setSongs(
       audioService.playingSong!,
       CoverAnimation.none,

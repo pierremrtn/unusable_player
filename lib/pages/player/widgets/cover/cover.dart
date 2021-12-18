@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neat/neat.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
 import 'cover_animated_artwork.dart';
@@ -20,41 +21,56 @@ class Cover extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height,
-      child: GestureDetector(
-        onVerticalDragEnd: controller.verticalDragEndHandle,
-        onVerticalDragUpdate: controller.verticalDragHandle,
-        onVerticalDragStart: controller.verticalDragStartHandle,
-        child: AnimatedBuilder(
-          animation: controller,
-          builder: (context, child) => Row(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const up.Space3(),
-              Expanded(
-                child: CoverAnimatedArtwork(
-                  triggerThreshold: controller.triggerThreshold,
-                  animation: controller.artworkAnimation,
-                  artwork: controller.artwork,
-                  nextArtwork: controller.nextArtwork,
-                  prevArtwork: controller.prevArtwork,
-                ),
-              ),
-              SizedBox(
-                width: up.Dimensions.paddingPage + up.Dimensions.space4,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: CoverAnimatedDots(
-                    height: height,
-                    width: up.Dimensions.space4,
-                    controller: controller.dotsController,
+    return GestureDetector(
+      onVerticalDragEnd: controller.verticalDragEndHandle,
+      onVerticalDragUpdate: controller.verticalDragHandle,
+      onVerticalDragStart: controller.verticalDragStartHandle,
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (context, child) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            context.headline1(
+              controller.song.title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            context.subtitle1(controller.song.artist.name),
+            const up.Space3(),
+            SizedBox(
+              height: 189,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const up.Space3(),
+                  Expanded(
+                    child: CoverAnimatedArtwork(
+                      triggerThreshold: controller.triggerThreshold,
+                      animation: controller.artworkAnimation,
+                      artwork: controller.artwork,
+                      nextArtwork: controller.nextArtwork,
+                      prevArtwork: controller.prevArtwork,
+                      currentRotation: controller.currentRotation,
+                      prevRotation: controller.prevRotation,
+                      nextRotation: controller.nextRotation,
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    width: up.Dimensions.paddingPage + up.Dimensions.space4,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: CoverAnimatedDots(
+                        height: height,
+                        width: up.Dimensions.space4,
+                        controller: controller.dotsController,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

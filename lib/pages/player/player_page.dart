@@ -21,50 +21,31 @@ class PlayerPage extends GetView<PlayerController> {
         context: context,
         title: "Now playing",
       ),
-      body: Obx(
-        () {
-          final song = controller.song;
-          if (song == null) {
-            return const SizedBox.shrink();
-          }
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: const up.PaddingPage.horizontal(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    context.headline1(song.title),
-                    context.subtitle1(song.artist.name),
-                  ],
-                ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Cover(
+            controller: controller.coverController,
+          ),
+          const up.Space1(),
+          Padding(
+            padding: const up.PaddingPage.horizontal(),
+            child: controller.obx(
+              (controlState) => PlayerControl(
+                state: controlState!,
+                onSetTime: controller.setTime,
+                onSetVolume: controller.setVolume,
+                onPlay: controller.play,
+                onPause: controller.pause,
+                onToggleLoopMode: controller.toggleLoopMode,
+                onToggleShuffleMode: controller.toggleShuffleMode,
+                onPrevious: controller.previous,
+                onNext: controller.next,
               ),
-              const up.Space1(),
-              Cover(
-                controller: controller.coverController,
-              ),
-              const up.Space1(),
-              Padding(
-                padding: const up.PaddingPage.horizontal(),
-                child: controller.obx(
-                  (controlState) => PlayerControl(
-                    state: controlState!,
-                    onSetTime: controller.setTime,
-                    onSetVolume: controller.setVolume,
-                    onPlay: controller.play,
-                    onPause: controller.pause,
-                    onToggleLoopMode: controller.toggleLoopMode,
-                    onToggleShuffleMode: controller.toggleShuffleMode,
-                    onPrevious: controller.previous,
-                    onNext: controller.next,
-                  ),
-                ),
-              ),
-              const up.Space1(),
-            ],
-          );
-        },
+            ),
+          ),
+          const up.Space1(),
+        ],
       ),
     );
   }

@@ -1,7 +1,11 @@
 import 'dart:typed_data';
+import 'dart:math';
+import 'package:vector_math/vector_math_64.dart';
 
 import 'package:flutter/material.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
+
+import 'transformed_artwork.dart';
 
 class CoverAnimatedArtwork extends StatelessWidget {
   CoverAnimatedArtwork({
@@ -10,15 +14,18 @@ class CoverAnimatedArtwork extends StatelessWidget {
     required this.nextArtwork,
     required this.animation,
     required double triggerThreshold,
-    double currentCardShift = 30,
-    double prevCardShift = 30,
-    double nextCardShift = 30,
+    required double currentRotation,
+    required double prevRotation,
+    required double nextRotation,
+    double verticalShift = 50,
+    double scaleShift = 0.2,
+    double maxRotationShift = 0.4,
     Key? key,
-  })  : currentCardOpacity = AnimationMin(
+  })  : currentOpacity = AnimationMin(
           Tween<double>(begin: 0, end: 1).animate(
             CurvedAnimation(
               parent: animation,
-              curve: const Interval(0, 0.5),
+              curve: Interval(0, triggerThreshold),
             ),
           ),
           Tween<double>(begin: 1, end: 0).animate(
@@ -28,24 +35,65 @@ class CoverAnimatedArtwork extends StatelessWidget {
             ),
           ),
         ),
-        currentCardOffset = Tween<Offset>(
-          begin: Offset(0, currentCardShift),
-          end: Offset(0, -currentCardShift),
-        ).animate(animation),
+        currentOffset = Tween<Offset>(
+          begin: Offset(0, verticalShift),
+          end: Offset(0, -verticalShift),
+        ).animate(
+          CurvedAnimation(
+            parent: animation,
+            curve: const Interval(0, 1),
+          ),
+        ),
+        currentScale = Tween<double>(
+          begin: 1 + scaleShift,
+          end: 1 - scaleShift,
+        ).animate(
+          CurvedAnimation(
+            parent: animation,
+            curve: const Interval(0, 1),
+          ),
+        ),
+        currentRotation = Tween<double>(
+          begin: currentRotation * maxRotationShift,
+          end: -currentRotation * maxRotationShift,
+        ).animate(
+          CurvedAnimation(
+            parent: animation,
+            curve: const Interval(0, 1),
+          ),
+        ),
 
         //PREV CARD
-        prevCardOpacity = Tween<double>(
+        prevOpacity = Tween<double>(
           begin: 1,
           end: 0,
+        ).animate(
+          CurvedAnimation(
+            parent: animation,
+            curve: Interval(triggerThreshold, 0.5),
+          ),
+        ),
+        prevOffset = Tween<Offset>(
+          begin: const Offset(0, 0),
+          end: Offset(0, -verticalShift),
         ).animate(
           CurvedAnimation(
             parent: animation,
             curve: const Interval(0, 0.5),
           ),
         ),
-        prevCardOffset = Tween<Offset>(
-          begin: const Offset(0, 0),
-          end: Offset(0, -prevCardShift),
+        prevScale = Tween<double>(
+          begin: 1,
+          end: 1 - scaleShift,
+        ).animate(
+          CurvedAnimation(
+            parent: animation,
+            curve: const Interval(0, 0.5),
+          ),
+        ),
+        prevRotation = Tween<double>(
+          begin: 0,
+          end: prevRotation * maxRotationShift,
         ).animate(
           CurvedAnimation(
             parent: animation,
@@ -54,8 +102,26 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ),
 
         //NEXT CARD
-        nextCardOpacity = Tween<double>(
+        nextOpacity = Tween<double>(
           begin: 0,
+          end: 1,
+        ).animate(
+          CurvedAnimation(
+            parent: animation,
+            curve: Interval(0.5, 1 - triggerThreshold),
+          ),
+        ),
+        nextOffset = Tween<Offset>(
+          begin: Offset(0, verticalShift),
+          end: const Offset(0, 0),
+        ).animate(
+          CurvedAnimation(
+            parent: animation,
+            curve: const Interval(0.5, 1),
+          ),
+        ),
+        nextScale = Tween<double>(
+          begin: 1 + scaleShift,
           end: 1,
         ).animate(
           CurvedAnimation(
@@ -63,9 +129,9 @@ class CoverAnimatedArtwork extends StatelessWidget {
             curve: const Interval(0.5, 1),
           ),
         ),
-        nextCardOffset = Tween<Offset>(
-          begin: Offset(0, nextCardShift),
-          end: const Offset(0, 0),
+        nextRotation = Tween<double>(
+          begin: nextRotation * maxRotationShift,
+          end: 0,
         ).animate(
           CurvedAnimation(
             parent: animation,
@@ -77,13 +143,23 @@ class CoverAnimatedArtwork extends StatelessWidget {
   final ImageProvider<Object> artwork;
   final ImageProvider<Object>? prevArtwork;
   final ImageProvider<Object>? nextArtwork;
+
   final AnimationController animation;
-  final Animation<double> currentCardOpacity;
-  final Animation<Offset> currentCardOffset;
-  final Animation<double> prevCardOpacity;
-  final Animation<Offset> prevCardOffset;
-  final Animation<double> nextCardOpacity;
-  final Animation<Offset> nextCardOffset;
+
+  final Animation<double> currentOpacity;
+  final Animation<Offset> currentOffset;
+  final Animation<double> currentScale;
+  final Animation<double> currentRotation;
+
+  final Animation<double> prevOpacity;
+  final Animation<Offset> prevOffset;
+  final Animation<double> prevScale;
+  final Animation<double> prevRotation;
+
+  final Animation<double> nextOpacity;
+  final Animation<Offset> nextOffset;
+  final Animation<double> nextScale;
+  final Animation<double> nextRotation;
 
   @override
   Widget build(BuildContext context) {
@@ -94,51 +170,27 @@ class CoverAnimatedArtwork extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             if (prevArtwork != null)
-              Opacity(
-                opacity: prevCardOpacity.value,
-                child: Transform.translate(
-                  transformHitTests: false,
-                  offset: prevCardOffset.value,
-                  child: up.DoubleBottomCard(
-                    padding: const EdgeInsets.all(up.Dimensions.space5),
-                    child: up.Image(
-                      prevArtwork!,
-                      height: up.Dimensions.image1,
-                      radius: up.Dimensions.borderRadius2,
-                    ),
-                  ),
-                ),
+              TransformedArtwork(
+                artwork: prevArtwork!,
+                offset: prevOffset.value,
+                rotation: prevRotation.value,
+                scale: prevScale.value,
+                opacity: prevOpacity.value,
               ),
-            Opacity(
-              opacity: currentCardOpacity.value,
-              child: Transform.translate(
-                transformHitTests: false,
-                offset: currentCardOffset.value,
-                child: up.DoubleBottomCard(
-                  padding: const EdgeInsets.all(up.Dimensions.space5),
-                  child: up.Image(
-                    artwork,
-                    height: up.Dimensions.image1,
-                    radius: up.Dimensions.borderRadius2,
-                  ),
-                ),
-              ),
+            TransformedArtwork(
+              artwork: artwork,
+              offset: currentOffset.value,
+              rotation: currentRotation.value,
+              scale: currentScale.value,
+              opacity: currentOpacity.value,
             ),
             if (nextArtwork != null)
-              Opacity(
-                opacity: nextCardOpacity.value,
-                child: Transform.translate(
-                  transformHitTests: false,
-                  offset: nextCardOffset.value,
-                  child: up.DoubleBottomCard(
-                    padding: const EdgeInsets.all(up.Dimensions.space5),
-                    child: up.Image(
-                      nextArtwork!,
-                      height: up.Dimensions.image1,
-                      radius: up.Dimensions.borderRadius2,
-                    ),
-                  ),
-                ),
+              TransformedArtwork(
+                artwork: nextArtwork!,
+                offset: nextOffset.value,
+                rotation: nextRotation.value,
+                scale: nextScale.value,
+                opacity: nextOpacity.value,
               ),
           ],
         );
