@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
+import 'package:unusable_player/pages/player/widgets/cover/cover_animated_text.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
 import 'cover_animated_artwork.dart';
@@ -30,12 +31,7 @@ class Cover extends StatelessWidget {
         builder: (context, child) => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            context.headline1(
-              controller.song.title,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            context.subtitle1(controller.song.artist.name),
+            CoverAnimatedText(controller: controller),
             const up.Space3(),
             SizedBox(
               height: 189,

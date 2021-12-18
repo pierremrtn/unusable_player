@@ -56,6 +56,10 @@ class CoverController extends ChangeNotifier {
   double currentRotation = 0;
   double nextRotation = 0;
 
+  up.Song get currentSong => _song;
+  up.Song? get prevSong => _prevSong;
+  up.Song? get nextSong => _nextSong;
+
   ImageProvider<Object> get artwork {
     if (_song.artwork != null) {
       return MemoryImage(_song.artwork!);
@@ -82,8 +86,6 @@ class CoverController extends ChangeNotifier {
     }
     return fallbackArtwork;
   }
-
-  up.Song get song => _song;
 
   ///Animate cover to display new song.
   ///setSongs will return after animation terminate
