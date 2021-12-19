@@ -5,13 +5,17 @@ import 'package:unusable_player/theme/theme.dart' as up;
 class Page extends StatelessWidget {
   const Page({
     Key? key,
-    this.padding = const EdgeInsets.symmetric(
-      horizontal: up.Dimensions.pageMargin,
-    ),
+    this.scrollable = true,
+    EdgeInsetsGeometry? padding,
     this.appBar,
     this.body,
-  }) : super(key: key);
+  })  : padding = padding ??
+            (scrollable
+                ? const up.PaddingPage(up.left | up.top | up.right)
+                : const up.PaddingPage.all()),
+        super(key: key);
 
+  final bool scrollable;
   final EdgeInsetsGeometry padding;
   final PreferredSizeWidget? appBar;
   final Widget? body;
@@ -22,10 +26,15 @@ class Page extends StatelessWidget {
       appBar: appBar,
       extendBody: true,
       backgroundColor: Get.theme.colorScheme.background,
-      body: SingleChildScrollView(
-        padding: padding,
-        child: body,
-      ),
+      body: scrollable
+          ? SingleChildScrollView(
+              padding: padding,
+              child: body,
+            )
+          : Padding(
+              padding: padding,
+              child: body,
+            ),
     );
   }
 }
