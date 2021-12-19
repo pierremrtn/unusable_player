@@ -20,18 +20,19 @@ class CoverAnimatedArtwork extends StatelessWidget {
     double verticalShift = 50,
     double scaleShift = 0.2,
     double maxRotationShift = 0.4,
+    Curve curve = Curves.easeInOut,
     Key? key,
   })  : currentOpacity = AnimationMin(
           Tween<double>(begin: 0, end: 1).animate(
             CurvedAnimation(
               parent: animation,
-              curve: Interval(0, triggerThreshold),
+              curve: Interval(0, triggerThreshold, curve: curve),
             ),
           ),
           Tween<double>(begin: 1, end: 0).animate(
             CurvedAnimation(
               parent: animation,
-              curve: Interval(1 - triggerThreshold, 1),
+              curve: Interval(1 - triggerThreshold, 1, curve: curve),
             ),
           ),
         ),
@@ -41,7 +42,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: const Interval(0, 1),
+            curve: Interval(0, 1, curve: curve),
           ),
         ),
         currentScale = Tween<double>(
@@ -50,7 +51,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: const Interval(0, 1),
+            curve: Interval(0, 1, curve: curve),
           ),
         ),
         currentRotation = Tween<double>(
@@ -59,7 +60,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: const Interval(0, 1),
+            curve: Interval(0, 1, curve: curve),
           ),
         ),
 
@@ -70,7 +71,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: Interval(triggerThreshold, 0.5),
+            curve: Interval(triggerThreshold, 0.5, curve: curve),
           ),
         ),
         prevOffset = Tween<Offset>(
@@ -79,7 +80,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: const Interval(0, 0.5),
+            curve: Interval(0, 0.5, curve: curve),
           ),
         ),
         prevScale = Tween<double>(
@@ -88,7 +89,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: const Interval(0, 0.5),
+            curve: Interval(0, 0.5, curve: curve),
           ),
         ),
         prevRotation = Tween<double>(
@@ -97,7 +98,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: const Interval(0, 0.5),
+            curve: Interval(0, 0.5, curve: curve),
           ),
         ),
 
@@ -108,7 +109,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: Interval(0.5, 1 - triggerThreshold),
+            curve: Interval(0.5, 1 - triggerThreshold, curve: curve),
           ),
         ),
         nextOffset = Tween<Offset>(
@@ -117,7 +118,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: const Interval(0.5, 1),
+            curve: Interval(0.5, 1, curve: curve),
           ),
         ),
         nextScale = Tween<double>(
@@ -126,7 +127,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: const Interval(0.5, 1),
+            curve: Interval(0.5, 1, curve: curve),
           ),
         ),
         nextRotation = Tween<double>(
@@ -135,7 +136,7 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: const Interval(0.5, 1),
+            curve: Interval(0.5, 1, curve: curve),
           ),
         ),
         super(key: key);
