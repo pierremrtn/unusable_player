@@ -17,9 +17,9 @@ class CoverAnimatedArtwork extends StatelessWidget {
     required double currentRotation,
     required double prevRotation,
     required double nextRotation,
-    double verticalShift = 50,
-    double scaleShift = 0.2,
-    double maxRotationShift = 0.4,
+    double verticalShift = 75,
+    double scaleShift = 0.1,
+    double maxRotationShift = 0.3,
     Curve curve = Curves.easeInOut,
     Key? key,
   })  : currentOpacity = AnimationMin(

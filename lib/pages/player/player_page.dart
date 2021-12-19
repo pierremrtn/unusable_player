@@ -16,33 +16,39 @@ class PlayerPage extends GetView<PlayerController> {
   @override
   Widget build(BuildContext context) {
     return up.Page(
+      scrollable: false,
       padding: const up.PaddingPage.vertical(),
       appBar: up.normalAppBar(
         context: context,
         title: "Now playing",
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: Stack(
+        // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Cover(
-            controller: controller.coverController,
-          ),
           const up.Space1(),
-          Padding(
-            padding: const up.PaddingPage.horizontal(),
-            child: controller.obx(
-              (controlState) => PlayerControl(
-                state: controlState!,
-                onSetTime: controller.setTime,
-                onSetVolume: controller.setVolume,
-                onPlay: controller.play,
-                onPause: controller.pause,
-                onToggleLoopMode: controller.toggleLoopMode,
-                onToggleShuffleMode: controller.toggleShuffleMode,
-                onPrevious: controller.previous,
-                onNext: controller.next,
+          Positioned(
+            bottom: up.Dimensions.space1,
+            left: 0,
+            right: 0,
+            child: Padding(
+              padding: const up.PaddingPage.horizontal(),
+              child: controller.obx(
+                (controlState) => PlayerControl(
+                  state: controlState!,
+                  onSetTime: controller.setTime,
+                  onSetVolume: controller.setVolume,
+                  onPlay: controller.play,
+                  onPause: controller.pause,
+                  onToggleLoopMode: controller.toggleLoopMode,
+                  onToggleShuffleMode: controller.toggleShuffleMode,
+                  onPrevious: controller.previous,
+                  onNext: controller.next,
+                ),
               ),
             ),
+          ),
+          Cover(
+            controller: controller.coverController,
           ),
           const up.Space1(),
         ],
