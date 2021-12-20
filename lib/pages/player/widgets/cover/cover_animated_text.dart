@@ -4,6 +4,9 @@ import 'package:neat/neat.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 import 'cover_controller.dart';
 
+const _kArtistShiftLagRatio = 0.3;
+const _kInvArtistShiftLagRatio = 1 - _kArtistShiftLagRatio;
+
 class CoverAnimatedText extends StatelessWidget {
   CoverAnimatedText({
     required this.controller,
@@ -38,7 +41,35 @@ class CoverAnimatedText extends StatelessWidget {
             ),
           ),
         ),
-        currentPosition = _AnimationAdd(
+        currentTitlePosition = _AnimationAdd(
+          Tween<double>(
+            begin: textShift,
+            end: 0,
+          ).animate(
+            CurvedAnimation(
+              parent: controller.artworkAnimation,
+              curve: Interval(
+                0,
+                controller.triggerThreshold,
+                curve: curve,
+              ),
+            ),
+          ),
+          Tween<double>(
+            begin: 0,
+            end: -textShift,
+          ).animate(
+            CurvedAnimation(
+              parent: controller.artworkAnimation,
+              curve: Interval(
+                1 - controller.triggerThreshold,
+                1,
+                curve: curve,
+              ),
+            ),
+          ),
+        ),
+        currentArtistPosition = _AnimationAdd(
           Tween<double>(
             begin: textShift,
             end: 0,
@@ -81,7 +112,7 @@ class CoverAnimatedText extends StatelessWidget {
             ),
           ),
         ),
-        prevPosition = Tween(
+        prevTitlePosition = Tween(
           begin: const Offset(0, 0),
           end: Offset(-textShift, 0),
         ).animate(
@@ -90,6 +121,19 @@ class CoverAnimatedText extends StatelessWidget {
             curve: Interval(
               0,
               controller.triggerThreshold,
+              curve: curve,
+            ),
+          ),
+        ),
+        prevArtistPosition = Tween(
+          begin: const Offset(0, 0),
+          end: Offset(-textShift, 0),
+        ).animate(
+          CurvedAnimation(
+            parent: controller.artworkAnimation,
+            curve: Interval(
+              0,
+              controller.triggerThreshold * _kInvArtistShiftLagRatio,
               curve: curve,
             ),
           ),
@@ -109,7 +153,7 @@ class CoverAnimatedText extends StatelessWidget {
             ),
           ),
         ),
-        nextPosition = Tween(
+        nextTitlePosition = Tween(
           begin: Offset(textShift, 0),
           end: const Offset(0, 0),
         ).animate(
@@ -122,16 +166,32 @@ class CoverAnimatedText extends StatelessWidget {
             ),
           ),
         ),
+        nextArtistPosition = Tween(
+          begin: Offset(textShift, 0),
+          end: const Offset(0, 0),
+        ).animate(
+          CurvedAnimation(
+            parent: controller.artworkAnimation,
+            curve: Interval(
+              1 - (controller.triggerThreshold * _kInvArtistShiftLagRatio),
+              1,
+              curve: curve,
+            ),
+          ),
+        ),
         super(key: key);
 
   final CoverController controller;
-  final Animation<double> currentPosition;
+  final Animation<double> currentTitlePosition;
+  final Animation<double> currentArtistPosition;
   final Animation<double> currentOpacity;
 
-  final Animation<Offset> prevPosition;
+  final Animation<Offset> prevTitlePosition;
+  final Animation<Offset> prevArtistPosition;
   final Animation<double> prevOpacity;
 
-  final Animation<Offset> nextPosition;
+  final Animation<Offset> nextTitlePosition;
+  final Animation<Offset> nextArtistPosition;
   final Animation<double> nextOpacity;
 
   @override
@@ -145,18 +205,21 @@ class CoverAnimatedText extends StatelessWidget {
             if (controller.prevSong != null)
               _SongInfos(
                 opacity: prevOpacity.value,
-                position: prevPosition.value,
+                titlePosition: prevTitlePosition.value,
+                artistPosition: prevArtistPosition.value,
                 song: controller.prevSong!,
               ),
             _SongInfos(
               opacity: currentOpacity.value,
-              position: Offset(currentPosition.value, 0),
+              titlePosition: Offset(currentTitlePosition.value, 0),
+              artistPosition: Offset(currentArtistPosition.value, 0),
               song: controller.currentSong,
             ),
             if (controller.nextSong != null)
               _SongInfos(
                 opacity: nextOpacity.value,
-                position: nextPosition.value,
+                titlePosition: nextTitlePosition.value,
+                artistPosition: nextArtistPosition.value,
                 song: controller.nextSong!,
               ),
           ],
@@ -170,40 +233,45 @@ class _SongInfos extends StatelessWidget {
   const _SongInfos({
     required this.song,
     required this.opacity,
-    required this.position,
+    required this.titlePosition,
+    required this.artistPosition,
     Key? key,
   }) : super(key: key);
 
   final up.Song song;
   final double opacity;
-  final Offset position;
+  final Offset titlePosition;
+  final Offset artistPosition;
 
   @override
   Widget build(BuildContext context) {
     return Opacity(
       opacity: opacity,
-      child: Transform.translate(
-        offset: position,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            context.headline1(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Transform.translate(
+            offset: titlePosition,
+            child: context.headline1(
               song.title,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
-            context.subtitle1(
+          ),
+          Transform.translate(
+            offset: artistPosition,
+            child: context.subtitle1(
               song.artist.name,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
 
 class _AnimationAdd extends CompoundAnimation<double> {
-  /// Creates an animation that tracks the mean of two other animations.
+  /// Creates an animation that tracks the addition of two other animations.
   _AnimationAdd(
     Animation<double> left,
     Animation<double> right,
