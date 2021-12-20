@@ -21,6 +21,7 @@ dependencies:
   animate_do: ^2.0.0
   neat: ^0.1.1
   rive: ^0.7.33
+  palette_generator: ^0.3.2
 
 dev_dependencies:
   flutter_test:

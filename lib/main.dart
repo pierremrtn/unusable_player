@@ -26,8 +26,13 @@ class UnusablePlayer extends StatelessWidget {
 }
 
 Future<void> initServices() async {
+  Get.put(up.ColorService());
   await Future.wait([
-    Get.putAsync(() => up.AudioQueryService().init()),
+    Get.putAsync(
+      () => up.AudioQueryService(
+        colorService: up.ColorService.instance,
+      ).init(),
+    ),
     Get.putAsync(() => up.LangService().init()),
   ]);
   Get.put(up.AudioPlayerService());
