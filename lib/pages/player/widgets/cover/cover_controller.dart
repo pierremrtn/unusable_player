@@ -13,7 +13,6 @@ enum CoverAnimation {
 class CoverController extends ChangeNotifier {
   static const minRotation = -1;
   static const maxRotation = 1;
-  static const fallbackArtwork = AssetImage("assets/artwork_not_found.jpg");
   static const endAnimationDuration =
       AnimatedDotsController.resetAnimationDuration;
 
@@ -59,33 +58,6 @@ class CoverController extends ChangeNotifier {
   up.Song get currentSong => _song;
   up.Song? get prevSong => _prevSong;
   up.Song? get nextSong => _nextSong;
-
-  ImageProvider<Object> get artwork {
-    if (_song.artwork != null) {
-      return MemoryImage(_song.artwork!);
-    }
-    return fallbackArtwork;
-  }
-
-  ImageProvider<Object>? get prevArtwork {
-    if (_prevSong == null) {
-      return null;
-    }
-    if (_prevSong!.artwork != null) {
-      return MemoryImage(_prevSong!.artwork!);
-    }
-    return fallbackArtwork;
-  }
-
-  ImageProvider<Object>? get nextArtwork {
-    if (_nextSong == null) {
-      return null;
-    }
-    if (_nextSong!.artwork != null) {
-      return MemoryImage(_nextSong!.artwork!);
-    }
-    return fallbackArtwork;
-  }
 
   ///Animate cover to display new song.
   ///setSongs will return after animation terminate

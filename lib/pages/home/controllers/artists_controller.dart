@@ -15,16 +15,17 @@ class ArtistsController extends GetxController
 
   final up.AudioQueryService audioQueryService;
   final RxBool showArtistSongs = false.obs;
-  List<up.Song>? artistSongs;
+  final RxList<up.Song> artistSongs = RxList([]);
 
   Future<void> selectArtist(up.Artist artist) async {
-    final songs = await audioQueryService.queryArtistSongs(artist.id);
-    artistSongs = songs;
+    artistSongs.clear();
     showArtistSongs.value = true;
+    audioQueryService.queryArtistSongs(artist.id).listen((song) {
+      artistSongs.add(song);
+    });
   }
 
   Future<bool> leaveArtistSongsView() async {
-    artistSongs = null;
     showArtistSongs.value = false;
     return false;
   }

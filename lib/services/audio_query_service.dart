@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -7,7 +8,14 @@ import 'package:unusable_player/unusable_player.dart' as up;
 class AudioQueryService extends GetxService {
   static AudioQueryService get instance => Get.find<AudioQueryService>();
 
+  AudioQueryService({
+    required this.colorService,
+    required this.cacheService,
+  });
+
   final OnAudioQuery _audioQuery = OnAudioQuery();
+  final up.ColorService colorService;
+  final up.CacheService cacheService;
 
   Future<AudioQueryService> init() async {
     await _ensurePermissionGranted();
@@ -20,22 +28,22 @@ class AudioQueryService extends GetxService {
     }
   }
 
-  Future<List<up.Song>> searchSong(String search) async {
+  Stream<up.Song> searchSong(String search) async* {
     final searchResult = await _audioQuery.queryWithFilters(
       search,
       WithFiltersType.AUDIOS,
     );
-    return _convertToSongList(
+    yield* _convertToSongList(
       searchResult.map((e) => SongModel(e)),
     );
   }
 
-  Future<List<up.Song>> querySongs() async {
-    return _convertToSongList(await _audioQuery.querySongs());
+  Stream<up.Song> querySongs() async* {
+    yield* _convertToSongList(await _audioQuery.querySongs());
   }
 
-  Future<List<up.Song>> queryAlbumSongs(int albumID) async {
-    return _convertToSongList(
+  Stream<up.Song> queryAlbumSongs(int albumID) async* {
+    yield* _convertToSongList(
       await _audioQuery.queryAudiosFrom(
         AudiosFromType.ALBUM_ID,
         albumID,
@@ -43,8 +51,8 @@ class AudioQueryService extends GetxService {
     );
   }
 
-  Future<List<up.Song>> queryArtistSongs(int artistID) async {
-    return _convertToSongList(
+  Stream<up.Song> queryArtistSongs(int artistID) async* {
+    yield* _convertToSongList(
       await _audioQuery.queryAudiosFrom(
         AudiosFromType.ARTIST_ID,
         artistID,
@@ -54,16 +62,27 @@ class AudioQueryService extends GetxService {
 
   Future<List<up.Album>> queryAlbums() async {
     final List<AlbumModel> queryResult = await _audioQuery.queryAlbums();
-    return Stream.fromIterable(queryResult)
-        .asyncMap(
-          (model) async => model.toAlbum(
-            artwork: await _audioQuery.queryArtwork(
-              model.id,
-              ArtworkType.ALBUM,
-            ),
-          ),
-        )
-        .toList();
+    return Stream.fromIterable(queryResult).asyncMap(
+      (model) async {
+        final rawImage = await _audioQuery.queryArtwork(
+          model.id,
+          ArtworkType.ALBUM,
+        );
+        up.Artwork? artwork;
+        if (rawImage != null) {
+          final image = MemoryImage(rawImage);
+
+          Color? dominantColor =
+              cacheService.cachedAlbumDominantColor(model.id);
+          if (dominantColor == null) {
+            dominantColor = await colorService.dominantColor(image);
+            cacheService.cacheAlbumDominantColor(model.id, dominantColor);
+            artwork = up.Artwork(image: image, dominantColor: dominantColor);
+          }
+        }
+        return model.toAlbum(artwork: artwork);
+      },
+    ).toList();
   }
 
   Future<List<up.Artist>> queryArtists() async {
@@ -75,28 +94,42 @@ class AudioQueryService extends GetxService {
         .toList();
   }
 
-  Future<List<up.Song>> _convertToSongList(
+  Stream<up.Song> _convertToSongList(
     Iterable<SongModel> songModels,
-  ) async {
-    return Stream.fromIterable(songModels)
+  ) async* {
+    yield* Stream.fromIterable(songModels)
         .retainMusics()
-        .asyncMap(
-          (model) async => model.toSong(
-            artwork: await _audioQuery.queryArtwork(
-              model.id,
-              ArtworkType.AUDIO,
-            ),
-          ),
-        )
+        .asyncMap((model) async {
+          final rawImage = await _audioQuery.queryArtwork(
+            model.id,
+            ArtworkType.AUDIO,
+          );
+
+          up.Artwork? artwork;
+          if (rawImage != null) {
+            final image = MemoryImage(rawImage);
+
+            Color? dominantColor =
+                cacheService.cachedSongDominantColor(model.id);
+            if (dominantColor == null) {
+              dominantColor = await colorService.dominantColor(image);
+              cacheService.cacheSongDominantColor(model.id, dominantColor);
+            }
+
+            artwork = up.Artwork(image: image, dominantColor: dominantColor);
+          }
+
+          return model.toSong(artwork: artwork);
+        })
         .where((e) => e != null)
-        .map((e) => e!)
-        .toList();
+        .map((e) => e!);
   }
 }
 
 extension _ToSong on SongModel {
-  up.Song? toSong({required Uint8List? artwork}) => uri != null
+  up.Song? toSong({required up.Artwork? artwork}) => uri != null
       ? up.Song(
+          id: id,
           title: title,
           duration: Duration(milliseconds: duration ?? 0),
           uri: uri!,
@@ -114,7 +147,7 @@ extension _ToSong on SongModel {
 }
 
 extension _ToAlbum on AlbumModel {
-  up.Album toAlbum({required Uint8List? artwork}) => up.Album(
+  up.Album toAlbum({required up.Artwork? artwork}) => up.Album(
         id: id,
         title: album,
         artist: up.ArtistRef(

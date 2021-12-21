@@ -195,6 +195,7 @@ class UIKitPage extends StatelessWidget {
             duration: Duration(seconds: 30, minutes: 2),
             album: up.AlbumRef(),
             artist: up.ArtistRef(),
+            id: 0,
           ),
         ),
       ];
@@ -212,6 +213,7 @@ class UIKitPage extends StatelessWidget {
   List<Widget> get playingSongIndicators => [
         const up.PlayingSongIndicator(
           song: up.Song(
+            id: 0,
             title: "z",
             uri: "",
             duration: Duration(),

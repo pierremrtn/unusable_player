@@ -18,13 +18,15 @@ class _$SongTearOff {
   const _$SongTearOff();
 
   _Song call(
-      {required String title,
+      {required int id,
+      required String title,
       required String uri,
       required Duration duration,
-      required ArtistRef artist,
-      required AlbumRef album,
-      Uint8List? artwork}) {
+      required up.ArtistRef artist,
+      required up.AlbumRef album,
+      up.Artwork? artwork}) {
     return _Song(
+      id: id,
       title: title,
       uri: uri,
       duration: duration,
@@ -40,12 +42,13 @@ const $Song = _$SongTearOff();
 
 /// @nodoc
 mixin _$Song {
+  int get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get uri => throw _privateConstructorUsedError;
   Duration get duration => throw _privateConstructorUsedError;
-  ArtistRef get artist => throw _privateConstructorUsedError;
-  AlbumRef get album => throw _privateConstructorUsedError;
-  Uint8List? get artwork => throw _privateConstructorUsedError;
+  up.ArtistRef get artist => throw _privateConstructorUsedError;
+  up.AlbumRef get album => throw _privateConstructorUsedError;
+  up.Artwork? get artwork => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SongCopyWith<Song> get copyWith => throw _privateConstructorUsedError;
@@ -56,12 +59,15 @@ abstract class $SongCopyWith<$Res> {
   factory $SongCopyWith(Song value, $Res Function(Song) then) =
       _$SongCopyWithImpl<$Res>;
   $Res call(
-      {String title,
+      {int id,
+      String title,
       String uri,
       Duration duration,
-      ArtistRef artist,
-      AlbumRef album,
-      Uint8List? artwork});
+      up.ArtistRef artist,
+      up.AlbumRef album,
+      up.Artwork? artwork});
+
+  $ArtworkCopyWith<$Res>? get artwork;
 }
 
 /// @nodoc
@@ -74,6 +80,7 @@ class _$SongCopyWithImpl<$Res> implements $SongCopyWith<$Res> {
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? title = freezed,
     Object? uri = freezed,
     Object? duration = freezed,
@@ -82,6 +89,10 @@ class _$SongCopyWithImpl<$Res> implements $SongCopyWith<$Res> {
     Object? artwork = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -97,16 +108,27 @@ class _$SongCopyWithImpl<$Res> implements $SongCopyWith<$Res> {
       artist: artist == freezed
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
-              as ArtistRef,
+              as up.ArtistRef,
       album: album == freezed
           ? _value.album
           : album // ignore: cast_nullable_to_non_nullable
-              as AlbumRef,
+              as up.AlbumRef,
       artwork: artwork == freezed
           ? _value.artwork
           : artwork // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as up.Artwork?,
     ));
+  }
+
+  @override
+  $ArtworkCopyWith<$Res>? get artwork {
+    if (_value.artwork == null) {
+      return null;
+    }
+
+    return $ArtworkCopyWith<$Res>(_value.artwork!, (value) {
+      return _then(_value.copyWith(artwork: value));
+    });
   }
 }
 
@@ -116,12 +138,16 @@ abstract class _$SongCopyWith<$Res> implements $SongCopyWith<$Res> {
       __$SongCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String title,
+      {int id,
+      String title,
       String uri,
       Duration duration,
-      ArtistRef artist,
-      AlbumRef album,
-      Uint8List? artwork});
+      up.ArtistRef artist,
+      up.AlbumRef album,
+      up.Artwork? artwork});
+
+  @override
+  $ArtworkCopyWith<$Res>? get artwork;
 }
 
 /// @nodoc
@@ -135,6 +161,7 @@ class __$SongCopyWithImpl<$Res> extends _$SongCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? title = freezed,
     Object? uri = freezed,
     Object? duration = freezed,
@@ -143,6 +170,10 @@ class __$SongCopyWithImpl<$Res> extends _$SongCopyWithImpl<$Res>
     Object? artwork = freezed,
   }) {
     return _then(_Song(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       title: title == freezed
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -158,15 +189,15 @@ class __$SongCopyWithImpl<$Res> extends _$SongCopyWithImpl<$Res>
       artist: artist == freezed
           ? _value.artist
           : artist // ignore: cast_nullable_to_non_nullable
-              as ArtistRef,
+              as up.ArtistRef,
       album: album == freezed
           ? _value.album
           : album // ignore: cast_nullable_to_non_nullable
-              as AlbumRef,
+              as up.AlbumRef,
       artwork: artwork == freezed
           ? _value.artwork
           : artwork // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as up.Artwork?,
     ));
   }
 }
@@ -175,7 +206,8 @@ class __$SongCopyWithImpl<$Res> extends _$SongCopyWithImpl<$Res>
 
 class _$_Song extends _Song {
   const _$_Song(
-      {required this.title,
+      {required this.id,
+      required this.title,
       required this.uri,
       required this.duration,
       required this.artist,
@@ -184,27 +216,31 @@ class _$_Song extends _Song {
       : super._();
 
   @override
+  final int id;
+  @override
   final String title;
   @override
   final String uri;
   @override
   final Duration duration;
   @override
-  final ArtistRef artist;
+  final up.ArtistRef artist;
   @override
-  final AlbumRef album;
+  final up.AlbumRef album;
   @override
-  final Uint8List? artwork;
+  final up.Artwork? artwork;
 
   @override
   String toString() {
-    return 'Song(title: $title, uri: $uri, duration: $duration, artist: $artist, album: $album, artwork: $artwork)';
+    return 'Song(id: $id, title: $title, uri: $uri, duration: $duration, artist: $artist, album: $album, artwork: $artwork)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Song &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.title, title) ||
                 const DeepCollectionEquality().equals(other.title, title)) &&
             (identical(other.uri, uri) ||
@@ -223,6 +259,7 @@ class _$_Song extends _Song {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(title) ^
       const DeepCollectionEquality().hash(uri) ^
       const DeepCollectionEquality().hash(duration) ^
@@ -238,14 +275,17 @@ class _$_Song extends _Song {
 
 abstract class _Song extends Song {
   const factory _Song(
-      {required String title,
+      {required int id,
+      required String title,
       required String uri,
       required Duration duration,
-      required ArtistRef artist,
-      required AlbumRef album,
-      Uint8List? artwork}) = _$_Song;
+      required up.ArtistRef artist,
+      required up.AlbumRef album,
+      up.Artwork? artwork}) = _$_Song;
   const _Song._() : super._();
 
+  @override
+  int get id => throw _privateConstructorUsedError;
   @override
   String get title => throw _privateConstructorUsedError;
   @override
@@ -253,11 +293,11 @@ abstract class _Song extends Song {
   @override
   Duration get duration => throw _privateConstructorUsedError;
   @override
-  ArtistRef get artist => throw _privateConstructorUsedError;
+  up.ArtistRef get artist => throw _privateConstructorUsedError;
   @override
-  AlbumRef get album => throw _privateConstructorUsedError;
+  up.AlbumRef get album => throw _privateConstructorUsedError;
   @override
-  Uint8List? get artwork => throw _privateConstructorUsedError;
+  up.Artwork? get artwork => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$SongCopyWith<_Song> get copyWith => throw _privateConstructorUsedError;

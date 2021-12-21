@@ -61,13 +61,14 @@ class DoubleBottomCard extends StatelessWidget {
     this.width,
     this.padding = const EdgeInsets.all(up.Dimensions.space1),
     this.backgroundColor,
-    this.bottomColor = Colors.transparent,
+    Color? bottomColor,
     this.bottomHeight = up.Dimensions.space5,
     this.bottomHorizontalPadding = up.Dimensions.space4,
     this.borderRadius = up.Dimensions.borderRadius1,
     this.onTap,
     Key? key,
-  }) : super(key: key);
+  })  : bottomColor = bottomColor ?? Colors.white,
+        super(key: key);
 
   final Widget? child;
   final EdgeInsetsGeometry? padding;

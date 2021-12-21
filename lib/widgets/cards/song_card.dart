@@ -16,14 +16,13 @@ class SongCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
+      bottomColor: song.artwork?.dominantColor,
       onTap: onTap,
       padding: const EdgeInsets.all(up.Dimensions.space4),
       child: Row(
         children: [
           up.Image.s3(
-            song.artwork != null
-                ? MemoryImage(song.artwork!) as ImageProvider<Object>
-                : const AssetImage("assets/skeler.jpg"),
+            song.artwork?.image ?? const AssetImage("assets/skeler.jpg"),
           ),
           const up.Space4(),
           Expanded(

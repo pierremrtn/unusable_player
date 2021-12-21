@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
@@ -17,17 +18,17 @@ class SliverSongList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 10.0),
+        (BuildContext context, int index) => Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
+          child: FadeIn(
             child: up.SongCard(
               song: songs[index],
               onTap: onSelectSong != null
                   ? () => onSelectSong!(songs, index)
                   : null,
             ),
-          );
-        },
+          ),
+        ),
         childCount: songs.length,
       ),
     );

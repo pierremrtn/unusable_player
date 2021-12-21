@@ -8,10 +8,12 @@ import 'package:unusable_player/unusable_player.dart' as up;
 import 'transformed_artwork.dart';
 
 class CoverAnimatedArtwork extends StatelessWidget {
+  static const fallbackArtwork = AssetImage("assets/artwork_not_found.jpg");
+
   CoverAnimatedArtwork({
-    required this.artwork,
-    required this.prevArtwork,
-    required this.nextArtwork,
+    required this.song,
+    required this.prevSong,
+    required this.nextSong,
     required this.animation,
     required double triggerThreshold,
     required double currentRotation,
@@ -141,9 +143,9 @@ class CoverAnimatedArtwork extends StatelessWidget {
         ),
         super(key: key);
 
-  final ImageProvider<Object> artwork;
-  final ImageProvider<Object>? prevArtwork;
-  final ImageProvider<Object>? nextArtwork;
+  final up.Song song;
+  final up.Song? prevSong;
+  final up.Song? nextSong;
 
   final AnimationController animation;
 
@@ -164,30 +166,35 @@ class CoverAnimatedArtwork extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final prev = _buildArtworkWidget(prevSong);
+    final current = _buildArtworkWidget(song);
+    final next = _buildArtworkWidget(nextSong);
+
     return AnimatedBuilder(
       animation: animation,
       builder: (BuildContext context, _) {
         return Stack(
           fit: StackFit.expand,
           children: [
-            if (prevArtwork != null)
+            if (prev != null)
               TransformedArtwork(
-                artwork: prevArtwork!,
+                artwork: prev,
                 offset: prevOffset.value,
                 rotation: prevRotation.value,
                 scale: prevScale.value,
                 opacity: prevOpacity.value,
               ),
-            TransformedArtwork(
-              artwork: artwork,
-              offset: currentOffset.value,
-              rotation: currentRotation.value,
-              scale: currentScale.value,
-              opacity: currentOpacity.value,
-            ),
-            if (nextArtwork != null)
+            if (current != null)
               TransformedArtwork(
-                artwork: nextArtwork!,
+                artwork: current,
+                offset: currentOffset.value,
+                rotation: currentRotation.value,
+                scale: currentScale.value,
+                opacity: currentOpacity.value,
+              ),
+            if (next != null)
+              TransformedArtwork(
+                artwork: next,
                 offset: nextOffset.value,
                 rotation: nextRotation.value,
                 scale: nextScale.value,
@@ -196,6 +203,19 @@ class CoverAnimatedArtwork extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+
+  Widget? _buildArtworkWidget(up.Song? song) {
+    if (song == null) return null;
+    return up.DoubleBottomCard(
+      bottomColor: song.artwork?.dominantColor,
+      padding: const EdgeInsets.all(up.Dimensions.space5),
+      child: up.Image(
+        song.artwork?.image ?? fallbackArtwork,
+        height: up.Dimensions.image1,
+        radius: up.Dimensions.borderRadius2,
+      ),
     );
   }
 }

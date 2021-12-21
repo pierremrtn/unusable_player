@@ -22,17 +22,25 @@ class SearchController extends GetxController with StateMixin<List<up.Song>> {
     }
   }
 
-  Future<void> search(String arg) async {
+  void search(String arg) {
+    change([], status: RxStatus.loading());
     _showSearchResult.value = true;
-    try {
-      final songs = await audioQueryService.searchSong(arg);
+
+    audioQueryService.searchSong(arg).listen((song) {
+      final List<up.Song> songs = List.from(state ?? [])..add(song);
       change(
         songs,
         status: songs.isNotEmpty ? RxStatus.success() : RxStatus.empty(),
       );
-    } catch (e) {
+    }, onDone: () {
+      change(
+        state,
+        status:
+            (state?.isEmpty ?? true) ? RxStatus.empty() : RxStatus.success(),
+      );
+    }, onError: (e) {
       _showSearchResult.value = false;
       change([], status: RxStatus.error(e.toString()));
-    }
+    });
   }
 }

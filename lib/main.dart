@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:unusable_player/theme/theme_data/colors_scheme.dart';
 
 import 'package:unusable_player/unusable_player.dart' as up;
 
@@ -26,14 +27,14 @@ class UnusablePlayer extends StatelessWidget {
 }
 
 Future<void> initServices() async {
-  Get.put(up.ColorService());
+  Get.lazyPut(() => up.AudioPlayerService());
+  Get.lazyPut(() => up.ColorService());
+  Get.lazyPut(() => up.CacheService());
   await Future.wait([
-    Get.putAsync(
-      () => up.AudioQueryService(
-        colorService: up.ColorService.instance,
-      ).init(),
-    ),
+    Get.putAsync(() => up.AudioQueryService(
+          cacheService: up.CacheService.instance,
+          colorService: up.ColorService.instance,
+        ).init()),
     Get.putAsync(() => up.LangService().init()),
   ]);
-  Get.put(up.AudioPlayerService());
 }

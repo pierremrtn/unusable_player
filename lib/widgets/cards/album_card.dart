@@ -3,6 +3,7 @@ import 'package:neat/neat.dart';
 import 'package:get/get.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
+//TODO: fallback artworks
 class AlbumCard extends StatelessWidget {
   const AlbumCard({
     required this.album,
@@ -16,6 +17,7 @@ class AlbumCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return up.DoubleBottomCard(
+      bottomColor: album.artwork?.dominantColor,
       onTap: onTap,
       bottomHorizontalPadding: up.Dimensions.space5,
       padding: const EdgeInsets.all(up.Dimensions.space5),
@@ -24,9 +26,7 @@ class AlbumCard extends StatelessWidget {
         children: [
           Flexible(
             child: up.Image.h2(
-              album.artwork != null
-                  ? MemoryImage(album.artwork!) as ImageProvider<Object>
-                  : const AssetImage("assets/skeler.jpg"),
+              album.artwork?.image ?? const AssetImage("assets/skeler.jpg"),
             ),
           ),
           Padding(

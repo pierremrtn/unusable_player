@@ -1,11 +1,11 @@
-import 'dart:typed_data';
-
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'artist.dart';
+import 'artwork.dart';
 
 part 'album.freezed.dart';
 
-const kFallbackAlbumTitle = "Untiteled";
+const kFallbackAlbumTitle = "Untitled";
 
 @freezed
 class Album with _$Album {
@@ -16,7 +16,7 @@ class Album with _$Album {
     @Default(kFallbackAlbumTitle) String title,
     required ArtistRef artist,
     required int songNumber,
-    Uint8List? artwork,
+    Artwork? artwork,
   }) = _Album;
 }
 

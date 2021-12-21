@@ -22,7 +22,7 @@ class _$AlbumTearOff {
       String title = kFallbackAlbumTitle,
       required ArtistRef artist,
       required int songNumber,
-      Uint8List? artwork}) {
+      Artwork? artwork}) {
     return _Album(
       id: id,
       title: title,
@@ -42,7 +42,7 @@ mixin _$Album {
   String get title => throw _privateConstructorUsedError;
   ArtistRef get artist => throw _privateConstructorUsedError;
   int get songNumber => throw _privateConstructorUsedError;
-  Uint8List? get artwork => throw _privateConstructorUsedError;
+  Artwork? get artwork => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AlbumCopyWith<Album> get copyWith => throw _privateConstructorUsedError;
@@ -57,7 +57,9 @@ abstract class $AlbumCopyWith<$Res> {
       String title,
       ArtistRef artist,
       int songNumber,
-      Uint8List? artwork});
+      Artwork? artwork});
+
+  $ArtworkCopyWith<$Res>? get artwork;
 }
 
 /// @nodoc
@@ -96,8 +98,19 @@ class _$AlbumCopyWithImpl<$Res> implements $AlbumCopyWith<$Res> {
       artwork: artwork == freezed
           ? _value.artwork
           : artwork // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as Artwork?,
     ));
+  }
+
+  @override
+  $ArtworkCopyWith<$Res>? get artwork {
+    if (_value.artwork == null) {
+      return null;
+    }
+
+    return $ArtworkCopyWith<$Res>(_value.artwork!, (value) {
+      return _then(_value.copyWith(artwork: value));
+    });
   }
 }
 
@@ -111,7 +124,10 @@ abstract class _$AlbumCopyWith<$Res> implements $AlbumCopyWith<$Res> {
       String title,
       ArtistRef artist,
       int songNumber,
-      Uint8List? artwork});
+      Artwork? artwork});
+
+  @override
+  $ArtworkCopyWith<$Res>? get artwork;
 }
 
 /// @nodoc
@@ -151,7 +167,7 @@ class __$AlbumCopyWithImpl<$Res> extends _$AlbumCopyWithImpl<$Res>
       artwork: artwork == freezed
           ? _value.artwork
           : artwork // ignore: cast_nullable_to_non_nullable
-              as Uint8List?,
+              as Artwork?,
     ));
   }
 }
@@ -177,7 +193,7 @@ class _$_Album extends _Album {
   @override
   final int songNumber;
   @override
-  final Uint8List? artwork;
+  final Artwork? artwork;
 
   @override
   String toString() {
@@ -222,7 +238,7 @@ abstract class _Album extends Album {
       String title,
       required ArtistRef artist,
       required int songNumber,
-      Uint8List? artwork}) = _$_Album;
+      Artwork? artwork}) = _$_Album;
   const _Album._() : super._();
 
   @override
@@ -234,7 +250,7 @@ abstract class _Album extends Album {
   @override
   int get songNumber => throw _privateConstructorUsedError;
   @override
-  Uint8List? get artwork => throw _privateConstructorUsedError;
+  Artwork? get artwork => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$AlbumCopyWith<_Album> get copyWith => throw _privateConstructorUsedError;

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:neat/neat.dart';
 import 'package:unusable_player/pages/player/widgets/cover/cover_animated_text.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
@@ -44,9 +43,9 @@ class Cover extends StatelessWidget {
                     child: CoverAnimatedArtwork(
                       triggerThreshold: controller.triggerThreshold,
                       animation: controller.artworkAnimation,
-                      artwork: controller.artwork,
-                      nextArtwork: controller.nextArtwork,
-                      prevArtwork: controller.prevArtwork,
+                      song: controller.currentSong,
+                      prevSong: controller.prevSong,
+                      nextSong: controller.nextSong,
                       currentRotation: controller.currentRotation,
                       prevRotation: controller.prevRotation,
                       nextRotation: controller.nextRotation,

@@ -13,7 +13,7 @@ class TransformedArtwork extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final ImageProvider<Object> artwork;
+  final Widget artwork;
   final Offset offset;
   final double rotation;
   final double scale;
@@ -39,14 +39,7 @@ class TransformedArtwork extends StatelessWidget {
       child: Transform(
         transform: transform,
         alignment: Alignment.center,
-        child: up.DoubleBottomCard(
-          padding: const EdgeInsets.all(up.Dimensions.space5),
-          child: up.Image(
-            artwork,
-            height: up.Dimensions.image1,
-            radius: up.Dimensions.borderRadius2,
-          ),
-        ),
+        child: artwork,
       ),
     );
   }

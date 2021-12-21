@@ -14,13 +14,15 @@ class SongsController extends GetxController with StateMixin<List<up.Song>> {
 
   final up.AudioQueryService audioQueryService;
 
-  Future<void> _querySongs() async {
+  void _querySongs() {
     try {
-      final songs = await audioQueryService.querySongs();
-      change(
-        songs,
-        status: songs.isNotEmpty ? RxStatus.success() : RxStatus.empty(),
-      );
+      audioQueryService.querySongs().listen((song) {
+        final List<up.Song> songs = List.from(state ?? [])..add(song);
+        change(
+          songs,
+          status: songs.isNotEmpty ? RxStatus.success() : RxStatus.empty(),
+        );
+      });
     } catch (e) {
       change([], status: RxStatus.error(e.toString()));
     }

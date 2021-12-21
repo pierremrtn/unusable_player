@@ -55,10 +55,10 @@ class AlbumListTab extends GetView<AlbumsController> {
     return WillPopScope(
       onWillPop: controller.leaveAlbumView,
       child: HomeInnerList(
-        sliver: SliverSongList(
-          songs: controller.albumSongs ?? [],
-          onSelectSong: onSelectSong,
-        ),
+        sliver: Obx(() => SliverSongList(
+              songs: controller.albumSongs.value,
+              onSelectSong: onSelectSong,
+            )),
       ),
     );
   }
