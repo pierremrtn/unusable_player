@@ -54,6 +54,7 @@ class CoverController extends ChangeNotifier {
   double prevRotation = 0;
   double currentRotation = 0;
   double nextRotation = 0;
+  bool lockDragHandle = false;
 
   up.Song get currentSong => _song;
   up.Song? get prevSong => _prevSong;
@@ -91,10 +92,12 @@ class CoverController extends ChangeNotifier {
   }
 
   void verticalDragStartHandle(DragStartDetails drag) {
+    if (lockDragHandle) return;
     dragValue = 0.5;
   }
 
   void verticalDragHandle(DragUpdateDetails drag) {
+    if (lockDragHandle) return;
     final deltaY = drag.primaryDelta!;
     dragValue = (dragValue + (deltaY * dragSensibility)).clamp(0, 1);
     dotsController.onDrag(dragValue);
@@ -103,6 +106,7 @@ class CoverController extends ChangeNotifier {
   }
 
   Future<void> verticalDragEndHandle(DragEndDetails drag) async {
+    if (lockDragHandle) return;
     if (dragValue < triggerThreshold && _prevSong != null) {
       onPrev();
     } else if (dragValue > 1 - triggerThreshold && _nextSong != null) {
@@ -114,6 +118,7 @@ class CoverController extends ChangeNotifier {
   }
 
   Future<void> animateUp({bool hideUp = false}) async {
+    lockDragHandle = true;
     artworkAnimation.animateTo(0, duration: endAnimationDuration);
     await dotsController.goPrev(last: hideUp);
     nextRotation = currentRotation;
@@ -124,6 +129,7 @@ class CoverController extends ChangeNotifier {
   }
 
   Future<void> animateDown({bool hideDown = false}) async {
+    lockDragHandle = true;
     artworkAnimation.animateTo(1, duration: endAnimationDuration);
     await dotsController.goNext(last: hideDown);
     _randomizeArtworkRotations();
@@ -173,6 +179,7 @@ class CoverController extends ChangeNotifier {
   }
 
   void _reset() {
+    lockDragHandle = false;
     artworkAnimation.value = 0.5;
   }
 }
