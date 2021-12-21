@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:unusable_player/pages/home/controllers/search_controller.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
+//TODO: bind play/stop stream
+
 class HomeController extends GetxController {
   HomeController({
     required this.audioPlayerService,
@@ -38,6 +40,12 @@ class HomeController extends GetxController {
       ),
     );
     _updatePlayingSongIndicator();
+  }
+
+  Future<void> dismissPlayingSongIndicator() async {
+    await audioPlayerService.clear();
+    _playingSong.value = null;
+    _isPlaying.value = false;
   }
 
   Future<void> playingSongIndicatorPlay() async => audioPlayerService.play();

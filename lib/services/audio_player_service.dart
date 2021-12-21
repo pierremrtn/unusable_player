@@ -60,6 +60,11 @@ class AudioPlayerService extends GetxService {
   int get previousSongIndex => _player.previousIndex ?? 0;
   int get nextSongIndex => _player.nextIndex ?? 0;
 
+  Future<void> clear() async {
+    _songs.clear();
+    return _player.stop();
+  }
+
   Future<void> setSong(up.Song song) async {
     if (!_songs.equals([song])) {
       _songs.clear();

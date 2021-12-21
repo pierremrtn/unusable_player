@@ -3,18 +3,25 @@ import 'package:unusable_player/unusable_player.dart' as up;
 
 import 'package:neat/neat.dart';
 
-const double kPlayingSongIndicatorHeight = 109;
+const double _kShadowRadius = 7;
+const double _kShadowSpread = 2;
+const double kPlayingSongIndicatorShadowSize = _kShadowRadius + _kShadowSpread;
 
-class PlayingSongIndicator extends StatelessWidget {
-  static const double kShadowRadius = 15;
+const double kPlayingSongIndicatorHeight = 100;
+const double _kContentHeight =
+    kPlayingSongIndicatorHeight - (kPlayingSongIndicatorShadowSize * 2);
 
+const double _kDragThreshold = 0.2;
+
+class PlayingSongIndicator extends StatefulWidget {
   const PlayingSongIndicator({
-    Key? key,
     required this.song,
     this.isPlaying = true,
     this.onPlay,
     this.onPause,
     this.onTap,
+    this.onDrag,
+    Key? key,
   }) : super(key: key);
 
   final up.Song song;
@@ -22,60 +29,129 @@ class PlayingSongIndicator extends StatelessWidget {
   final VoidCallback? onPlay;
   final VoidCallback? onPause;
   final VoidCallback? onTap;
+  final VoidCallback? onDrag;
+
+  @override
+  _PlayingSongIndicatorState createState() => _PlayingSongIndicatorState();
+}
+
+class _PlayingSongIndicatorState extends State<PlayingSongIndicator>
+    with TickerProviderStateMixin {
+  _PlayingSongIndicatorState();
+
+  late AnimationController controller;
+  late Animation<Offset> position;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      value: 0.5,
+      duration: const Duration(seconds: 1),
+      vsync: this,
+    );
+    position =
+        Tween<Offset>(begin: const Offset(-1, 0), end: const Offset(1, 0))
+            .animate(
+      CurvedAnimation(
+        parent: controller,
+        curve: up.Feel.animationCurve,
+      ),
+    );
+  }
+
+  void _handleDrag(DragUpdateDetails details) {
+    const sensibility = 0.0025;
+    final delta = details.primaryDelta! * sensibility;
+    final double animValue = (controller.value += delta).clamp(0, 1);
+    controller.animateTo(animValue);
+  }
+
+  void _handleDragEnd(DragEndDetails details) {
+    final value = controller.value;
+    if (value < _kDragThreshold) {
+      controller.animateTo(0);
+      widget.onDrag?.call();
+    } else if (value > 1 - _kDragThreshold) {
+      controller.animateTo(1);
+      widget.onDrag?.call();
+    } else {
+      controller.animateTo(0.5, duration: up.Feel.animationDuration);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final foregroundColor = Theme.of(context).colorScheme.surface;
 
-    return DecoratedBox(
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-          color: context.colorScheme.surface,
-          blurRadius: kShadowRadius,
-          spreadRadius: kShadowRadius,
-        ),
-      ]),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: kShadowRadius),
-        child: up.DoubleBottomCard(
-          onTap: onTap,
-          padding: const EdgeInsets.all(up.Dimensions.space3),
-          backgroundColor: context.colorScheme.primary,
-          bottomColor: context.colorScheme.surface,
-          height: kPlayingSongIndicatorHeight - (kShadowRadius * 2),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Icon(
-                up.Icons.cd,
-                color: foregroundColor,
-              ),
-              const up.Space4(),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    context.bodyText1(
-                      song.artist.name,
-                      style: TextStyle(color: foregroundColor),
-                    ),
-                    context.headline5(
-                      song.title,
-                      style: TextStyle(color: foregroundColor),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
-              const up.Space4(),
-              up.Button.icon(
-                isPlaying ? up.Icons.pause : up.Icons.play,
-                onPressed: isPlaying ? onPause : onPlay,
-                color: foregroundColor,
+    return GestureDetector(
+      onHorizontalDragUpdate: _handleDrag,
+      onHorizontalDragEnd: _handleDragEnd,
+      child: SlideTransition(
+        position: position,
+        transformHitTests: false,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(up.Dimensions.borderRadius1),
+            boxShadow: [
+              BoxShadow(
+                color: context.colorScheme.surface,
+                blurRadius: _kShadowRadius,
+                spreadRadius: _kShadowSpread,
+                blurStyle: BlurStyle.normal,
               ),
             ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(kPlayingSongIndicatorShadowSize),
+            child: up.DoubleBottomCard(
+              onTap: widget.onTap,
+              padding: const up.Padding3.all(),
+              backgroundColor: context.colorScheme.primary,
+              bottomColor: context.colorScheme.surface,
+              height: _kContentHeight,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    up.Icons.cd,
+                    color: foregroundColor,
+                  ),
+                  const up.Space4(),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: context.bodyText1(
+                            widget.song.artist.name,
+                            style: TextStyle(color: foregroundColor),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Expanded(
+                          child: context.headline5(
+                            widget.song.title,
+                            style: TextStyle(color: foregroundColor),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const up.Space4(),
+                  up.Button.icon(
+                    widget.isPlaying ? up.Icons.pause : up.Icons.play,
+                    onPressed:
+                        widget.isPlaying ? widget.onPause : widget.onPlay,
+                    color: foregroundColor,
+                  ),
+                ],
+              ),
+            ),
           ),
         ),
       ),

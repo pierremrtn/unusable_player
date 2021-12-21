@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:unusable_player/theme/theme.dart' as up;
+import 'package:unusable_player/unusable_player.dart' as up;
 
 class HomeInnerList extends StatelessWidget {
   const HomeInnerList({
@@ -20,7 +20,14 @@ class HomeInnerList extends StatelessWidget {
           handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
         ),
         SliverPadding(
-          padding: const EdgeInsets.all(up.Dimensions.pageMargin),
+          padding: const EdgeInsets.only(
+            top: up.Dimensions.paddingPage,
+            left: up.Dimensions.paddingPage,
+            right: up.Dimensions.paddingPage,
+            bottom: up.Dimensions.paddingPage +
+                up.kPlayingSongIndicatorHeight +
+                up.kPlayingSongIndicatorShadowSize,
+          ),
           sliver: sliver,
         ),
       ],

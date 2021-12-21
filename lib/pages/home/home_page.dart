@@ -18,10 +18,7 @@ class HomePage extends GetView<HomeController> {
       appBar: up.emptyAppBar(),
       backgroundColor: context.colorScheme.background,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Padding(
-        padding: const up.Padding3.horizontal(),
-        child: _buildPlayingIndicator(context),
-      ),
+      floatingActionButton: _buildPlayingIndicator(context),
       body: SafeArea(
         child: DefaultTabController(
           length: 3,
@@ -77,14 +74,9 @@ class HomePage extends GetView<HomeController> {
                 ),
               ),
             ],
-            body: Obx(
-              () => Padding(
-                padding: _buildTabViewBottomPadding(),
-                child: HomeBody(
-                  showSearchResults: controller.showSearchResult,
-                  onSelectSong: controller.onSelectSong,
-                ),
-              ),
+            body: HomeBody(
+              showSearchResults: controller.showSearchResult,
+              onSelectSong: controller.onSelectSong,
             ),
           ),
         ),
@@ -92,36 +84,32 @@ class HomePage extends GetView<HomeController> {
     );
   }
 
-  EdgeInsetsGeometry _buildTabViewBottomPadding() =>
-      controller.showPlayingSongIndicator
-          ? const EdgeInsets.only(
-              bottom:
-                  up.kPlayingSongIndicatorHeight + kFloatingActionButtonMargin,
-            )
-          : EdgeInsets.zero;
-
   Widget _buildPlayingIndicator(BuildContext context) {
     return Obx(
       () => AnimatedSwitcher(
         duration: up.Feel.animationDuration,
         switchInCurve: up.Feel.animationCurve,
         switchOutCurve: up.Feel.animationCurve,
-        transitionBuilder: (
-          Widget child,
-          Animation<double> animation,
-        ) =>
+        transitionBuilder: (Widget child, Animation<double> animation) =>
             ScaleTransition(
           child: child,
           scale: animation,
         ),
         child: controller.showPlayingSongIndicator
-            ? BounceInUp(
-                child: up.PlayingSongIndicator(
-                  song: controller.playingSong!,
-                  isPlaying: controller.isPlaying,
-                  onPlay: controller.playingSongIndicatorPlay,
-                  onPause: controller.playingSongIndicatorPause,
-                  onTap: controller.onPlayingSongIndicatorTap,
+            ? Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: up.Dimensions.paddingPage -
+                      up.kPlayingSongIndicatorShadowSize,
+                ),
+                child: BounceInUp(
+                  child: up.PlayingSongIndicator(
+                    song: controller.playingSong!,
+                    isPlaying: controller.isPlaying,
+                    onPlay: controller.playingSongIndicatorPlay,
+                    onPause: controller.playingSongIndicatorPause,
+                    onTap: controller.onPlayingSongIndicatorTap,
+                    onDrag: controller.dismissPlayingSongIndicator,
+                  ),
                 ),
               )
             : const SizedBox.shrink(),
