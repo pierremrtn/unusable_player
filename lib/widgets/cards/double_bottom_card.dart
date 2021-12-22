@@ -61,14 +61,13 @@ class DoubleBottomCard extends StatelessWidget {
     this.width,
     this.padding = const EdgeInsets.all(up.Dimensions.space1),
     this.backgroundColor,
-    Color? bottomColor,
+    this.bottomColor,
     this.bottomHeight = up.Dimensions.space5,
     this.bottomHorizontalPadding = up.Dimensions.space4,
     this.borderRadius = up.Dimensions.borderRadius1,
     this.onTap,
     Key? key,
-  })  : bottomColor = bottomColor ?? Colors.white,
-        super(key: key);
+  }) : super(key: key);
 
   final Widget? child;
   final EdgeInsetsGeometry? padding;
@@ -78,7 +77,7 @@ class DoubleBottomCard extends StatelessWidget {
   final double? height;
   final double? width;
 
-  final Color bottomColor;
+  final Color? bottomColor;
   final double bottomHeight;
   final double bottomHorizontalPadding;
   final double borderRadius;
@@ -88,7 +87,7 @@ class DoubleBottomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: _DoubleBorderPainter(
-        color: bottomColor,
+        color: bottomColor ?? context.colorScheme.surface,
         borderColor: context.colorScheme.onSurface,
         borderWidth: up.Dimensions.borderSize,
         height: bottomHeight,
@@ -111,9 +110,7 @@ class DoubleBottomCard extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: onTap,
-            splashColor: bottomColor != Colors.transparent
-                ? bottomColor
-                : context.colorScheme.primary,
+            splashColor: _splashColor(context),
             borderRadius: BorderRadius.circular(borderRadius),
             child: Padding(
               padding: padding ?? EdgeInsets.zero,
@@ -123,5 +120,13 @@ class DoubleBottomCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color _splashColor(BuildContext context) {
+    final color = bottomColor ?? Colors.white;
+    if (color != Colors.white) {
+      return color;
+    }
+    return context.colorScheme.primary;
   }
 }
