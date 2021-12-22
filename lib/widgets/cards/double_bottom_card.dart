@@ -123,9 +123,10 @@ class DoubleBottomCard extends StatelessWidget {
   }
 
   Color _splashColor(BuildContext context) {
-    final color = bottomColor ?? Colors.white;
-    if (color != Colors.white) {
-      return color;
+    final _splashColor = bottomColor;
+    if (_splashColor != null &&
+        _splashColor != (backgroundColor ?? context.colorScheme.surface)) {
+      return _splashColor;
     }
     return context.colorScheme.primary;
   }
