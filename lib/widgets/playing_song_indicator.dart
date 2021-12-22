@@ -11,7 +11,8 @@ const double kPlayingSongIndicatorHeight = 100;
 const double _kContentHeight =
     kPlayingSongIndicatorHeight - (kPlayingSongIndicatorShadowSize * 2);
 
-const double _kDragThreshold = 0.2;
+const double _kDragThreshold = 0.25;
+const double _kSensibility = 0.002;
 
 class PlayingSongIndicator extends StatefulWidget {
   const PlayingSongIndicator({
@@ -41,6 +42,7 @@ class _PlayingSongIndicatorState extends State<PlayingSongIndicator>
 
   late AnimationController controller;
   late Animation<Offset> position;
+  late Animation<double> opacity;
 
   @override
   void initState() {
@@ -53,16 +55,20 @@ class _PlayingSongIndicatorState extends State<PlayingSongIndicator>
     position =
         Tween<Offset>(begin: const Offset(-1, 0), end: const Offset(1, 0))
             .animate(
-      CurvedAnimation(
-        parent: controller,
-        curve: up.Feel.animationCurve,
+      controller,
+    );
+    opacity = AnimationMin(
+      Tween<double>(begin: 0, end: 1).animate(
+        CurvedAnimation(parent: controller, curve: const Interval(0, 0.5)),
+      ),
+      Tween<double>(begin: 1, end: 0).animate(
+        CurvedAnimation(parent: controller, curve: const Interval(0.5, 1)),
       ),
     );
   }
 
   void _handleDrag(DragUpdateDetails details) {
-    const sensibility = 0.0025;
-    final delta = details.primaryDelta! * sensibility;
+    final delta = details.primaryDelta! * _kSensibility;
     final double animValue = (controller.value += delta).clamp(0, 1);
     controller.animateTo(animValue);
   }
@@ -87,9 +93,16 @@ class _PlayingSongIndicatorState extends State<PlayingSongIndicator>
     return GestureDetector(
       onHorizontalDragUpdate: _handleDrag,
       onHorizontalDragEnd: _handleDragEnd,
-      child: SlideTransition(
-        position: position,
-        transformHitTests: false,
+      child: AnimatedBuilder(
+        animation: controller,
+        builder: (_, child) => Opacity(
+          opacity: opacity.value,
+          child: FractionalTranslation(
+            translation: position.value,
+            transformHitTests: false,
+            child: child,
+          ),
+        ),
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(up.Dimensions.borderRadius1),
