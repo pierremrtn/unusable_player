@@ -21,9 +21,9 @@ class PlayerPage extends GetView<PlayerController> {
       appBar: up.normalAppBar(
         context: context,
         title: "Now playing",
+        onBack: Get.back,
       ),
       body: Stack(
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const up.Space1(),
           Positioned(
