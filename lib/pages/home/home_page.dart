@@ -74,10 +74,10 @@ class HomePage extends GetView<HomeController> {
                 ),
               ),
             ],
-            body: HomeBody(
-              showSearchResults: controller.showSearchResult,
-              onSelectSong: controller.onSelectSong,
-            ),
+            body: Obx(() => HomeBody(
+                  showSearchResults: controller.showSearchResult,
+                  onSelectSong: controller.onSelectSong,
+                )),
           ),
         ),
       ),
