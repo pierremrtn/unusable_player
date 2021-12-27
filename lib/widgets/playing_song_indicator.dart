@@ -170,4 +170,10 @@ class _PlayingSongIndicatorState extends State<PlayingSongIndicator>
       ),
     );
   }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 }

@@ -6,11 +6,6 @@ import 'package:unusable_player/unusable_player.dart' as up;
 import 'models/player_control_state.dart';
 import 'widgets/cover/cover.dart';
 
-//TODO: shuffle not working
-//TODO: music text go inside cover
-//TODO: animate music text
-//TODO: better cover switch animation
-
 class PlayerController extends GetxController
     with StateMixin<PlayerControlState>, GetSingleTickerProviderStateMixin {
   PlayerController({
@@ -33,6 +28,11 @@ class PlayerController extends GetxController
     } catch (e) {
       Get.back();
     }
+  }
+
+  @override
+  void onClose() {
+    coverController.dispose();
   }
 
   final up.AudioPlayerService audioService;

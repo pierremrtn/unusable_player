@@ -60,6 +60,12 @@ class CoverController extends ChangeNotifier {
   up.Song? get prevSong => _prevSong;
   up.Song? get nextSong => _nextSong;
 
+  @override
+  void dispose() {
+    artworkAnimation.dispose();
+    super.dispose();
+  }
+
   ///Animate cover to display new song.
   ///setSongs will return after animation terminate
   ///if CoverAnimation.up and prevSong is null, hide the upper dot
