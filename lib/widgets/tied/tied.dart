@@ -63,61 +63,61 @@ class _TiedState extends State<Tied> {
             ),
             child: widget.child,
           ),
-          if (_clockwiseRotation)
-            Positioned(
-              top: 0,
-              child: Rope(
-                width: widget.maxRopeWidth,
-                height: widget.maxRopeHeight,
-                holeRadius: widget.holeSize / 2,
-                startHoleOffset: Offset(0, _ropeOrientation),
-                endHoleOffset: const Offset(1, 1),
-                ropeWidth: 4,
-                ropeBorderSize: 1,
-              ),
+          // if (_clockwiseRotation)
+          Positioned(
+            top: 0,
+            child: Rope(
+              width: widget.maxRopeWidth,
+              height: widget.maxRopeHeight,
+              holeRadius: widget.holeSize / 2,
+              startHoleOffset: Offset(0, _ropeOrientation),
+              endHoleOffset: const Offset(1, 1),
+              ropeWidth: 4,
+              ropeBorderSize: 1,
             ),
-          if (_clockwiseRotation)
-            Positioned(
-              right: 0,
-              bottom: 0,
-              child: Rope(
-                width: widget.maxRopeWidth,
-                height: widget.maxRopeHeight,
-                holeRadius: widget.holeSize / 2,
-                ropeWidth: 4,
-                ropeBorderSize: 1,
-                startHoleOffset: const Offset(0, 0),
-                endHoleOffset: Offset(1, 1 - _ropeOrientation),
-              ),
+          ),
+          // if (_clockwiseRotation)
+          //   Positioned(
+          //     right: 0,
+          //     bottom: 0,
+          //     child: Rope(
+          //       width: widget.maxRopeWidth,
+          //       height: widget.maxRopeHeight,
+          //       holeRadius: widget.holeSize / 2,
+          //       ropeWidth: 4,
+          //       ropeBorderSize: 1,
+          //       startHoleOffset: const Offset(0, 0),
+          //       endHoleOffset: Offset(1, 1 - _ropeOrientation),
+          //     ),
+          //   ),
+          // if (!_clockwiseRotation)
+          Positioned(
+            top: 0,
+            right: 0,
+            child: Rope(
+              width: widget.maxRopeWidth,
+              height: widget.maxRopeHeight,
+              holeRadius: widget.holeSize / 2,
+              startHoleOffset: const Offset(0, 1),
+              endHoleOffset: Offset(1, _ropeOrientation),
+              ropeWidth: 4,
+              ropeBorderSize: 1,
             ),
-          if (!_clockwiseRotation)
-            Positioned(
-              top: 0,
-              right: 0,
-              child: Rope(
-                width: widget.maxRopeWidth,
-                height: widget.maxRopeHeight,
-                holeRadius: widget.holeSize / 2,
-                startHoleOffset: const Offset(0, 1),
-                endHoleOffset: Offset(1, _ropeOrientation),
-                ropeWidth: 4,
-                ropeBorderSize: 1,
-              ),
-            ),
-          if (!_clockwiseRotation)
-            Positioned(
-              left: 0,
-              bottom: 0,
-              child: Rope(
-                width: widget.maxRopeWidth,
-                height: widget.maxRopeHeight,
-                holeRadius: widget.holeSize / 2,
-                ropeWidth: 4,
-                ropeBorderSize: 1,
-                startHoleOffset: Offset(0, 1 - _ropeOrientation),
-                endHoleOffset: const Offset(1, 0),
-              ),
-            ),
+          ),
+          // if (!_clockwiseRotation)
+          //   Positioned(
+          //     left: 0,
+          //     bottom: 0,
+          //     child: Rope(
+          //       width: widget.maxRopeWidth,
+          //       height: widget.maxRopeHeight,
+          //       holeRadius: widget.holeSize / 2,
+          //       ropeWidth: 4,
+          //       ropeBorderSize: 1,
+          //       startHoleOffset: Offset(0, 1 - _ropeOrientation),
+          //       endHoleOffset: const Offset(1, 0),
+          //     ),
+          //   ),
         ],
       ),
     );

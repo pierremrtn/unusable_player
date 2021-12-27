@@ -22,10 +22,11 @@ class SliverSongList extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) => Padding(
           padding: const EdgeInsets.only(bottom: up.Dimensions.space3),
-          child: FadeIn(
+          child: FlipInX(
+            duration: up.Feel.animationDuration,
             child: up.Tied(
-              minAngle: -0.025,
-              maxAngle: 0.025,
+              minAngle: -0.01,
+              maxAngle: 0.01,
               random: Random(),
               child: up.SongCard(
                 song: songs[index],
