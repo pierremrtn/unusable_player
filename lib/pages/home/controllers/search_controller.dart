@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
@@ -10,12 +11,16 @@ class SearchController extends GetxController with StateMixin<List<up.Song>> {
 
   final up.AudioQueryService audioQueryService;
   final RxBool _showSearchResult = false.obs;
+  final TextEditingController controller = TextEditingController(text: "");
+  final FocusNode focus = FocusNode();
 
   bool get showSearchResult => _showSearchResult.value;
 
   Future<bool> leaveSearchResult() async {
     if (showSearchResult == true) {
       _showSearchResult.value = false;
+      controller.clear();
+      focus.unfocus();
       return false;
     } else {
       return true;
@@ -42,5 +47,10 @@ class SearchController extends GetxController with StateMixin<List<up.Song>> {
       _showSearchResult.value = false;
       change([], status: RxStatus.error(e.toString()));
     });
+  }
+
+  @override
+  void onClose() {
+    controller.dispose();
   }
 }
