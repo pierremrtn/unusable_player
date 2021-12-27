@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
 import 'package:get/get.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
+import 'package:unusable_player/widgets/tied/tied.dart';
 
 class UIKitPage extends StatelessWidget {
   const UIKitPage({Key? key}) : super(key: key);
@@ -17,34 +20,35 @@ class UIKitPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          ...tied,
           const up.Space1(),
           ...sliders,
-          // const up.Space1(),
-          // ...artistCards,
-          // const Divider(),
-          // ...albums,
-          // const Divider(),
-          // ...listIndicators(),
-          // const Divider(),
-          // ...playingSongIndicators,
-          // const Divider(),
-          // navBar,
-          // const Divider(),
-          // ...songCards,
-          // const Divider(),
-          // ...playlistCards,
-          // const Divider(),
-          // ...searchBars,
-          // const Divider(),
-          // ...tabs,
-          // const Divider(),
-          // ...texts(context),
-          // const Divider(),
-          // icons,
-          // const Divider(),
-          // ...cards(context),
-          // const Divider(),
-          // ...buttons,
+          const up.Space1(),
+          ...artistCards,
+          const Divider(),
+          ...albums,
+          const Divider(),
+          ...listIndicators(),
+          const Divider(),
+          ...playingSongIndicators,
+          const Divider(),
+          navBar,
+          const Divider(),
+          ...songCards,
+          const Divider(),
+          ...playlistCards,
+          const Divider(),
+          ...searchBars,
+          const Divider(),
+          ...tabs,
+          const Divider(),
+          ...texts(context),
+          const Divider(),
+          icons,
+          const Divider(),
+          ...cards(context),
+          const Divider(),
+          ...buttons,
         ],
       ),
     );
@@ -292,4 +296,51 @@ class UIKitPage extends StatelessWidget {
           ),
         ),
       ];
+
+  List<Widget> get tied {
+    final random = Random();
+    return [
+      Tied(
+        random: random,
+        child: const up.SongCard(
+          song: up.Song(
+            uri: "",
+            title: "title",
+            duration: Duration(seconds: 30, minutes: 2),
+            album: up.AlbumRef(),
+            artist: up.ArtistRef(),
+            id: 0,
+          ),
+        ),
+      ),
+      const up.Space3(),
+      Tied(
+        random: random,
+        child: const up.SongCard(
+          song: up.Song(
+            uri: "",
+            title: "title",
+            duration: Duration(seconds: 30, minutes: 2),
+            album: up.AlbumRef(),
+            artist: up.ArtistRef(),
+            id: 0,
+          ),
+        ),
+      ),
+      const up.Space3(),
+      Tied(
+        random: random,
+        child: const up.SongCard(
+          song: up.Song(
+            uri: "",
+            title: "title",
+            duration: Duration(seconds: 30, minutes: 2),
+            album: up.AlbumRef(),
+            artist: up.ArtistRef(),
+            id: 0,
+          ),
+        ),
+      ),
+    ];
+  }
 }

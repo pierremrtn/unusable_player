@@ -22,6 +22,7 @@ class AlbumCard extends StatelessWidget {
       bottomHorizontalPadding: up.Dimensions.space5,
       padding: const EdgeInsets.all(up.Dimensions.space5),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Flexible(

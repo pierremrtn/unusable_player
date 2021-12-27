@@ -71,12 +71,9 @@ class DoubleBottomCard extends StatelessWidget {
 
   final Widget? child;
   final EdgeInsetsGeometry? padding;
-
   final Color? backgroundColor;
-
   final double? height;
   final double? width;
-
   final Color? bottomColor;
   final double bottomHeight;
   final double bottomHorizontalPadding;
