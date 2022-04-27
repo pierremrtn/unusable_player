@@ -32,7 +32,7 @@ class SearchResults extends GetView<SearchController> {
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
-                child: up.RopedSongCard(
+                child: up.TiedSongCard(
                   random: _random,
                   song: songs![index],
                   onTap: onSelectSong != null

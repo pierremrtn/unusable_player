@@ -14,7 +14,7 @@
 # artist list enhancement
 - artist card bottom random color
 
-# roped card
-- roped song card
-- roped artist card
-- roped album
+# tied card
+- tied song card
+- tied artist card
+- tied album

@@ -22,7 +22,7 @@ class SliverSongList extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) => Padding(
           padding: const EdgeInsets.only(bottom: up.Dimensions.space3),
-          child: up.RopedSongCard(
+          child: up.TiedSongCard(
             random: _random,
             song: songs[index],
             onTap:

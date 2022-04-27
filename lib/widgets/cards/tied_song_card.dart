@@ -6,8 +6,8 @@ import 'package:unusable_player/unusable_player.dart' as up;
 final int _minAnimDurationMS = up.Feel.animationDuration.inMilliseconds;
 final int _maxAnimDurationMS = up.Feel.animationDuration.inMilliseconds * 3;
 
-class RopedSongCard extends StatelessWidget {
-  const RopedSongCard({
+class TiedSongCard extends StatelessWidget {
+  const TiedSongCard({
     required this.random,
     required this.song,
     this.onTap,
