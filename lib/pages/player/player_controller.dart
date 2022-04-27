@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:get/get.dart';
@@ -5,11 +6,6 @@ import 'package:unusable_player/pages/player/models/player_parameters.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 import 'models/player_control_state.dart';
 import 'widgets/cover/cover.dart';
-
-//TODO: shuffle not working
-//TODO: music text go inside cover
-//TODO: animate music text
-//TODO: better cover switch animation
 
 class PlayerController extends GetxController
     with StateMixin<PlayerControlState>, GetSingleTickerProviderStateMixin {
@@ -35,9 +31,28 @@ class PlayerController extends GetxController
     }
   }
 
+  @override
+  void onClose() {
+    songStreamSubscription.cancel();
+    playerStateStreamSubscription.cancel();
+    volumeStreamSubscription.cancel();
+    currentTimeStreamSubscription.cancel();
+    loopModeStreamSubscription.cancel();
+    shuffleModeStreamSubscription.cancel();
+    coverController.dispose();
+  }
+
   final up.AudioPlayerService audioService;
   late CoverController coverController;
   int _currentSongIndex = 0;
+
+  late final StreamSubscription<up.Song?> songStreamSubscription;
+  late final StreamSubscription<up.AudioPlayerState>
+      playerStateStreamSubscription;
+  late final StreamSubscription<double> volumeStreamSubscription;
+  late final StreamSubscription<Duration> currentTimeStreamSubscription;
+  late final StreamSubscription<bool> loopModeStreamSubscription;
+  late final StreamSubscription<bool> shuffleModeStreamSubscription;
 
   Future<void> play() async => audioService.play();
   Future<void> pause() async => audioService.pause();
@@ -84,12 +99,18 @@ class PlayerController extends GetxController
   }
 
   void _bindStreams() {
-    audioService.songStream.listen((_) => _onSongChange());
-    audioService.playerStateStream.listen((_) => _updateControlState());
-    audioService.volumeStream.listen((_) => _updateControlState());
-    audioService.currentTimeStream.listen((_) => _updateControlState());
-    audioService.loopModeStream.listen(_onLoopModeChange);
-    audioService.shuffleModeStream.listen((_) => _updateControlState());
+    songStreamSubscription =
+        audioService.songStream.listen((_) => _onSongChange());
+    playerStateStreamSubscription =
+        audioService.playerStateStream.listen((_) => _updateControlState());
+    volumeStreamSubscription =
+        audioService.volumeStream.listen((_) => _updateControlState());
+    currentTimeStreamSubscription =
+        audioService.currentTimeStream.listen((_) => _updateControlState());
+    loopModeStreamSubscription =
+        audioService.loopModeStream.listen(_onLoopModeChange);
+    shuffleModeStreamSubscription =
+        audioService.shuffleModeStream.listen((_) => _updateControlState());
   }
 
   void _onSongChange() {

@@ -10,6 +10,8 @@ class _SliverPersistentSearchBarDelegate
     Curve? curve,
     this.onSearch,
     this.onChanged,
+    this.controller,
+    this.focusNode,
   })  : padding = padding ?? EdgeInsets.zero,
         curve = curve ?? up.Feel.animationCurve;
 
@@ -17,6 +19,8 @@ class _SliverPersistentSearchBarDelegate
   final Curve curve;
   final ValueChanged<String>? onSearch;
   final ValueChanged<String>? onChanged;
+  final TextEditingController? controller;
+  final FocusNode? focusNode;
 
   double get extent => padding.vertical + up.kSearchBarHeight;
 
@@ -42,6 +46,8 @@ class _SliverPersistentSearchBarDelegate
           child: Transform.translate(
             offset: Offset(xOffset, 0),
             child: up.SearchBar(
+              controller: controller,
+              focusNode: focusNode,
               onChanged: onChanged,
               onSearch: onSearch,
             ),
@@ -69,12 +75,16 @@ class SliverPersistentSearchBar extends SliverPersistentHeader {
     ValueChanged<String>? onSearch,
     ValueChanged<String>? onChanged,
     EdgeInsets? padding,
+    TextEditingController? controller,
+    FocusNode? focusNode,
   }) : super(
           key: key,
           delegate: _SliverPersistentSearchBarDelegate(
             onSearch: onSearch,
             onChanged: onChanged,
             padding: padding,
+            controller: controller,
+            focusNode: focusNode,
           ),
           floating: true,
         );

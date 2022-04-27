@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:unusable_player/pages/home/controllers/search_controller.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
@@ -26,10 +27,11 @@ class HomeController extends GetxController {
   up.Song? get playingSong => _playingSong.value;
   bool get isPlaying => _isPlaying.value;
   bool get showPlayingSongIndicator => playingSong != null;
+  TextEditingController get searchTextEditingController =>
+      searchController.controller;
+  FocusNode get searchFocusNode => searchController.focus;
 
-  Future<void> search(String arg) async {
-    searchController.search(arg);
-  }
+  ValueChanged<String> get search => searchController.search;
 
   Future<void> onSelectSong(List<up.Song> songs, int index) async {
     await Get.toNamed(

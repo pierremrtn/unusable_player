@@ -10,11 +10,15 @@ class SearchBar extends StatelessWidget {
   const SearchBar({
     this.onSearch,
     this.onChanged,
+    this.focusNode,
+    this.controller,
     Key? key,
   }) : super(key: key);
 
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSearch;
+  final FocusNode? focusNode;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +67,8 @@ class SearchBar extends StatelessWidget {
                       ),
                       child: Align(
                         child: TextField(
+                          focusNode: focusNode,
+                          controller: controller,
                           textInputAction: TextInputAction.search,
                           onSubmitted: onSearch,
                           onChanged: onChanged,

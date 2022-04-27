@@ -46,10 +46,12 @@ class HomePage extends GetView<HomeController> {
               ),
               up.SliverPersistentSearchBar(
                 onSearch: controller.search,
+                focusNode: controller.searchFocusNode,
+                controller: controller.searchTextEditingController,
                 padding: const EdgeInsets.only(
                   top: up.Dimensions.padding3,
                   bottom: up.Dimensions.padding4,
-                  left: up.Dimensions.pageMargin,
+                  left: up.Dimensions.paddingPage,
                 ),
               ),
               Obx(
@@ -74,10 +76,10 @@ class HomePage extends GetView<HomeController> {
                 ),
               ),
             ],
-            body: HomeBody(
-              showSearchResults: controller.showSearchResult,
-              onSelectSong: controller.onSelectSong,
-            ),
+            body: Obx(() => HomeBody(
+                  showSearchResults: controller.showSearchResult,
+                  onSelectSong: controller.onSelectSong,
+                )),
           ),
         ),
       ),
