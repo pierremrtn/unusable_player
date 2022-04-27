@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
 import 'package:neat/neat.dart';
 import 'tab_bar.dart' as up;

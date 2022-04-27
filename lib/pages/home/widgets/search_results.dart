@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
@@ -6,12 +8,13 @@ import 'package:unusable_player/pages/home/controllers/search_controller.dart';
 import 'sliver_song_list.dart';
 
 class SearchResults extends GetView<SearchController> {
-  const SearchResults({
+  SearchResults({
     this.onSelectSong,
     Key? key,
   }) : super(key: key);
 
   final SelectSongCallback? onSelectSong;
+  final Random _random = Random();
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,8 @@ class SearchResults extends GetView<SearchController> {
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
-                child: up.SongCard(
+                child: up.RopedSongCard(
+                  random: _random,
                   song: songs![index],
                   onTap: onSelectSong != null
                       ? () => onSelectSong!(songs, index)
