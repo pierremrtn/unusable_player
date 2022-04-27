@@ -6,8 +6,11 @@ import 'package:unusable_player/unusable_player.dart' as up;
 
 typedef SelectSongCallback = void Function(List<up.Song>, int);
 
+const int _minAnimDurationMS = 300;
+const int _maxAnimDurationMS = 1000;
+
 class SliverSongList extends StatelessWidget {
-  const SliverSongList({
+  SliverSongList({
     required this.songs,
     this.onSelectSong,
     Key? key,
@@ -15,6 +18,12 @@ class SliverSongList extends StatelessWidget {
 
   final List<up.Song> songs;
   final SelectSongCallback? onSelectSong;
+  final _random = Random();
+
+  int get _animDuration =>
+      ((_maxAnimDurationMS - _minAnimDurationMS) * _random.nextDouble())
+          .toInt() +
+      _minAnimDurationMS;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +32,11 @@ class SliverSongList extends StatelessWidget {
         (BuildContext context, int index) => Padding(
           padding: const EdgeInsets.only(bottom: up.Dimensions.space3),
           child: FlipInX(
-            duration: up.Feel.animationDuration,
+            duration: Duration(milliseconds: _animDuration),
             child: up.Tied(
               minAngle: -0.01,
               maxAngle: 0.01,
-              random: Random(),
+              random: _random,
               child: up.SongCard(
                 song: songs[index],
                 onTap: onSelectSong != null
