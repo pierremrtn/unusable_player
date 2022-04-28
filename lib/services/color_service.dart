@@ -2,19 +2,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:palette_generator/palette_generator.dart';
+import 'package:unusable_player/unusable_player.dart' as up;
 
 class ColorService extends GetxService {
   static ColorService get instance => Get.find<ColorService>();
 
   static const List<Color> _colors = [
-    Color(0xffE09A49),
-    Color(0xffF9E79A),
-    Color(0xff82B594),
-    Color(0xff8366B4),
-    Color(0xffBCD4CA),
-    Color(0xffF7DEB2),
+    up.Colors.opal,
+    up.Colors.darkSeaGreen,
+    up.Colors.dutchWhite,
+    up.Colors.greenYellowCrayola,
+    up.Colors.darkBlueGray,
   ];
 
   final Random _random = Random();

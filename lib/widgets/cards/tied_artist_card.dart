@@ -10,6 +10,7 @@ class TiedArtistCard extends StatelessWidget {
   const TiedArtistCard({
     required this.random,
     required this.artist,
+    this.bottomColor,
     this.onTap,
     Key? key,
   }) : super(key: key);
@@ -17,6 +18,7 @@ class TiedArtistCard extends StatelessWidget {
   final Random random;
   final VoidCallback? onTap;
   final up.Artist artist;
+  final Color? bottomColor;
 
   int get _animDuration =>
       ((_maxAnimDurationMS - _minAnimDurationMS) * random.nextDouble())
@@ -32,6 +34,7 @@ class TiedArtistCard extends StatelessWidget {
         maxAngle: 0.04,
         random: random,
         child: up.ArtistCard(
+          bottomColor: bottomColor,
           artist: artist,
           onTap: onTap,
         ),

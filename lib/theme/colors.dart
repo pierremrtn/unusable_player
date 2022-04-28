@@ -14,4 +14,11 @@ class Colors {
   static const Color darkGrey = Color(0xff1D1D1D);
   static const Color black = Color(0xff000000);
   static const Color white = Color(0xffFFFFFF);
+
+  //random replacement colors
+  static const opal = Color(0xffBCCFC9);
+  static const darkSeaGreen = Color(0xff83B596);
+  static const dutchWhite = Color(0xffF4E4BA);
+  static const greenYellowCrayola = Color(0xffDE9A4F);
+  static const darkBlueGray = Color(0xff7964A3);
 }
