@@ -22,3 +22,4 @@ export 'jiggling_slider.dart';
 
 // OTHERS
 export 'playing_song_indicator.dart';
+export 'ropes/ropes.dart';

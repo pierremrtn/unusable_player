@@ -1,11 +1,12 @@
-import 'package:animate_do/animate_do.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
 
 typedef SelectSongCallback = void Function(List<up.Song>, int);
 
 class SliverSongList extends StatelessWidget {
-  const SliverSongList({
+  SliverSongList({
     required this.songs,
     this.onSelectSong,
     Key? key,
@@ -13,20 +14,19 @@ class SliverSongList extends StatelessWidget {
 
   final List<up.Song> songs;
   final SelectSongCallback? onSelectSong;
+  final _random = Random();
 
   @override
   Widget build(BuildContext context) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) => Padding(
-          padding: const EdgeInsets.only(bottom: 10.0),
-          child: FadeIn(
-            child: up.SongCard(
-              song: songs[index],
-              onTap: onSelectSong != null
-                  ? () => onSelectSong!(songs, index)
-                  : null,
-            ),
+          padding: const EdgeInsets.only(bottom: up.Dimensions.space3),
+          child: up.TiedSongCard(
+            random: _random,
+            song: songs[index],
+            onTap:
+                onSelectSong != null ? () => onSelectSong!(songs, index) : null,
           ),
         ),
         childCount: songs.length,
