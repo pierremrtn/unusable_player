@@ -1,19 +1,15 @@
 # unusable_player
-
-***this is a WIP project***
-
-Unusable player is a mobile music player devlopped in Flutter.
-It's a portfolio project, it's not mean to be used in real life.
-Its focus on visuals instead of usability and performance, that's why the project is called "Unusable Player".
-
-
-**The project is based on Sulton Handaya's artwork:**
+Unusable Player is a flutter music player based on just_audio package.
+It's a portfolio project, it's not meant to be used in real life.
+Its focuses on visuals instead of usability and performance, that's why the project is called "Unusable Player".
+This project takes inspiration from Sulton Handaya's artwork:
 ![artwork](readme/original_artwork_by_sulton_handaya.webp)
 
+# Caution
+This project isn't representative of my actual coding standard.
+If you take inspiration from this source code, keep a critical eye. Some parts of this project are better than others.
+If I should restart this project today, I would:
+- Use Bloc (and state_machine_bloc 😏) instead of GetX
+- Use a feature-based project organization
 
-## Install
-
-This project use build_runner package. You must run the following command before launching it.
-```
-flutter pub run build_runner build --delete-conflicting-outputs
-```
+Some animation parts are especially messy. Use at your own risk.
