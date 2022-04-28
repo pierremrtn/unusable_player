@@ -17,40 +17,18 @@ class SliverAlbumList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverGrid.count(
-      crossAxisCount: 2,
-      mainAxisSpacing: up.Dimensions.space4,
-      crossAxisSpacing: up.Dimensions.space4,
-      childAspectRatio: 0.8,
-      children: albums
-          .mapIndexed(
-            (index, album) => up.TiedAlbumCard(
-              random: _random,
-              album: album,
-              onTap: () => onSelectAlbum(albums[index]),
-            ),
-          )
-          .toList()
-        ..addAll(albums.mapIndexed(
-          (index, album) => up.TiedAlbumCard(
-            random: _random,
-            album: album,
-            onTap: () => onSelectAlbum(albums[index]),
-          ),
-        ))
-        ..addAll(albums.mapIndexed(
-          (index, album) => up.TiedAlbumCard(
-            random: _random,
-            album: album,
-            onTap: () => onSelectAlbum(albums[index]),
-          ),
-        ))
-        ..addAll(albums.mapIndexed(
-          (index, album) => up.TiedAlbumCard(
-            random: _random,
-            album: album,
-            onTap: () => onSelectAlbum(albums[index]),
-          ),
-        )),
-    );
+        crossAxisCount: 2,
+        mainAxisSpacing: up.Dimensions.space4,
+        crossAxisSpacing: up.Dimensions.space4,
+        childAspectRatio: 0.8,
+        children: albums
+            .mapIndexed(
+              (index, album) => up.TiedAlbumCard(
+                random: _random,
+                album: album,
+                onTap: () => onSelectAlbum(albums[index]),
+              ),
+            )
+            .toList());
   }
 }
