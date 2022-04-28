@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
 import 'package:get/get.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
-import 'package:unusable_player/widgets/tied/tied.dart';
 
 class UIKitPage extends StatelessWidget {
   const UIKitPage({Key? key}) : super(key: key);
@@ -300,7 +299,7 @@ class UIKitPage extends StatelessWidget {
   List<Widget> get tied {
     final random = Random();
     return [
-      Tied(
+      up.Tied(
         random: random,
         child: const up.SongCard(
           song: up.Song(
@@ -314,7 +313,7 @@ class UIKitPage extends StatelessWidget {
         ),
       ),
       const up.Space3(),
-      Tied(
+      up.Tied(
         random: random,
         child: const up.SongCard(
           song: up.Song(
@@ -328,7 +327,7 @@ class UIKitPage extends StatelessWidget {
         ),
       ),
       const up.Space3(),
-      Tied(
+      up.Tied(
         random: random,
         child: const up.SongCard(
           song: up.Song(

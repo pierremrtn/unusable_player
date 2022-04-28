@@ -7,3 +7,4 @@ export 'artist_card.dart';
 // TIED
 export 'tied_song_card.dart';
 export 'tied_artist_card.dart';
+export 'tied_album_card.dart';
