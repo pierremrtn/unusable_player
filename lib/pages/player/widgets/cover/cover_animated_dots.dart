@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rive/rive.dart';
 
 class AnimatedDotsController {
@@ -110,7 +111,9 @@ class CoverAnimatedDots extends StatelessWidget {
       width: width,
       height: height,
       child: RiveAnimation.asset(
-        'assets/rive/cover_prev_next_indicator.riv',
+        Get.isDarkMode == true
+            ? 'assets/rive/dark_cover_prev_next_indicator.riv'
+            : 'assets/rive/cover_prev_next_indicator.riv',
         stateMachines: ['main'],
         alignment: Alignment.center,
         fit: BoxFit.fitWidth,

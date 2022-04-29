@@ -7,7 +7,8 @@
         {
             "name": "unusable_player",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "deviceId": "CLT L09"
         },
         {
             "name": "unusable_player (profile)",

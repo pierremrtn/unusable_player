@@ -10,3 +10,13 @@ const colorScheme = ColorScheme.light(
   onSurface: up.Colors.black,
   onBackground: up.Colors.black,
 );
+
+const darkColorScheme = ColorScheme.dark(
+  primary: up.Colors.blue,
+  secondary: up.Colors.orange,
+  secondaryVariant: up.Colors.black,
+  error: up.Colors.red,
+  background: up.Colors.black,
+  onSurface: up.Colors.white,
+  onBackground: up.Colors.white,
+);

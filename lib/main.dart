@@ -16,7 +16,8 @@ class UnusablePlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: up.lightTheme,
+      // theme: up.lightTheme,
+      theme: up.darkTheme,
       initialRoute: up.Pages.initial,
       getPages: up.Pages.pages,
       translations: up.LangService(),

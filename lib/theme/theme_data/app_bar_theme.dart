@@ -12,3 +12,14 @@ const appBarTheme = AppBarTheme(
     statusBarBrightness: Brightness.light,
   ),
 );
+
+const darkAppBarTheme = AppBarTheme(
+  backgroundColor: up.Colors.black,
+  systemOverlayStyle: SystemUiOverlayStyle(
+    statusBarColor: up.Colors.black,
+    systemNavigationBarColor: up.Colors.black,
+    systemNavigationBarIconBrightness: Brightness.light,
+    statusBarIconBrightness: Brightness.light,
+    statusBarBrightness: Brightness.dark,
+  ),
+);

@@ -18,8 +18,13 @@ class ColorService extends GetxService {
 
   final Random _random = Random();
   Future<Color> dominantColor(ImageProvider image) async {
-    final palette = await PaletteGenerator.fromImageProvider(image);
-    return palette.lightMutedColor?.color ?? Colors.white;
+    if (Get.isDarkMode == false) {
+      final palette = await PaletteGenerator.fromImageProvider(image);
+      return palette.lightMutedColor?.color ?? nextColor();
+    } else {
+      final palette = await PaletteGenerator.fromImageProvider(image);
+      return palette.lightVibrantColor?.color ?? nextColor();
+    }
   }
 
   Color nextColor() => _colors[_random.nextInt(_colors.length)];

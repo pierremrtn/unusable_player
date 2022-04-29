@@ -23,3 +23,19 @@ final lightTheme = ThemeData(
   dividerColor: up.Colors.mediumGrey,
   backgroundColor: up.Colors.white,
 );
+
+final darkTheme = ThemeData(
+  fontFamily: "Montserrat",
+  textTheme: darkTextTheme,
+  colorScheme: darkColorScheme,
+  outlinedButtonTheme: outlinedButtonTheme,
+  appBarTheme: darkAppBarTheme,
+  dividerTheme: dividerTheme,
+  sliderTheme: sliderTheme,
+
+  //Actually, colorScheme isn't fully suported
+  //use leagcy themeColor here
+  //theses colors should match colorScheme
+  dividerColor: up.Colors.mediumGrey,
+  backgroundColor: up.Colors.white,
+);
