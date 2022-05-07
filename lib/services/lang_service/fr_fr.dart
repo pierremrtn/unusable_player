@@ -8,4 +8,6 @@ const frFR = {
   "albums_tab_title": "Albums",
   "number_song": "@number musique",
   "number_song_plural": "@number musiques",
+  "switch_to_dark_mode_button": "Thème sombre",
+  "switch_to_light_mode_button": "Thème clair",
 };

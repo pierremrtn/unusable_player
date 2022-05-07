@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:unusable_player/theme/theme_data/colors_scheme.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:unusable_player/unusable_player.dart' as up;
 
 Future<void> main() async {
+  await Hive.initFlutter();
   WidgetsFlutterBinding.ensureInitialized();
   await initServices();
   runApp(const UnusablePlayer());
@@ -16,8 +17,9 @@ class UnusablePlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      // theme: up.lightTheme,
-      theme: up.darkTheme,
+      themeMode: up.ThemeService.instance.themeMode,
+      theme: up.lightTheme,
+      darkTheme: up.darkTheme,
       initialRoute: up.Pages.initial,
       getPages: up.Pages.pages,
       translations: up.LangService(),
@@ -37,5 +39,6 @@ Future<void> initServices() async {
           colorService: up.ColorService.instance,
         ).init()),
     Get.putAsync(() => up.LangService().init()),
+    Get.putAsync(() => up.ThemeService().init()),
   ]);
 }

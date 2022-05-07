@@ -4,6 +4,7 @@ import 'package:unusable_player/theme/theme_data/divider_theme.dart';
 
 import 'button_theme.dart';
 import 'colors_scheme.dart';
+import 'list_tile_theme.dart';
 import 'text_theme.dart';
 import 'app_bar_theme.dart';
 import 'slider_theme.dart';
@@ -16,6 +17,7 @@ final lightTheme = ThemeData(
   appBarTheme: appBarTheme,
   dividerTheme: dividerTheme,
   sliderTheme: sliderTheme,
+  listTileTheme: listTileTheme,
 
   //Actually, colorScheme isn't fully suported
   //use leagcy themeColor here
@@ -32,6 +34,7 @@ final darkTheme = ThemeData(
   appBarTheme: darkAppBarTheme,
   dividerTheme: dividerTheme,
   sliderTheme: sliderTheme,
+  listTileTheme: darkListTileTheme,
 
   //Actually, colorScheme isn't fully suported
   //use leagcy themeColor here

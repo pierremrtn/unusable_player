@@ -5,7 +5,8 @@ import 'package:unusable_player/unusable_player.dart' as up;
 
 //TODO: bind play/stop stream
 
-class HomeController extends GetxController {
+class HomeController extends GetxController
+    with GetSingleTickerProviderStateMixin {
   HomeController({
     required this.audioPlayerService,
     required this.searchController,
@@ -20,15 +21,24 @@ class HomeController extends GetxController {
 
   final up.AudioPlayerService audioPlayerService;
   final SearchController searchController;
+  late final AnimationController menuAnimation = AnimationController(
+    vsync: this,
+    duration: up.Feel.animationDuration,
+  );
   final Rx<up.Song?> _playingSong = Rx(null);
   final RxBool _isPlaying = false.obs;
 
   bool get showSearchResult => searchController.showSearchResult;
+
   up.Song? get playingSong => _playingSong.value;
+
   bool get isPlaying => _isPlaying.value;
+
   bool get showPlayingSongIndicator => playingSong != null;
+
   TextEditingController get searchTextEditingController =>
       searchController.controller;
+
   FocusNode get searchFocusNode => searchController.focus;
 
   ValueChanged<String> get search => searchController.search;
@@ -51,13 +61,23 @@ class HomeController extends GetxController {
   }
 
   Future<void> playingSongIndicatorPlay() async => audioPlayerService.play();
+
   Future<void> playingSongIndicatorPause() async => audioPlayerService.pause();
+
   Future<void> onPlayingSongIndicatorTap() async {
     await Get.toNamed(
       up.Routes.player,
       arguments: const up.PlayerParameters.openCurrentSong(),
     );
     _updatePlayingSongIndicator();
+  }
+
+  void onDrawerChanged(bool opened) {
+    if (opened) {
+      menuAnimation.animateTo(1, curve: up.Feel.animationCurve);
+    } else {
+      menuAnimation.animateTo(0, curve: up.Feel.animationCurve);
+    }
   }
 
   void _onPlayerStateChange(up.AudioPlayerState state) {

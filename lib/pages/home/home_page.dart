@@ -6,6 +6,8 @@ import 'package:unusable_player/unusable_player.dart' as up;
 
 import 'controllers/home_controller.dart';
 import 'widgets/home_body.dart';
+import 'widgets/home_menu_button.dart';
+import 'widgets/home_drawer_menu.dart';
 
 export 'home_bindings.dart';
 
@@ -16,6 +18,8 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: up.emptyAppBar(),
+      onDrawerChanged: controller.onDrawerChanged,
+      drawer: homeDrawerMenu(context),
       backgroundColor: context.colorScheme.background,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: _buildPlayingIndicator(context),
@@ -35,11 +39,21 @@ class HomePage extends GetView<HomeController> {
                     vertical: up.Dimensions.pageMargin,
                     horizontal: up.Dimensions.pageMargin,
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      context.headline1("home_title".tr),
-                      context.subtitle1("home_subtitle".tr),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            context.headline1("home_title".tr),
+                            context.subtitle1("home_subtitle".tr),
+                          ],
+                        ),
+                      ),
+                      HomeMenuButton(
+                        controller: controller.menuAnimation,
+                      ),
                     ],
                   ),
                 ),
