@@ -97,11 +97,9 @@ class Image extends StatelessWidget {
       width: width,
       height: height,
       frameBuilder: (context, child, _, __) => radius != null
-          ? Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(radius!),
-                child: child,
-              ),
+          ? ClipRRect(
+              borderRadius: BorderRadius.circular(radius!),
+              child: child,
             )
           : child,
     );
