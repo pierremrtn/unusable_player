@@ -11,6 +11,12 @@
             "deviceId": "CLT L09"
         },
         {
+            "name": "Android emulateur",
+            "request": "launch",
+            "type": "dart",
+            "device": "emulator-5554",
+        },
+        {
             "name": "unusable_player (profile)",
             "request": "launch",
             "type": "dart",
