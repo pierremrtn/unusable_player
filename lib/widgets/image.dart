@@ -66,6 +66,24 @@ class Image extends StatelessWidget {
         radius = up.Dimensions.borderRadius3,
         super(key: key);
 
+  const Image.s4(this.image, {Key? key})
+      : width = up.Dimensions.icon1,
+        height = up.Dimensions.icon1,
+        radius = up.Dimensions.borderRadius4,
+        super(key: key);
+
+  const Image.w4(this.image, {Key? key})
+      : width = up.Dimensions.image1,
+        height = double.infinity,
+        radius = up.Dimensions.borderRadius3,
+        super(key: key);
+
+  const Image.h4(this.image, {Key? key})
+      : width = double.infinity,
+        height = up.Dimensions.image1,
+        radius = up.Dimensions.borderRadius3,
+        super(key: key);
+
   final ImageProvider<Object> image;
   final double? width;
   final double? height;

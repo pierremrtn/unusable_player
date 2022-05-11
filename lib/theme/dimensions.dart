@@ -22,6 +22,7 @@ class Dimensions {
   static const double borderRadius1 = 24;
   static const double borderRadius2 = 18;
   static const double borderRadius3 = 12;
+  static const double borderRadius4 = 6;
   static const double borderSize = 2;
 
   //icons
