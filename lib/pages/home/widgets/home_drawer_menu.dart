@@ -8,9 +8,14 @@ String get _darkThemeSwitchTitle => Get.isDarkMode
 
 Drawer homeDrawerMenu(BuildContext context) => Drawer(
       child: ListView(children: [
-        const up.Image.s1(
+        const up.Space1(),
+        const up.Image(
           NetworkImage("https://avatars.githubusercontent.com/u/80128417"),
+          width: up.Dimensions.image1,
+          height: up.Dimensions.image1,
+          radius: up.Dimensions.image1,
         ),
+        const up.Space1(),
         SwitchListTile(
           value: Get.isDarkMode,
           title: Text(_darkThemeSwitchTitle),
