@@ -38,7 +38,7 @@ final darkTheme = ThemeData(
   dividerTheme: dividerTheme,
   sliderTheme: sliderTheme,
   listTileTheme: darkListTileTheme,
-  switchTheme: switchTheme,
+  switchTheme: darkSwitchTheme,
   drawerTheme: darkDrawerTheme,
 
   //Actually, colorScheme isn't fully suported
