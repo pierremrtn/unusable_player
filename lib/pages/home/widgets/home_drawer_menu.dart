@@ -20,11 +20,26 @@ Drawer homeDrawerMenu(BuildContext context) => Drawer(
         ),
         child: ListView(children: [
           const up.Space1(),
-          const up.Image(
-            NetworkImage("https://avatars.githubusercontent.com/u/80128417"),
-            width: up.Dimensions.image1,
-            height: up.Dimensions.image1,
-            radius: up.Dimensions.image1,
+          Center(
+            child: Container(
+              padding: const up.Padding5.all(),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(up.Dimensions.image1),
+                border: Border.all(
+                  style: BorderStyle.solid,
+                  color: context.colorScheme.onBackground,
+                  width: up.Dimensions.borderSize,
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(up.Dimensions.image1),
+                child: Image.network(
+                  "https://avatars.githubusercontent.com/u/80128417",
+                  width: up.Dimensions.image2,
+                  height: up.Dimensions.image2,
+                ),
+              ),
+            ),
           ),
           const up.Space1(),
           SwitchListTile(
