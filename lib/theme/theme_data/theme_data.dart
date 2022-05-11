@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unusable_player/theme/theme.dart' as up;
 import 'package:unusable_player/theme/theme_data/divider_theme.dart';
+import 'package:unusable_player/theme/theme_data/switch_theme.dart';
 
 import 'button_theme.dart';
 import 'colors_scheme.dart';
@@ -8,6 +9,7 @@ import 'list_tile_theme.dart';
 import 'text_theme.dart';
 import 'app_bar_theme.dart';
 import 'slider_theme.dart';
+import 'drawer_theme.dart';
 
 final lightTheme = ThemeData(
   fontFamily: "Montserrat",
@@ -18,7 +20,8 @@ final lightTheme = ThemeData(
   dividerTheme: dividerTheme,
   sliderTheme: sliderTheme,
   listTileTheme: listTileTheme,
-
+  switchTheme: switchTheme,
+  drawerTheme: drawerTheme,
   //Actually, colorScheme isn't fully suported
   //use leagcy themeColor here
   //theses colors should match colorScheme
@@ -35,6 +38,8 @@ final darkTheme = ThemeData(
   dividerTheme: dividerTheme,
   sliderTheme: sliderTheme,
   listTileTheme: darkListTileTheme,
+  switchTheme: switchTheme,
+  drawerTheme: darkDrawerTheme,
 
   //Actually, colorScheme isn't fully suported
   //use leagcy themeColor here
