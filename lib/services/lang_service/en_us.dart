@@ -8,6 +8,5 @@ const enUS = {
   "home_albums_tab": "Albums",
   "song_number": "@number song",
   "song_number_plural": "@number songs",
-  "switch_to_dark_mode_button": "Dark mode",
-  "switch_to_light_mode_button": "Light mode",
+  "dark_mode_switch": "Dark mode",
 };

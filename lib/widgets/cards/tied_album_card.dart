@@ -18,11 +18,6 @@ class TiedAlbumCard extends StatelessWidget {
   final VoidCallback? onTap;
   final up.Album album;
 
-  int get _animDuration =>
-      ((_maxAnimDurationMS - _minAnimDurationMS) * random.nextDouble())
-          .toInt() +
-      _minAnimDurationMS;
-
   @override
   Widget build(BuildContext context) {
     return up.Suspended(
