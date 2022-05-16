@@ -5,6 +5,14 @@ Its focuses on visuals instead of usability and performance, that's why the proj
 This project takes inspiration from Sulton Handaya's artwork:
 ![artwork](readme/original_artwork_by_sulton_handaya.webp)
 
+# Roadmap
+
+- [ ] Flutter 3.0
+- [ ] iOS support
+- [ ] Language switch
+- [ ] build release version for Android/iOS
+- [ ] add some screens/vids of the app in the readme
+
 # Caution
 This project isn't representative of my actual coding standard.
 If you take inspiration from this source code, keep a critical eye. Some parts of this project are better than others.
