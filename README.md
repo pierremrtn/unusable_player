@@ -14,10 +14,11 @@ This project takes inspiration from Sulton Handaya's artwork:
 - [ ] add some screens/vids of the app in the readme
 
 # Caution
-This project isn't representative of my actual coding standard.
+This project isn't representative of my actual coding standards.
 If you take inspiration from this source code, keep a critical eye. Some parts of this project are better than others.
 If I should restart this project today, I would:
 - Use Bloc (and state_machine_bloc 😏) instead of GetX
 - Use a feature-based project organization
-
-Some animation parts are especially messy. Use at your own risk.
+- Re-write the animations widgets to make them less hacky
+- Rethink the overall songs discovery and player architecture
+In short, almost everything. It was a nice learning project, I will finish it but I do not plan to start working on a v2.0.
