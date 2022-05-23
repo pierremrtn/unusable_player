@@ -2,6 +2,11 @@
 Unusable Player is a flutter music player based on just_audio package.
 It's a portfolio project, it's not meant to be used in real life.
 Its focuses on visuals instead of usability and performance, that's why the project is called "Unusable Player".
+
+Some views of the project:
+![showcase_1](readme/up_showcase_1.jpg)
+![showcase_1](readme/up_showcase_1.jpg)
+
 This project takes inspiration from Sulton Handaya's artwork:
 ![artwork](readme/original_artwork_by_sulton_handaya.webp)
 
