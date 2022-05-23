@@ -5,7 +5,7 @@ Its focuses on visuals instead of usability and performance, that's why the proj
 
 Some views of the project:
 ![showcase_1](readme/up_showcase_1.jpg)
-![showcase_1](readme/up_showcase_1.jpg)
+![showcase_1](readme/up_showcase_2.jpg)
 
 This project takes inspiration from Sulton Handaya's artwork:
 ![artwork](readme/original_artwork_by_sulton_handaya.webp)
