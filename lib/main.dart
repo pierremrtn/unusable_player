@@ -23,7 +23,7 @@ class UnusablePlayer extends StatelessWidget {
       initialRoute: up.Pages.initial,
       getPages: up.Pages.pages,
       translations: up.LangService(),
-      locale: up.LangService.initialLocale,
+      locale: up.LangService.instance.initialLocale,
       fallbackLocale: up.LangService.fallbackLocale,
     );
   }

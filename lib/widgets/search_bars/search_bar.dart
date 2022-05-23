@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:neat/neat.dart';
+import 'package:get/get.dart' hide ContextExtensionss;
 import 'package:unusable_player/theme/theme.dart' as up;
 import 'package:unusable_player/widgets/widgets.dart' as up;
 
@@ -76,7 +77,7 @@ class SearchBar extends StatelessWidget {
                             color: context.colorScheme.onSurface,
                           ),
                           decoration: InputDecoration(
-                            hintText: "Search",
+                            hintText: "search".tr,
                             hintStyle: context.textTheme.headline4,
                             border: InputBorder.none,
                           ),

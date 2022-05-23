@@ -9,4 +9,5 @@ const enUS = {
   "song_number": "@number song",
   "song_number_plural": "@number songs",
   "dark_mode_switch": "Dark mode",
+  "japanese_mode": "Japanese mode",
 };

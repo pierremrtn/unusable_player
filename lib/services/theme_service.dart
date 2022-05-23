@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
-import 'package:unusable_player/unusable_player.dart' as up;
-
 const String _kIsLightModeKey = "lightTheme";
 
 class ThemeService extends GetxService {

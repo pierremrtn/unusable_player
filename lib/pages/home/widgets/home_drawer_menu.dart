@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:unusable_player/unusable_player.dart' as up;
-import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
 import 'package:neat/neat.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -53,6 +52,18 @@ Drawer homeDrawerMenu(BuildContext context) => Drawer(
             title: Text(_darkThemeSwitchTitle),
             onChanged: (_) {
               up.ThemeService.instance.switchThemeMode();
+              Navigator.pop(context);
+            },
+          ),
+          SwitchListTile(
+            value: Get.locale == const Locale("jp_JP"),
+            title: Text("japanese_mode".tr),
+            onChanged: (_) {
+              if (Get.locale == const Locale("jp_JP")) {
+                up.LangService.instance.switchTo(const Locale("en_US"));
+              } else {
+                up.LangService.instance.switchTo(const Locale("jp_JP"));
+              }
               Navigator.pop(context);
             },
           ),
