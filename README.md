@@ -12,9 +12,9 @@ This project takes inspiration from Sulton Handaya's artwork:
 
 # Roadmap
 
-- [ ] Flutter 3.0
+- [X] Flutter 3.0
 - [ ] iOS support
-- [ ] Language switch
+- [X] Language switch
 - [ ] build release version for Android/iOS
 - [ ] add some screens/vids of the app in the readme
 
