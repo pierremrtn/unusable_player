@@ -22,7 +22,7 @@ This project takes inspiration from Sulton Handaya's artwork:
 This project isn't representative of my actual coding standards.
 If you take inspiration from this source code, keep a critical eye. Some parts of this project are better than others.
 If I should restart this project today, I would:
-- Use Bloc (and state_machine_bloc 😏) instead of GetX
+- Use Bloc instead of GetX
 - Use a feature-based project organization
 - Re-write the animations widgets to make them less hacky
 - Rethink the overall songs discovery and player architecture
